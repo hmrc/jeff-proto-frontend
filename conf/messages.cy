@@ -1,0 +1,12 @@
+completeContactDetails.heading = Cwblhewch eich manylion cyswllt
+completeContactDetails.contactDetailsUse = Rydym yn defnyddio’ch manylion cyswllt i anfon gohebiaeth atoch sy’n ymwneud â’ch cyfrif a’r gwasanaeth.
+completeContactDetails.postcode = Cod post
+completeContactDetails.address = Cyfeiriad
+completeContactDetails.findAddress = Dod o hyd i gyfeiriad
+completeContactDetails.enterAddressManually = Enter address manually
+completeContactDetails.emailAddress = Cyfeiriad e-bost
+completeContactDetails.confirmEmail = Cadarnhau cyfeiriad e-bost
+completeContactDetails.telephoneNumber =  Rhif ffôn
+completeContactDetails.mobileNumber =  Rhif ffôn symudol
+completeContactDetails.tradingName =  Enw masnachu (Dewisol)
+completeContactDetails.optional = Dewisol

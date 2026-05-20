@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2026 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,25 +12,23 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@this(
-    layout: templates.Layout,
-    govukButton: GovukButton
-)
+package models.Registration.frontend
 
-@(continueUrl: String)(implicit request: Request[_], messages: Messages)
+import play.api.libs.json.{Json, OFormat}
 
-@layout(pageTitle = titleNoForm(messages("journeyRecovery.continue.title"))) {
+case class Address(
+                    addressUnitId: Option[Long],
+                    line1: String,
+                    line2: String,
+                    line3: String,
+                    line4: String,
+                    postcode: String
+                  )
 
-    <h1 class="govuk-heading-xl">@messages("journeyRecovery.continue.heading")</h1>
+object Address {
+  implicit val format: OFormat[Address] = Json.format[Address]
 
-    <p class="govuk-body">@messages("journeyRecovery.continue.guidance")</p>
-
-    <p class="govuk-body">
-        @govukButton(
-            ButtonViewModel(messages("site.continue"))
-                .asLink(continueUrl)
-        )
-    </p>
+  val empty: Address = Address(addressUnitId = None, line1 = "", line2 = "", line3 = "", line4 = "", postcode = "")
 }

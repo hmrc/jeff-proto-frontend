@@ -1,5 +1,5 @@
 /*
- * Copyright 2026 HM Revenue & Customs
+ * Copyright 2024 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,13 +14,21 @@
  * limitations under the License.
  */
 
-package viewmodels
+package forms.mappings
 
-sealed trait LabelSize
+import play.api.data.Forms.text
 
-object LabelSize {
-  case object ExtraLarge extends WithCssClass("govuk-label--xl") with LabelSize
-  case object Large      extends WithCssClass("govuk-label--l") with LabelSize
-  case object Medium     extends WithCssClass("govuk-label--m") with LabelSize
-  case object Small      extends WithCssClass("govuk-label--s") with LabelSize
+object EmailAddressValidation {
+  final private val validEmail = """^([a-zA-Z0-9.!#$%&’'*+/=?^_`{|}~-]+)@([a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+)$""".r
+
+  def isValid(email: String) =
+    email match {
+      case validEmail(_, _) => true
+      case invalidEmail     => false
+    }
+
+  def isValidEmail =
+    text
+      .verifying("error.emailLength", txt => txt.trim.length < 151 && txt.trim.nonEmpty)
+      .verifying("error.invalidEmail", EmailAddressValidation.isValid(_))
 }

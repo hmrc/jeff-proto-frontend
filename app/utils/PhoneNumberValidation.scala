@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2026 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,25 +12,21 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@this(
-    layout: templates.Layout,
-    govukButton: GovukButton
-)
+package utils
 
-@(continueUrl: String)(implicit request: Request[_], messages: Messages)
+object PhoneNumberValidation {
 
-@layout(pageTitle = titleNoForm(messages("journeyRecovery.continue.title"))) {
+  val ukPhoneRegex: String =
+    """^(?:0\s?7\d{3}[ \-]?\d{6}|0\s?1\d{3}[ \-]?\d{6,7}|0\s?2\d{2}[ \-]?\d{7}|0\s?3\d{2}[ \-]?\d{7}|0800[ \-]?\d{4,6}|0\s?8\d{2}[ \-]?\d{7})$"""
 
-    <h1 class="govuk-heading-xl">@messages("journeyRecovery.continue.heading")</h1>
+  val internationalPhoneRegex: String =
+    """^\+?[0-9]{1,3}[ \-\.]?(?:\(?[0-9]{1,4}\)?[ \-\.]?)*[0-9]{3,}$"""
 
-    <p class="govuk-body">@messages("journeyRecovery.continue.guidance")</p>
+  val phoneRegex: String =
+    s"(?:$ukPhoneRegex)|(?:$internationalPhoneRegex)"
 
-    <p class="govuk-body">
-        @govukButton(
-            ButtonViewModel(messages("site.continue"))
-                .asLink(continueUrl)
-        )
-    </p>
+  val maximumLength: Int = 25
+
 }
