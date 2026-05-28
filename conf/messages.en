@@ -47,3 +47,36 @@ signedOut.guidance = We did not save your answers.
 
 unauthorised.title = You can’t access this service with this account
 unauthorised.heading = You can’t access this service with this account
+
+
+error.phoneNumber.required = Enter a telephone number
+error.phoneNumber.invalidLength = Telephone number must be between 11 and 20 characters
+error.phoneNumber.invalidFormat=Enter a telephone number, like 01623 960 001 or +44 0808 157 0192
+error.invalidEmail = Enter a valid email address
+error.emailLength = This field must be 150 characters or less
+
+completeContactDetails.heading = Complete your contact details
+completeContactDetails.contactDetailsUse = We use your contact details to send you correspondence related to the service and your account.
+completeContactDetails.postcode = Postcode
+completeContactDetails.address = Address
+completeContactDetails.findAddress = Find address
+completeContactDetails.enterAddressManually = Enter address manually
+completeContactDetails.emailAddress = Email address
+completeContactDetails.confirmEmail = Confirm email address
+completeContactDetails.telephoneNumber =  Telephone number
+completeContactDetails.mobileNumber =  Mobile number
+completeContactDetails.tradingName =  Trading name (Optional)
+completeContactDetails.optional =  Optional
+
+CreateConfirmation.heading = Registration successful
+CreateConfirmation.IdNumber = Your VOA personal ID number
+CreateConfirmation.email.sent.to = We have sent these details to {0}
+CreateConfirmation.whatHappensNext = What happens next
+CreateConfirmation.confirmation.whatNext.p1 = Next time you sign in to the service, use your Government Gateway details.
+CreateConfirmation.confirmation.whatNext.p2 = If you need to reset your password, you’ll need to provide your VOA personal ID number.
+CreateConfirmation.confirmation.weUseYourDetails = We use your contact details to send you correspondence related to the service and your account.
+CreateConfirmation.terms.of.use = Terms of use
+CreateConfirmation.confirmation.termsOfUse.p = Information provided using this service is only for the purpose of checking and, if necessary, challenging and appealing the rating of non-domestic property. Use for any other purpose is a breach of the {0} of service. Unlawful access may be prosecuted under the relevant legislation, including the Computer Misuse Act 1990 or the Fraud Act 2006.
+CreateConfirmation.dashboard.button = Dashboard
+
+home.title = Your business rates valuation account

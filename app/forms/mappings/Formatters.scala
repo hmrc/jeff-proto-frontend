@@ -1,3 +1,19 @@
+/*
+ * Copyright 2026 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package forms.mappings
 
 import play.api.data.FormError
@@ -109,5 +125,59 @@ trait Formatters {
 
       override def unbind(key: String, value: BigDecimal): Map[String, String] =
         baseFormatter.unbind(key, value.toString)
+    }
+
+  private def removeNonBreakingSpaces(str: String) =
+    str.replaceAll("\u00A0", " ")
+  
+  private[mappings] def stringTrimFormatter(errorKey: String, msgArg: String = ""): Formatter[String] = new Formatter[String] {
+
+    override def bind(key: String, data: Map[String, String]): Either[Seq[FormError], String] =
+      data.get(key) match {
+        case None =>
+          msgArg.isEmpty match {
+            case true => Left(Seq(FormError(key, errorKey)))
+            case false => Left(Seq(FormError(key, errorKey, Seq(msgArg))))
+          }
+        case Some(s) =>
+          s.trim match {
+            case "" =>
+              msgArg.isEmpty match {
+                case true => Left(Seq(FormError(key, errorKey)))
+                case false => Left(Seq(FormError(key, errorKey, Seq(msgArg))))
+              }
+            case s1 => Right(removeNonBreakingSpaces(s1))
+          }
+      }
+
+    override def unbind(key: String, value: String): Map[String, String] =
+      Map(key -> value)
+
+  }
+
+  protected def validatedTextFormatter(
+                                        requiredKey: String,
+                                        invalidKey: String,
+                                        lengthKey: String,
+                                        regex: String,
+                                        maxLength: Int,
+                                        minLength: Int = 11,
+                                        msgArg: String = ""
+                                      ): Formatter[String] =
+    new Formatter[String] {
+      private val dataFormatter: Formatter[String] = stringTrimFormatter(requiredKey, msgArg)
+
+      override def bind(key: String, data: Map[String, String]): Either[Seq[FormError], String] =
+        dataFormatter
+          .bind(key, data)
+          .flatMap {
+            case str if !str.matches(regex) => Left(Seq(FormError(key, invalidKey)))
+            case str if str.length > maxLength => Left(Seq(FormError(key, lengthKey)))
+            case str if str.length < minLength => Left(Seq(FormError(key, invalidKey)))
+            case str => Right(str)
+          }
+
+      override def unbind(key: String, value: String): Map[String, String] =
+        Map(key -> value)
     }
 }

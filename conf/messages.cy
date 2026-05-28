@@ -1,0 +1,22 @@
+completeContactDetails.heading = Cwblhewch eich manylion cyswllt
+completeContactDetails.contactDetailsUse = Rydym yn defnyddio’ch manylion cyswllt i anfon gohebiaeth atoch sy’n ymwneud â’ch cyfrif a’r gwasanaeth.
+completeContactDetails.postcode = Cod post
+completeContactDetails.address = Cyfeiriad
+completeContactDetails.findAddress = Dod o hyd i gyfeiriad
+completeContactDetails.enterAddressManually = Enter address manually
+completeContactDetails.emailAddress = Cyfeiriad e-bost
+completeContactDetails.confirmEmail = Cadarnhau cyfeiriad e-bost
+completeContactDetails.telephoneNumber =  Rhif ffôn
+completeContactDetails.mobileNumber =  Rhif ffôn symudol
+completeContactDetails.tradingName =  Enw masnachu (Dewisol)
+completeContactDetails.optional = Dewisol
+
+CreateConfirmation.heading = Wedi cofrestru’n llwyddiannus
+CreateConfirmation.IdNumber = Eich rhif adnabod personol (ID) VOA
+CreateConfirmation.email.sent.to = Rydym wedi anfon y manylion yma at {0}
+CreateConfirmation.confirmation.whatNext.p1 = Y tro nesaf y byddwch yn mewngofnodi i ddefnyddio’r gwasanaeth, defnyddiwch eich manylion Porth y Llywodraeth.
+CreateConfirmation.confirmation.whatNext.p2 = Os oes angen i chi ailosod eich cyfrinair, bydd angen i chi ddarparu eich rhif adnabod personol (ID) VOA.
+CreateConfirmation.confirmation.weUseYourDetails = Rydym yn defnyddio’ch manylion cyswllt i anfon gohebiaeth atoch sy’n ymwneud â’ch cyfrif a’r gwasanaeth.
+CreateConfirmation.terms.of.use = Telerau defnyddio
+CreateConfirmation.confirmation.termsOfUse.p = Dim ond at ddibenion gwirio y defnyddir y wybodaeth a ddarperir, ac os oes angen, herio ac apelio ardrethi eiddo annomestig. Mae defnydd ar gyfer unrhyw bwrpas arall yn torri {0} gwasanaeth. Gellir erlyn mynediad anghyfreithlon dan y ddeddfwriaeth berthnasol, gan gynnwys Deddf Camddefnyddio Cyfrifiaduron 1990 neu Ddeddf Twyll 2006.
+CreateConfirmation.dashboard.button = Dashboard
