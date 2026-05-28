@@ -24,3 +24,5 @@ GET         /complete-contact-details                    controllers.CompleteCon
 POST        /complete-contact-details                    controllers.CompleteContactDetailsController.onSubmit()
 
 GET         /create-confirmation                         controllers.CreateConfirmationController.onPageLoad()
+
+GET         /home                                        controllers.HomeController.onPageLoad()

@@ -49,7 +49,7 @@
     <p class="govuk-body">@Html(messages("CreateConfirmation.confirmation.termsOfUse.p", s"""<a class="govuk-link" href="terms-and-conditions">${messages("registration.confirmation.termsOfUse.p.link")}</a>"""))</p>
 
     @govukButton(Button(
-        href = Some(""),
+        href = Some(controllers.routes.HomeController.onPageLoad().url),
         content = Text(messages("CreateConfirmation.dashboard.button")),
         attributes = Map("id" -> "continue")
     ))

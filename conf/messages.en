@@ -78,3 +78,5 @@ CreateConfirmation.confirmation.weUseYourDetails = We use your contact details t
 CreateConfirmation.terms.of.use = Terms of use
 CreateConfirmation.confirmation.termsOfUse.p = Information provided using this service is only for the purpose of checking and, if necessary, challenging and appealing the rating of non-domestic property. Use for any other purpose is a breach of the {0} of service. Unlawful access may be prosecuted under the relevant legislation, including the Computer Misuse Act 1990 or the Fraud Act 2006.
 CreateConfirmation.dashboard.button = Dashboard
+
+home.title = Your business rates valuation account
