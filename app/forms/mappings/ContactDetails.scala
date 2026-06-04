@@ -18,9 +18,13 @@ package forms.mappings
 
 
 import forms.mappings.EmailAddressValidation.isValidEmail
+import models.Registration.frontend.Address
+
+import javax.inject.Inject
 import play.api.data.Form
-import play.api.data.Forms.{mapping, optional}
+import play.api.data.Forms.{mapping, optional, text}
 import play.api.libs.json.{Json, OFormat}
+import utils.PhoneNumberValidation.{maximumLength, phoneRegex}
 
 final case class ContactDetails(
                                  // address: Address,
