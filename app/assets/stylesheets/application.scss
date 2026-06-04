@@ -1,11 +1,205 @@
-/*
-    Styling in this and other .scss files will be compiled by the sbt-sass-compiler plugin: https://github.com/hmrc/sbt-sass-compiler
-    If you encounter any issue with Sass compilation using the plugin, please reach out to the PlatUI team.
- */
+$govuk-assets-path: "/business-rates-dashboard/assets/lib/govuk-frontend/dist/govuk/assets/";
+$hmrc-assets-path: "/business-rates-dashboard/assets/lib/hmrc-frontend/hmrc/";
 
-.js-visible {
-  display: none !important;
+@import "lib/govuk-frontend/dist/govuk/base";
+@import 'partials/colors';
+@import 'partials/card';
+@import 'partials/flexbox';
+@import 'partials/sortable';
+@import 'partials/help';
+@import 'partials/responsive-table';
+
+.new-centered-content {
+    display: block;
+    max-width: 960px;
+    margin: 0 auto;
+    font-family: "nta",Arial,sans-serif;
+    font-weight: 400;
+    text-transform: none;
+    font-size: 16px;
+    line-height: 1.25;
 }
-.js-enabled .js-visible {
-  display: inline-block !important;
+
+.app-reference-number {
+  display: block;
+  font-weight: bold;
 }
+
+.notification-banner {
+  color: #FFFFFF;
+  font-weight: bold;
+  background-color: #1d70b8;
+  padding-bottom: 5px;
+  text-align: center;
+  padding-top: 10px;
+}
+
+.notification-banner a {
+  color: #FFFFFF;
+}
+
+.notification-banner p {
+  margin: 0;
+  font-weight: bold;
+}
+
+@media (min-width: 769px) {
+  .notification-banner p {
+    width: 75%;
+    margin: 0 auto;
+  }
+}
+
+.searchbar {
+    background: #dee0e2;
+    padding: 1.0em;
+}
+.searchbar_header {
+   padding-left: 15px;
+}
+
+.pull-right {
+    float: right !important;
+}
+.centered {
+    text-align: center
+}
+
+nav[role="navigation"]{
+  display: block
+}
+.pagination .pagination_list-items {
+  li {
+    display: inline-block;
+    a {
+      //@include bold-19;
+      @extend .bold-small !optional;
+      color: #005ea5;
+      display: inline-block;
+      padding: 15px 5px 10px 5px;
+      margin-right: 15px;
+      text-decoration: none;
+
+      &:focus {
+        outline: 0;
+      }
+    }
+    &.active a,
+    &.active a:hover {
+      color: #005ea5;
+      -webkit-box-shadow: inset 0px -5px 0px 0px #005ea5;
+      -moz-box-shadow: inset 0px -5px 0px 0px #005ea5;
+      box-shadow: inset 0px -5px 0px 0px #005ea5;
+    }
+  }
+}
+
+.padding {
+  padding-left: 15px;
+}
+
+.pagination {
+  padding: 0;
+  margin-bottom: 20px;
+}
+.pagination__item {
+  display: inline-block;
+  list-style: none;
+}
+.pagination__link {
+  display: block;
+  padding: 5px 10px;
+  text-decoration: none;
+  //border: 1px solid $border-colour;
+
+  &:hover, &:focus {
+    background: #f8f8f8;
+    outline: 3px solid #ffbf47;
+  }
+
+  &.current {
+    color: #0b0c0c;
+    font-weight: 700;
+    border: none;
+    pointer-events: none;
+    cursor: default;
+
+    &:hover, &:focus {
+      color: #0b0c0c;
+      background: none;
+    }
+  }
+}
+
+.pagination__summary {
+  padding: 8px 0  ;
+}
+
+
+.no-text-decoration{
+    text-decoration:none;
+}
+.paginate{
+    padding-left: 1px;
+    margin-top: auto;
+}
+.paginate li{
+    display:inline-block;
+    margin:0 .2em
+}
+.paginate li.disabled a{
+    color:#6f777b;
+    text-decoration:none;
+    display:inline-block
+}
+.paginate li.next{
+    margin-right:0
+}
+.paginate li.previous{
+    margin-left:0
+}
+.paginate li .current{
+    text-decoration:none;
+    color:#0b0c0c
+}
+
+.centre{
+    text-align: center
+}
+.cca-nowrap {
+    white-space: nowrap;
+}
+
+.hmrc-responsive-table__heading{
+ display: none;
+}
+
+// Header account menu
+.cca-menu-account {
+	float: right;
+	margin-top: 13px;
+	margin-bottom: 0;
+	li {
+		float: left;
+		padding-right: 7px;
+		padding-left: 7px;
+		+ li {
+			border-left: 1px solid $govuk-border-colour;
+		}
+		&:last-child {
+			padding-right: 0;
+		}
+		&:first-child {
+			padding-left: 0;
+		}
+	}
+}
+.cca-menu-account--left {
+	float: left;
+}
+
+.cca-message-toggle {
+  padding: govuk-spacing(1);
+  border-left: 1px solid $govuk-border-colour;
+}
+

@@ -14,15 +14,32 @@
  * limitations under the License.
  *@
 
+@import views.html.components.messagesCard
+@import views.html.components.yourPropertiesCard
+@import views.html.components.yourAgentsCard
+@import views.html.components.helpAndGuidanceCard
+@import models.propertyLinks.owner.OwnerAuthorisation
+
 @this(
-    layout: templates.Layout,
-    govukSummaryList: GovukSummaryList
+layout: templates.Layout,
+govukSummaryList: GovukSummaryList
 )
 
-@()(implicit request: Request[_], messages: Messages)
 
-@layout(pageTitle = titleNoForm(messages("home.title"))) {
 
-    <h1 class="govuk-heading-xl">@messages("home.title")</h1>
+@(userCounts: UserCounts, manageAgentUrl: Option[String], ownerAuthorisationOpt: Option[OwnerAuthorisation])(implicit request: Request[_], messages: Messages)
 
+@layout(pageTitle = titleNoForm(messages("home.title")), fullWidth  = true, showBackLink = false, showNavigation = true, showHomeLink = false) {
+  <div class="govuk-grid-row">
+   <div class="govuk-grid-column-full">
+      <h1 class="govuk-heading-xl">@messages("home.title")</h1>
+   </div>
+  </div>
+
+ <div class="flex-container govuk-grid-row">
+  @messagesCard(userCounts.hasMessages, userCounts.unreadMessageCount)
+  @yourPropertiesCard(userCounts.ownerPropertyLinkCount, ownerAuthorisationOpt)
+  @yourAgentsCard(userCounts.agentsCount, manageAgentUrl)
+  @helpAndGuidanceCard()
+ </div>
 }

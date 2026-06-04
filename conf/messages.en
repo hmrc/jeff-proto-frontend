@@ -79,4 +79,44 @@ CreateConfirmation.terms.of.use = Terms of use
 CreateConfirmation.confirmation.termsOfUse.p = Information provided using this service is only for the purpose of checking and, if necessary, challenging and appealing the rating of non-domestic property. Use for any other purpose is a breach of the {0} of service. Unlawful access may be prosecuted under the relevant legislation, including the Computer Misuse Act 1990 or the Fraud Act 2006.
 CreateConfirmation.dashboard.button = Dashboard
 
+#Dashboard
+link.home=Home
+link.logout=Sign out
+
+#messageCard
 home.title = Your business rates valuation account
+home.messagesCard.title=Your messages
+home.messagesCard.caption=Read secure messages from us.
+home.messagesCard.none=You have no new messages
+home.messagesCard.single=You have {0} new message
+home.messagesCard.multiple=You have {0} new messages
+home.messagesCard.viewAllMessages=Go to your messages
+
+#yourPropertiesCard
+home.yourPropertiesCard.title=Your properties
+home.yourPropertiesCard.caption=Add and manage properties you have a connection with
+home.yourPropertiesCard.noProperties=You have no properties
+home.yourPropertiesCard.viewOneProperty=You have {0} property
+home.yourPropertiesCard.viewProperties=You have {0} properties
+home.yourPropertiesCard.claimNewProperty=Add a property
+home.yourPropertiesCard.howToClaimAProperty=About claiming a property
+
+#yourAgentsCard
+home.yourAgentsCard.title=Your agents
+home.yourAgentsCard.caption=Appoint and manage third parties acting on your behalf
+home.yourAgentsCard.viewAgent=You have
+home.yourAgentsCard.viewAgent.one=1
+home.yourAgentsCard.viewAgent.agent=agent
+home.yourAgentsCard.viewAgent.agents=agents
+home.yourAgentsCard.appointAgent=Appoint an agent
+home.yourAgentsCard.noAgents=You have no agents
+home.yourAgentsCard.appointAgentGuidance=About appointing an agent
+
+#helpAndGuidanceCard
+home.helpAndGuidanceCard.title=Help
+home.helpAndGuidanceCard.newCheckGuidanceLink=Help with checking your property details (opens in new tab)
+home.helpAndGuidanceCard.link1=Help with adding and managing properties
+home.helpAndGuidanceCard.link2=Help with Check and Challenge cases
+home.helpAndGuidanceCard.link3=Help with appointing and managing agents
+home.helpAndGuidanceCard.link4=How business properties are valued
+home.helpAndGuidanceCard.link5=More help with business rates

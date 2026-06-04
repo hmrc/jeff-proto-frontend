@@ -1,0 +1,33 @@
+@*
+ * Copyright 2023 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@()(implicit messages: Messages)
+
+<div id="helpCard" class="card">
+    <div class="card-body min-height">
+        <h2 class="govuk-heading-s card-heading">@messages("home.helpAndGuidanceCard.title")</h2>
+    </div>
+    <div class="card-action">
+        <ul class="govuk-list">
+            <li><a id="new-guidance-check-property-details" class="govuk-link" href="https://www.gov.uk/government/news/new-guidance-to-help-check-property-details" rel="noreferrer noopener" target="_blank">@messages("home.helpAndGuidanceCard.newCheckGuidanceLink")</a></li>
+            <li><a class="govuk-link" href="https://www.gov.uk/guidance/add-your-property-to-your-account">@messages("home.helpAndGuidanceCard.link1")</a></li>
+            <li><a class="govuk-link" href="https://www.gov.uk/government/collections/check-and-challenge-step-by-step">@messages("home.helpAndGuidanceCard.link2")</a></li>
+            <li><a class="govuk-link" href="https://www.gov.uk/guidance/appoint-an-agent">@messages("home.helpAndGuidanceCard.link3")</a></li>
+            <li><a class="govuk-link" href="https://www.gov.uk/guidance/how-non-domestic-property-including-plant-and-machinery-is-valued">@messages("home.helpAndGuidanceCard.link4")</a></li>
+            <li><a class="govuk-link" href="https://www.gov.uk/topic/local-government/business-rates">@messages("home.helpAndGuidanceCard.link5")</a></li>
+        </ul>
+    </div>
+</div>
