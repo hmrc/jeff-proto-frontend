@@ -16,26 +16,23 @@
 
 package models.Registration.frontend
 
-import play.api.libs.json.{Format, Json}
+import play.api.libs.json.{Format, Json, OFormat}
 
-final case class RegisterRatepayer(
-                                    ratepayerCredId: Option[String] = None,
-                                    userType: Option[RatepayerType] = None,
-                                    agentStatus: Option[AgentStatus] = None,
-                                    name: Option[String] = None,
-                                    tradingName: Option[String] = None,
-                                    email: Option[String] = None,
-                                    nino: Option[Nino] = None,
-                                    contactNumber: Option[String] = None,
-                                    secondaryNumber: Option[String] = None,
-                                    address: Option[String] = None,
-                                    trnReferenceNumber: Option[TRNReferenceNumber] = None,
-                                    isRegistered: Option[Boolean] = Some(false),
-                                    recoveryId: Option[String] = None
-                                  )
+final case class RegisterRatepayerRequest(
+                                           ratepayerCredId: Option[String] = None,
+                                           userType: Option[RatepayerType] = None,
+                                           agentStatus: Option[AgentStatus] = None,
+                                           name: Option[String] = None,
+                                           tradingName: Option[TradingName] = None,
+                                           email: Option[String] = None,
+                                           nino: Option[Nino] = None,
+                                           contactNumber: Option[String] = None,
+                                           secondaryNumber: Option[String] = None,
+                                           address: Option[String] = None,
+                                           trnReferenceNumber: Option[TRNReferenceNumber] = None,
+                                           isRegistered: Option[Boolean] = Some(false),
+                                           recoveryId: Option[String] = None
+                                         )
 
-object RegisterRatepayer {
-
-  implicit val format: Format[RegisterRatepayer] = Json.format[RegisterRatepayer]
-
-}
+object RegisterRatepayerRequest:
+  implicit val format: OFormat[RegisterRatepayerRequest] = Json.format

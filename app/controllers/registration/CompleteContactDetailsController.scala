@@ -21,7 +21,7 @@ import connectors.BridgeIntegrationConnector
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
 import forms.mappings.ContactDetails.form
 import models.NormalMode
-import models.Registration.frontend.{RegisterRatepayer, TradingName}
+import models.Registration.frontend.{RegisterRatepayerRequest, TradingName}
 import navigation.Navigator
 import pages.CompleteContactDetailsPage
 import play.api.i18n.{I18nSupport, MessagesApi}
@@ -71,7 +71,7 @@ class CompleteContactDetailsController  @Inject()(
                 Future.successful(())
               case Some(existingAnswers) =>
                 val contactOpt = existingAnswers.get(CompleteContactDetailsPage)
-                val ratepayerRequest = RegisterRatepayer(
+                val ratepayerRequest = RegisterRatepayerRequest(
                   ratepayerCredId    = None,
                   userType           = None,
                   agentStatus        = None,
@@ -83,7 +83,7 @@ class CompleteContactDetailsController  @Inject()(
                   secondaryNumber    = None,
                   address            = None,
                   trnReferenceNumber = None,
-                  isRegistered       = Some(true),
+                  isRegistered        = Some(true),
                   recoveryId         = None
                 )
 
@@ -98,7 +98,7 @@ class CompleteContactDetailsController  @Inject()(
 
   private def submitData(
                           userId: String,
-                          ratepayerDataOpt: Option[RegisterRatepayer]
+                          ratepayerDataOpt: Option[RegisterRatepayerRequest]
                         )(implicit request: Request[AnyContent]): Future[Result] = {
     ratepayerDataOpt match {
       case Some(ratepayerData) =>
