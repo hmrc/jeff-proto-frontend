@@ -76,14 +76,14 @@ class CompleteContactDetailsController  @Inject()(
                   userType           = None,
                   agentStatus        = None,
                   name               = None,
-                  tradingName        = None,
-                  email              = None,
+                  tradingName        = contactOpt.map(_.tradingName.orNull),
+                  email              = contactOpt.map(_.email),
                   nino               = None,
                   contactNumber      = contactOpt.map(_.phone),
-                  secondaryNumber    = None,
+                  secondaryNumber    = contactOpt.map(_.mobilePhone),
                   address            = None,
                   trnReferenceNumber = None,
-                  isRegistered        = Some(true),
+                  isRegistered       = Some(true),
                   recoveryId         = None
                 )
 

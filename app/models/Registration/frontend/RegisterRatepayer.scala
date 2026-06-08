@@ -23,7 +23,7 @@ final case class RegisterRatepayerRequest(
                                            userType: Option[RatepayerType] = None,
                                            agentStatus: Option[AgentStatus] = None,
                                            name: Option[String] = None,
-                                           tradingName: Option[TradingName] = None,
+                                           tradingName: Option[String] = None,
                                            email: Option[String] = None,
                                            nino: Option[Nino] = None,
                                            contactNumber: Option[String] = None,
