@@ -20,6 +20,8 @@ import javax.inject.{Inject, Singleton}
 
 import play.api.mvc.Call
 import controllers.routes
+import controllers.registration.{routes => registrationRoutes}
+import controllers.dashboard.{routes => dashboardRoutes}
 import pages._
 import models._
 
@@ -27,7 +29,8 @@ import models._
 class Navigator @Inject()() {
 
   private val normalRoutes: Page => UserAnswers => Call = {
-    case CompleteContactDetailsPage => _ => routes.CreateConfirmationController.onPageLoad()
+    case UpdateEmailPage => _ => dashboardRoutes.HomeController.onPageLoad()
+    case CompleteContactDetailsPage => _ => registrationRoutes.CreateConfirmationController.onPageLoad()
     case _ => _ => routes.IndexController.onPageLoad()
   }
 

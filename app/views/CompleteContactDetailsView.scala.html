@@ -15,20 +15,21 @@
  *@
 
 @import viewmodels.InputWidth._
+@import controllers.registration.{routes => registrationRoutes}
 
 @this(
-layout: templates.Layout,
-formHelper: FormWithCSRF,
-govukErrorSummary: GovukErrorSummary,
-govukInput: GovukInput,
-govukButton: GovukButton
+ layout: templates.Layout,
+ formHelper: FormWithCSRF,
+ govukErrorSummary: GovukErrorSummary,
+ govukInput: GovukInput,
+ govukButton: GovukButton
 )
 
 @(form: Form[_])(implicit request: Request[_], messages: Messages)
 
 @layout(pageTitle = title(form, messages("contactNumber.title"))) {
 
- @formHelper(action = routes.CompleteContactDetailsController.onSubmit(), Symbol("autoComplete") -> "off") {
+@formHelper(action = registrationRoutes.CompleteContactDetailsController.onSubmit(), Symbol("autoComplete") -> "off") {
 
  @if(form.errors.nonEmpty) {
   @govukErrorSummary(ErrorSummaryViewModel(form))

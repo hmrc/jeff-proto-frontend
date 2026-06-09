@@ -120,3 +120,10 @@ home.helpAndGuidanceCard.link2=Help with Check and Challenge cases
 home.helpAndGuidanceCard.link3=Help with appointing and managing agents
 home.helpAndGuidanceCard.link4=How business properties are valued
 home.helpAndGuidanceCard.link5=More help with business rates
+
+#updateEmail
+updateEmail.title = Update email
+updateEmail.hint = This should be your preferred contact email address for your business.
+updateBusinessEmail.title = Update business email
+updateEmail.confirm = Confirm email
+updateEmail.email.help = This should be your preferred contact email address for your business.

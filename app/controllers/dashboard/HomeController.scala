@@ -14,11 +14,16 @@
  * limitations under the License.
  */
 
-package controllers
+package controllers.dashboard
 
 import com.google.inject.Inject
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
 import forms.mappings.ContactDetails.form
+import models.UserCounts
+import models.accounts.*
+import models.propertyLinks.PropertyLinkStatus
+import models.propertyLinks.owner.OwnerAuthorisation
+import models.requests.CcaAuthenticatedRequest
 import navigation.Navigator
 import pages.CompleteContactDetailsPage
 import play.api.i18n.{I18nSupport, MessagesApi}
@@ -26,11 +31,6 @@ import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepository
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 import views.html.HomeView
-import models.UserCounts
-import models.propertyLinks.PropertyLinkStatus
-import models.propertyLinks.owner.OwnerAuthorisation
-import models.requests.CcaAuthenticatedRequest
-import models.accounts._
 
 import scala.concurrent.ExecutionContext
 
