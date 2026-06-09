@@ -21,15 +21,21 @@
 @import models.propertyLinks.owner.OwnerAuthorisation
 
 @this(
-layout: templates.Layout,
-govukSummaryList: GovukSummaryList
+ layout: templates.Layout
 )
 
+@(
+ userCounts: UserCounts,
+ manageAgentUrl: Option[String],
+ ownerAuthorisationOpt: Option[OwnerAuthorisation]
+)(implicit request: Request[_], messages: Messages)
 
-
-@(userCounts: UserCounts, manageAgentUrl: Option[String], ownerAuthorisationOpt: Option[OwnerAuthorisation])(implicit request: Request[_], messages: Messages)
-
-@layout(pageTitle = titleNoForm(messages("home.title")), fullWidth  = true, showBackLink = false, showNavigation = true, showHomeLink = false) {
+@layout(
+ pageTitle = titleNoForm(messages("home.title")),
+ fullWidth  = true,
+ showBackLink = false,
+ showNavigation = true,
+ showHomeLink = false) {
   <div class="govuk-grid-row">
    <div class="govuk-grid-column-full">
       <h1 class="govuk-heading-xl">@messages("home.title")</h1>

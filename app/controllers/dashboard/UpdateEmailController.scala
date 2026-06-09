@@ -27,6 +27,8 @@ import views.html.HomeView
 import views.html.dashboard.UpdateEmailView
 import forms.mappings.UpdateEmail.form
 import models.NormalMode
+import models.accounts.{DetailedIndividualAccount, GroupAccount, IndividualDetails}
+import models.requests.CcaAuthenticatedRequest
 import pages.UpdateEmailPage
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -44,6 +46,40 @@ class UpdateEmailController @Inject()(
 
   def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData) {
     implicit request =>
+
+      val email = "test@gmail.com"
+
+      implicit val demoRequest: CcaAuthenticatedRequest[AnyContent] =
+        CcaAuthenticatedRequest(
+          organisationAccount = GroupAccount(
+            id = 123L,
+            groupId = "demo-group-id",
+            companyName = "Demo Company Ltd",
+            addressId = 999L,
+            email = email,
+            phone = "07123456789",
+            isAgent = false,
+            agentCode = None //Some(10001L)
+          ),
+          individualAccount = DetailedIndividualAccount(
+            externalId = "ext-123",
+            trustId = "trust-123",
+            organisationId = 123L,
+            individualId = 456L,
+            details = IndividualDetails(
+              firstName = "Jake",
+              lastName = "Reid",
+              email= "jake.reid@mail.com",
+              phone1 = "0794300957",
+              phone2 = Some("0794300957"),
+              addressId = 12345L
+            )
+          ),
+          agentCode = None,//Some(10001L),
+          request = request,
+          sessionId = "demo-session-id"
+        )
+
       Ok(view(form))
   }
 

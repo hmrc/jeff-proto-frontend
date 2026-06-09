@@ -47,12 +47,7 @@ class HomeController @Inject()(
 
   def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData) {
     implicit request =>
-
-      val preparedForm = request.userAnswers.get(CompleteContactDetailsPage) match {
-        case None => form
-        case Some(value) => form.fill(value)
-      }
-
+      
       val idNumber = "10"
       val email = "test@gmail.com"
 
@@ -99,7 +94,7 @@ class HomeController @Inject()(
               email= "jake.reid@mail.com",
               phone1 = "0794300957",
               phone2 = Some("0794300957"),
-              addressId = 12345L 
+              addressId = 12345L
             )
           ),
           agentCode = None,//Some(10001L),

@@ -14,9 +14,9 @@
  * limitations under the License.
  *@
 
-@import uk.gov.hmrc.govukfrontend.views.html.components._
 @import viewmodels.InputWidth._
 @import controllers.dashboard.{routes => dashboardRoutes}
+@import models.propertyLinks.owner.OwnerAuthorisation
 
 @this(
 layout: templates.Layout,
@@ -26,9 +26,14 @@ govukInput: GovukInput,
 govukButton: GovukButton
 )
 
-@(form: Form[_])(implicit request: Request[_], messages: Messages)
+@(
+    form: Form[_]
+)(implicit request: Request[_], messages: Messages)
 
-@layout(pageTitle = title(form, messages("updateEmail.title"))) {
+@layout(
+    pageTitle = title(form, messages("updateEmail.title")),
+    showNavigation = true,
+    showHomeLink = true) {
 
 @formHelper(action = dashboardRoutes.UpdateEmailController.onSubmit(), Symbol("autoComplete") -> "off") {
 
@@ -70,9 +75,9 @@ govukButton: GovukButton
     <div class="govuk-button-group">
 
         @govukButton(Button(
-        content = Text("Continue")
+        content = Text(messages("site.update"))
         ))
-        <a class="govuk-link" href="#">Cancel</a>
+        <a class="govuk-link" href="#">@messages("site.cancel")</a>
     </div>
  }
 }
