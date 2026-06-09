@@ -20,9 +20,12 @@ GET         /account/signed-out                          controllers.auth.Signed
 
 GET         /unauthorised                                controllers.UnauthorisedController.onPageLoad()
 
-GET         /complete-contact-details                    controllers.CompleteContactDetailsController.onPageLoad()
-POST        /complete-contact-details                    controllers.CompleteContactDetailsController.onSubmit()
+GET         /complete-contact-details                    controllers.registration.CompleteContactDetailsController.onPageLoad()
+POST        /complete-contact-details                    controllers.registration.CompleteContactDetailsController.onSubmit()
 
-GET         /create-confirmation                         controllers.CreateConfirmationController.onPageLoad()
+GET         /update-email                                controllers.dashboard.UpdateEmailController.onPageLoad()
+POST        /update-email                                controllers.dashboard.UpdateEmailController.onSubmit()
 
-GET         /home                                        controllers.HomeController.onPageLoad()
+GET         /create-confirmation                         controllers.registration.CreateConfirmationController.onPageLoad()
+
+GET         /home                                        controllers.dashboard.HomeController.onPageLoad()

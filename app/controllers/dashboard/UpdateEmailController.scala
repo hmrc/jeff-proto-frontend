@@ -14,68 +14,41 @@
  * limitations under the License.
  */
 
-package controllers
+package controllers.dashboard
 
 import com.google.inject.Inject
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
-import forms.mappings.ContactDetails.form
 import navigation.Navigator
-import pages.CompleteContactDetailsPage
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepository
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 import views.html.HomeView
-import models.UserCounts
-import models.propertyLinks.PropertyLinkStatus
-import models.propertyLinks.owner.OwnerAuthorisation
+import views.html.dashboard.UpdateEmailView
+import forms.mappings.UpdateEmail.form
+import models.NormalMode
+import models.accounts.{DetailedIndividualAccount, GroupAccount, IndividualDetails}
 import models.requests.CcaAuthenticatedRequest
-import models.accounts._
+import pages.UpdateEmailPage
 
-import scala.concurrent.ExecutionContext
+import scala.concurrent.{ExecutionContext, Future}
 
-class HomeController @Inject()(
-                                override val messagesApi: MessagesApi,
-                                identify: IdentifierAction,
-                                getData: DataRetrievalAction,
-                                requireData: DataRequiredAction,
-                                sessionRepository: SessionRepository,
-                                navigator: Navigator,
-                                val controllerComponents: MessagesControllerComponents,
-                                view: HomeView
-                              )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport {
+class UpdateEmailController @Inject()(
+                                       override val messagesApi: MessagesApi,
+                                       identify: IdentifierAction,
+                                       getData: DataRetrievalAction,
+                                       requireData: DataRequiredAction,
+                                       sessionRepository: SessionRepository,
+                                       navigator: Navigator,
+                                       val controllerComponents: MessagesControllerComponents,
+                                       view: UpdateEmailView
+                                     )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport {
 
   def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData) {
     implicit request =>
 
-      val preparedForm = request.userAnswers.get(CompleteContactDetailsPage) match {
-        case None => form
-        case Some(value) => form.fill(value)
-      }
-
-      val idNumber = "10"
       val email = "test@gmail.com"
 
-      val userCounts = UserCounts(
-        draftCount = 1,
-        hasMessages = true,
-        unreadMessageCount = 2,
-        agentsCount = 1,
-        ownerPropertyLinkCount = 3,
-        approvedAgentPropertyLinkCount = None
-      )
-
-      val ownerAuthorisation = OwnerAuthorisation(
-        authorisationId = 12,
-        status = PropertyLinkStatus.APPROVED,
-        submissionId = "test Submission id",
-        uarn = 12,
-        address = "Test address",
-        localAuthorityRef = "Local Authority Ref",
-        agents = None
-      )
-
-      //THE NAVIGATION BAR NEEDS THIS INFORMATION
       implicit val demoRequest: CcaAuthenticatedRequest[AnyContent] =
         CcaAuthenticatedRequest(
           organisationAccount = GroupAccount(
@@ -99,7 +72,7 @@ class HomeController @Inject()(
               email= "jake.reid@mail.com",
               phone1 = "0794300957",
               phone2 = Some("0794300957"),
-              addressId = 12345L 
+              addressId = 12345L
             )
           ),
           agentCode = None,//Some(10001L),
@@ -107,14 +80,19 @@ class HomeController @Inject()(
           sessionId = "demo-session-id"
         )
 
-      Ok(
-        view(
-          userCounts = userCounts,
-          manageAgentUrl = Some(""),
-          ownerAuthorisationOpt = Some(ownerAuthorisation)
-        )
-      )
+      Ok(view(form))
   }
 
+  def onSubmit(): Action[AnyContent] = (identify andThen getData andThen requireData).async  {
+    implicit request =>
+      form.bindFromRequest().fold(
+        formWithErrors =>
+          Future.successful(BadRequest(view(formWithErrors))),
+        value =>
+          for {
+            updatedAnswers <- Future.fromTry(request.userAnswers.set(UpdateEmailPage, value))
+            _              <- sessionRepository.set(updatedAnswers)
+          } yield Redirect(navigator.nextPage(UpdateEmailPage, NormalMode, updatedAnswers))
+      )
+  }
 }
-
