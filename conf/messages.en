@@ -129,3 +129,15 @@ updateEmail.hint = This should be your preferred contact email address for your 
 updateBusinessEmail.title = Update business email
 updateEmail.confirm = Confirm email
 updateEmail.email.help = This should be your preferred contact email address for your business.
+
+# User Details
+userDetails.title=Your details
+userDetails.weUseYourDetails = We use your contact details to send you correspondence related to the service and your account.
+userDetails.update=Update
+userDetails.name=Your name
+userDetails.address=Address
+userDetails.personId=VOA Personal ID
+userDetails.telephone=Telephone
+userDetails.mobileNumber=Mobile number
+userDetails.email=Email
+userDetails.tradingName=Trading name
