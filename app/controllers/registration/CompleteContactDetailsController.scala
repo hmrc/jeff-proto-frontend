@@ -19,6 +19,7 @@ package controllers.registration
 import com.google.inject.Inject
 import connectors.BridgeIntegrationConnector
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
+import forms.mappings.ContactDetails
 import forms.mappings.ContactDetails.form
 import models.NormalMode
 import models.Registration.frontend.{RegisterRatepayerRequest, TradingName}
@@ -56,44 +57,61 @@ class CompleteContactDetailsController  @Inject()(
       Ok(view(preparedForm))
   }
 
-  def onSubmit(): Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request =>
+  def onSubmit(): Action[AnyContent] =
+    (identify andThen getData andThen requireData).async { implicit request =>
       form.bindFromRequest().fold(
         formWithErrors =>
           Future.successful(BadRequest(view(formWithErrors))),
         value =>
-          for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(CompleteContactDetailsPage, value))
-            _              <- sessionRepository.set(updatedAnswers)
+          (for {
+            updatedAnswers <- Future.fromTry(
+              request.userAnswers.set(CompleteContactDetailsPage, value)
+            )
+            _ <- sessionRepository.set(updatedAnswers)
             maybeAnswers <- sessionRepository.get(request.userId)
-            _ <- maybeAnswers match {
+            result <- maybeAnswers match {
               case None =>
-                Future.successful(())
-              case Some(existingAnswers) =>
-                val contactOpt = existingAnswers.get(CompleteContactDetailsPage)
-                val ratepayerRequest = RegisterRatepayerRequest(
-                  ratepayerCredId    = None,
-                  userType           = None,
-                  agentStatus        = None,
-                  name               = None,
-                  tradingName        = contactOpt.map(_.tradingName.orNull),
-                  email              = contactOpt.map(_.email),
-                  nino               = None,
-                  contactNumber      = contactOpt.map(_.phone),
-                  secondaryNumber    = contactOpt.map(_.mobilePhone),
-                  address            = None,
-                  trnReferenceNumber = None,
-                  isRegistered       = Some(true),
-                  recoveryId         = None
+                logger.warn(s"No answers found for user: ${request.userId}")
+                Future.successful(
+                  Redirect(
+                    navigator.nextPage(
+                      CompleteContactDetailsPage,
+                      NormalMode,
+                      updatedAnswers
+                    )
+                  )
                 )
-
+              case Some(existingAnswers) =>
+                val contactOpt =
+                  existingAnswers.get(CompleteContactDetailsPage)
+                val ratepayerRequest = createRatePayer(contactOpt)
                 submitData(request.userId, Some(ratepayerRequest))
-                  .recover {
-                    case _ => ()  // swallow failure, optionally log
-                  }
             }
-          } yield Redirect(navigator.nextPage(CompleteContactDetailsPage,NormalMode, updatedAnswers))
+          } yield result)
+            .recover {
+              case ex =>
+                logger.error("Submission failed", ex)
+                Redirect(routes.IndexController.onPageLoad())
+            }
       )
+    }
+
+  private def createRatePayer(contactOpt: Option[ContactDetails]) : RegisterRatepayerRequest = {
+    RegisterRatepayerRequest(
+      ratepayerCredId = None,
+      userType = None,
+      agentStatus = None,
+      name = None,
+      tradingName = contactOpt.map(_.tradingName.orNull),
+      email = contactOpt.map(_.email),
+      nino = None,
+      contactNumber = contactOpt.map(_.phone),
+      secondaryNumber = contactOpt.map(_.mobilePhone),
+      address = None,
+      trnReferenceNumber = None,
+      isRegistered = Some(true),
+      recoveryId = None
+    )
   }
 
   private def submitData(
