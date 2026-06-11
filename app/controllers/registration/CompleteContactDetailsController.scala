@@ -91,7 +91,7 @@ class CompleteContactDetailsController  @Inject()(
             .recover {
               case ex =>
                 logger.error("Submission failed", ex)
-                Redirect(routes.IndexController.onPageLoad())
+                Redirect(controllers.routes.IndexController.onPageLoad())
             }
       )
     }
