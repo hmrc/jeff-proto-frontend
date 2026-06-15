@@ -29,6 +29,9 @@ import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 import java.net.URI
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
+import play.api.libs.ws.writeableOf_JsValue
+import play.api.i18n.Lang.logger
+import play.api.http.Status.*
 
 
 class BridgeIntegrationConnector @Inject()(
@@ -37,7 +40,7 @@ class BridgeIntegrationConnector @Inject()(
                                           )(implicit ec: ExecutionContext) {
 
   private def uri(path: String) = new URI(s"${appConfig.bridgeIntegration}/bridge-integration/$path")
-  
+
   def registerRatePayer(ratepayerRegistration: RegisterRatepayerRequest)
                        (implicit hc: HeaderCarrier): Future[Boolean] = {
 
