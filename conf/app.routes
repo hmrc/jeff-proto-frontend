@@ -29,3 +29,5 @@ POST        /update-email                                controllers.dashboard.U
 GET         /create-confirmation                         controllers.registration.CreateConfirmationController.onPageLoad()
 
 GET         /home                                        controllers.dashboard.HomeController.onPageLoad()
+
+GET         /user-details                                controllers.dashboard.UserDetailsController.show()
