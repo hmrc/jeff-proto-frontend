@@ -22,7 +22,7 @@ import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierA
 import forms.mappings.ContactDetails
 import forms.mappings.ContactDetails.form
 import models.NormalMode
-import models.Registration.frontend.{RegisterRatepayerRequest, TradingName}
+import models.Registration.frontend.{RegisterRatepayerRequest}
 import navigation.Navigator
 import pages.CompleteContactDetailsPage
 import play.api.i18n.{I18nSupport, MessagesApi}

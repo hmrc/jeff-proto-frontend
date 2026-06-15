@@ -19,10 +19,11 @@ package models.Registration.frontend
 import play.api.libs.json.{Format, Json, OFormat}
 
 final case class RegisterRatepayerRequest(
+                                           ratepayerCredId: Option[String] = None,
                                            userType: Option[RatepayerType] = None,
                                            agentStatus: Option[AgentStatus] = None,
-                                           name: String,
-                                           tradingName: Option[TradingName] = None,
+                                           name: Option[String],
+                                           tradingName: Option[String] = None,
                                            email: Option[String] = None,
                                            nino: Option[Nino] = None,
                                            contactNumber: Option[String] = None,

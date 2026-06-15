@@ -54,6 +54,4 @@ class FrontendAppConfig @Inject() (configuration: Configuration, servicesConfig:
   val countdown: Int = configuration.get[Int]("timeout-dialog.countdown")
 
   val cacheTtl: Long = configuration.get[Int]("mongodb.timeToLiveInSeconds")
-
-  val bridgeIntegration: String = servicesConfig.baseUrl("bridge-integration")
 }
