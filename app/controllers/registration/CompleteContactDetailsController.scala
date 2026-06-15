@@ -17,17 +17,21 @@
 package controllers.registration
 
 import com.google.inject.Inject
+import connectors.BridgeIntegrationConnector
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
+import forms.mappings.ContactDetails
 import forms.mappings.ContactDetails.form
 import models.NormalMode
+import models.Registration.frontend.{RegisterRatepayerRequest}
 import navigation.Navigator
 import pages.CompleteContactDetailsPage
 import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request, Result}
 import repositories.SessionRepository
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
-import viewmodels.govuk.summarylist.*
+import utils.UniqueIdGenerator
 import views.html.{CheckYourAnswersView, CompleteContactDetailsView}
+import play.api.Logging
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -38,9 +42,10 @@ class CompleteContactDetailsController  @Inject()(
                                                    requireData: DataRequiredAction,
                                                    sessionRepository: SessionRepository,
                                                    navigator: Navigator,
+                                                   bridgeIntegrationConnector: BridgeIntegrationConnector,
                                                    val controllerComponents: MessagesControllerComponents,
                                                    view: CompleteContactDetailsView
-                                                 )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport {
+                                                 )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport with Logging {
   
   def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData) {
     implicit request =>
@@ -52,17 +57,91 @@ class CompleteContactDetailsController  @Inject()(
       Ok(view(preparedForm))
   }
 
-  def onSubmit(): Action[AnyContent] = (identify andThen getData andThen requireData).async {
-    implicit request =>
+  def onSubmit(): Action[AnyContent] =
+    (identify andThen getData andThen requireData).async { implicit request =>
       form.bindFromRequest().fold(
         formWithErrors =>
           Future.successful(BadRequest(view(formWithErrors))),
         value =>
-          for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(CompleteContactDetailsPage, value))
-            _              <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(CompleteContactDetailsPage,NormalMode, updatedAnswers))
+          (for {
+            updatedAnswers <- Future.fromTry(
+              request.userAnswers.set(CompleteContactDetailsPage, value)
+            )
+            _ <- sessionRepository.set(updatedAnswers)
+            maybeAnswers <- sessionRepository.get(request.userId)
+            result <- maybeAnswers match {
+              case None =>
+                logger.warn(s"No answers found for user: ${request.userId}")
+                Future.successful(
+                  Redirect(
+                    navigator.nextPage(
+                      CompleteContactDetailsPage,
+                      NormalMode,
+                      updatedAnswers
+                    )
+                  )
+                )
+              case Some(existingAnswers) =>
+                val contactOpt =
+                  existingAnswers.get(CompleteContactDetailsPage)
+                val ratepayerRequest = createRatePayer(contactOpt)
+                submitData(request.userId, Some(ratepayerRequest))
+            }
+          } yield result)
+            .recover {
+              case ex =>
+                logger.error("Submission failed", ex)
+                Redirect(controllers.routes.IndexController.onPageLoad())
+            }
       )
+    }
+
+  private def createRatePayer(contactOpt: Option[ContactDetails]) : RegisterRatepayerRequest = {
+    RegisterRatepayerRequest(
+      ratepayerCredId = None,
+      userType = None,
+      agentStatus = None,
+      name = None,
+      tradingName = contactOpt.map(_.tradingName.orNull),
+      email = contactOpt.map(_.email),
+      nino = None,
+      contactNumber = contactOpt.map(_.phone),
+      secondaryNumber = contactOpt.map(_.mobilePhone),
+      address = None,
+      trnReferenceNumber = None,
+      isRegistered = Some(true),
+      recoveryId = None
+    )
+  }
+
+  private def submitData(
+                          userId: String,
+                          ratepayerDataOpt: Option[RegisterRatepayerRequest]
+                        )(implicit request: Request[AnyContent]): Future[Result] = {
+    ratepayerDataOpt match {
+      case Some(ratepayerData) =>
+        val updatedRatepayerData =
+          ratepayerData.copy(
+            ratepayerCredId = Some(userId),
+            recoveryId = Some(UniqueIdGenerator.generateId)
+          )
+
+        bridgeIntegrationConnector.registerRatePayer(updatedRatepayerData).flatMap { notifySuccess =>
+          if (notifySuccess) {
+            logger.info(s" ${Console.MAGENTA} Registered user: $userId ${Console.RESET}")
+            Future.successful(
+              Redirect(routes.CreateConfirmationController.onPageLoad())
+            )
+          } else {
+            logger.error(s"Failed to send to the bridge for credId: $userId")
+            Future.failed(new Exception(s"Failed to send to the bridge for credId: $userId"))
+          }
+        }
+
+      case None =>
+        logger.error(s"No ratepayer data found in request: $userId")
+        Future.failed(new Exception("No ratepayer data found in request"))
+    }
   }
   
 }

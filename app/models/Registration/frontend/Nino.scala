@@ -25,3 +25,4 @@ final case class Nino(nino: String) {
 object Nino {
   implicit val format: OFormat[Nino] = Json.format[Nino]
 }
+

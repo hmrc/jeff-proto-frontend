@@ -109,9 +109,9 @@ class UpdateEmailController @Inject()(
             _ <- sessionRepository.set(updatedAnswers)
             _ <- bridgeIntegrationConnector.registerRatePayer(
               RegisterRatepayerRequest(
-                userType = Some(RatepayerType.INDIVIDUAL),
+                userType = Some(RatepayerType.Individual),
                 agentStatus = Some(AUTONOMOUS),
-                name = s"${dr.individualAccount.details.firstName} ${dr.individualAccount.details.lastName}",
+                name = Some(s"${dr.individualAccount.details.firstName} ${dr.individualAccount.details.lastName}"),
                 tradingName = None,
                 email = Some(value.email),
                 nino = None,
