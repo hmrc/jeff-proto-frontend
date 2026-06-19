@@ -31,9 +31,7 @@ govukButton: GovukButton
 )(implicit request: Request[_], messages: Messages)
 
 @layout(
-    pageTitle = title(form, messages("updateEmail.title")),
-    showNavigation = true,
-    showHomeLink = true) {
+    pageTitle = title(form, messages("updateEmail.title"))) {
 
 @formHelper(action = dashboardRoutes.UpdateEmailController.onSubmit(), Symbol("autoComplete") -> "off") {
 

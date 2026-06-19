@@ -31,3 +31,6 @@ GET         /create-confirmation                         controllers.registratio
 GET         /home                                        controllers.dashboard.HomeController.onPageLoad()
 
 GET         /user-details                                controllers.dashboard.UserDetailsController.show()
+
+GET        /update-telephone-number                      controllers.dashboard.UpdateTelephoneNumberController.onPageLoad()
+POST       /update-telephone-number                      controllers.dashboard.UpdateTelephoneNumberController.onSubmit()
