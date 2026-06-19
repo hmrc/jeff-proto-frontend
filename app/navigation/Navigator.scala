@@ -20,7 +20,7 @@ import javax.inject.{Inject, Singleton}
 import play.api.mvc.Call
 import controllers.routes
 import controllers.registration.routes as registrationRoutes
-import controllers.dashboard.{UpdateTelephoneNumberController, routes as dashboardRoutes}
+import controllers.dashboard.routes as dashboardRoutes
 import pages.*
 import models.*
 
