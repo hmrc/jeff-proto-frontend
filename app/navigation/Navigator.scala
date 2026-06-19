@@ -17,13 +17,12 @@
 package navigation
 
 import javax.inject.{Inject, Singleton}
-
 import play.api.mvc.Call
 import controllers.routes
-import controllers.registration.{routes => registrationRoutes}
-import controllers.dashboard.{routes => dashboardRoutes}
-import pages._
-import models._
+import controllers.registration.routes as registrationRoutes
+import controllers.dashboard.routes as dashboardRoutes
+import pages.*
+import models.*
 
 @Singleton
 class Navigator @Inject()() {
@@ -31,6 +30,7 @@ class Navigator @Inject()() {
   private val normalRoutes: Page => UserAnswers => Call = {
     case UpdateEmailPage => _ => dashboardRoutes.HomeController.onPageLoad()
     case CompleteContactDetailsPage => _ => registrationRoutes.CreateConfirmationController.onPageLoad()
+    case UpdateTelephoneNumberPage => _ => dashboardRoutes.HomeController.onPageLoad()
     case _ => _ => routes.IndexController.onPageLoad()
   }
 

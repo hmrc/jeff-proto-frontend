@@ -141,3 +141,13 @@ userDetails.telephone=Telephone
 userDetails.mobileNumber=Mobile number
 userDetails.email=Email
 userDetails.tradingName=Trading name
+
+updateTelephoneNumber.title = Update telephone number
+updateTelephoneNumber.heading = Telephone
+updateTelephoneNumber.hint = This should be your preferred
+updateTelephoneNumber.checkYourAnswersLabel = UpdateTelephoneNumber
+updateTelephoneNumber.error.nonNumeric = Enter your updateTelephoneNumber using numbers
+updateTelephoneNumber.error.required = Enter your updateTelephoneNumber
+updateTelephoneNumber.error.wholeNumber = Enter your updateTelephoneNumber using whole numbers
+updateTelephoneNumber.error.outOfRange = UpdateTelephoneNumber must be between {0} and {1}
+updateTelephoneNumber.change.hidden = UpdateTelephoneNumber
