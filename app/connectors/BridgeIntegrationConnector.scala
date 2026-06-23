@@ -18,6 +18,7 @@ package connectors
 
 import config.FrontendAppConfig
 import models.Registration.frontend.RegisterRatepayerRequest
+import models.dashboard.Persons
 import play.api.http.Status.*
 import play.api.i18n.Lang.logger
 import play.api.libs.json.{JsError, JsObject, JsValue, Json}
@@ -71,6 +72,18 @@ class BridgeIntegrationConnector @Inject()(
         case ex: Exception =>
           logger.error(s"Call to bridge-integration register-ratepayer failed: ${ex.getMessage}", ex)
           false
+      }
+  }
+
+  def exploreRatePayer(credId: String = "123456789567")
+                      (implicit hc: HeaderCarrier): Future[Option[Persons]] = {
+    val url = uri(s"explore-ratepayer/$credId").toURL
+    http.get(url)
+      .execute[Option[Persons]]
+      .recover {
+        case ex =>
+          logger.warn(s"Failed to retrieve explore ratepayer for credId=$credId: ${ex.getMessage}")
+          None
       }
   }
 
