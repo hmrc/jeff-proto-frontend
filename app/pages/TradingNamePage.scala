@@ -14,21 +14,14 @@
  * limitations under the License.
  */
 
-package models.Registration.frontend
+package pages
 
-import play.api.libs.json.{Json, OFormat}
+import forms.mappings.{ContactDetails, MobilePhone, TradingName}
+import play.api.libs.json.JsPath
 
-case class Address(
-                    addressUnitId: Option[Long],
-                    line1: String,
-                    line2: String,
-                    line3: String,
-                    line4: String,
-                    postcode: String
-                  )
+case object TradingNamePage extends QuestionPage[TradingName] {
 
-object Address {
-  implicit val format: OFormat[Address] = Json.format[Address]
+  override def path: JsPath = JsPath \ toString
 
-  val empty: Address = Address(addressUnitId = None, line1 = "", line2 = "", line3 = "", line4 = "", postcode = "")
+  override def toString: String = "tradingName"
 }

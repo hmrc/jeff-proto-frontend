@@ -18,7 +18,6 @@ package controllers.dashboard
 
 import com.google.inject.Inject
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
-import models.Registration.frontend.Address
 import models.accounts.{DetailedIndividualAccount, GroupAccount, IndividualDetails}
 import models.requests.CcaAuthenticatedRequest
 import play.api.i18n.{I18nSupport, MessagesApi}

@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2026 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,26 +12,16 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@import views.html.components._
-@import controllers.registration.{routes => registrationRoutes}
+package pages
 
-@this(
-    layout: templates.Layout,
-    startNowButton: startNowButton
-)
+import forms.mappings.{ContactDetails, MobilePhone}
+import play.api.libs.json.JsPath
 
-@()(implicit request: Request[_], messages: Messages)
+case object MobilePhonePage extends QuestionPage[MobilePhone] {
 
-@layout(
-    pageTitle    = titleNoForm(messages("index.title")),
-    showBackLink = false
-) {
+  override def path: JsPath = JsPath \ toString
 
-    <h1 class="govuk-heading-xl">@messages("index.heading")</h1>
-
-    <p class="govuk-body">@messages("index.guidance")</p>
-
-    @startNowButton(registrationRoutes.AddressController.onPageLoad(NormalMode).url)
+  override def toString: String = "completeContactDetails"
 }

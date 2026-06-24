@@ -14,24 +14,24 @@
  * limitations under the License.
  *@
 
-@import views.html.components._
 @import controllers.registration.{routes => registrationRoutes}
+@import views.html.components.saveAndContinueButton
 
 @this(
     layout: templates.Layout,
-    startNowButton: startNowButton
+    formHelper: FormWithCSRF,
+    govukSummaryList: GovukSummaryList,
+    saveAndContinueButton: saveAndContinueButton
 )
 
-@()(implicit request: Request[_], messages: Messages)
+@(list: SummaryList)(implicit request: Request[_], messages: Messages)
 
-@layout(
-    pageTitle    = titleNoForm(messages("index.title")),
-    showBackLink = false
-) {
+@layout(pageTitle = titleNoForm(messages("checkYourAnswers.title"))) {
+    @formHelper(action =   registrationRoutes.RegistrationCheckYourAnswersController.onSubmit(), Symbol("autoComplete") -> "off") {
+        <h1 class="govuk-heading-xl">@messages("checkYourAnswers.heading")</h1>
 
-    <h1 class="govuk-heading-xl">@messages("index.heading")</h1>
+        @govukSummaryList(list)
 
-    <p class="govuk-body">@messages("index.guidance")</p>
-
-    @startNowButton(registrationRoutes.AddressController.onPageLoad(NormalMode).url)
+        @saveAndContinueButton(msg = messages("site.continue"), isStartButton = false)
+    }
 }

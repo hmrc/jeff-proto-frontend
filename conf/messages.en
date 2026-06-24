@@ -57,6 +57,44 @@ error.phoneNumber.invalidFormat=Enter a telephone number, like 01623 960 001 or 
 error.invalidEmail = Enter a valid email address
 error.emailLength = This field must be 150 characters or less
 
+#Address
+address.title = What is your contact address?
+
+#Email
+email.title = What is your business email?
+email.hint = This should be your preferred contact email address for your business.
+email.confirm = Confirm email
+email.email.help = This should be your preferred contact email address for your business.
+
+#ContactNumber
+phoneNumber.title = What is your preferred contact number?
+phoneNumber.hint =  This can be a mobile or landline number, for example 07700 900 982 or 01632 960 001.
+
+#doYouHaveASecondaryContactNumber
+doYouHaveASecondaryContactNumber.title = Do you a secondary contact number?
+doYouHaveASecondaryContactNumber.hint = Select yes if you have a secondary contact number
+doYouHaveASecondaryContactNumber.error.required = Select yes if you have a secondary contact number
+
+#AlternateNumber
+mobileNumber.title =  What is your secondary contact number?
+mobileNumber.hint =  This can be a mobile or landline number, for example 07700 900 982 or 01632 960 001.
+
+#doYouHaveATradingName
+doYouHaveATradingName.title = Do you have a trading name?
+doYouHaveATradingName.hint = Select yes if you have a trading name
+doYouHaveATradingName.error.required = Select yes if you have a trading name
+
+#TradingName
+tradingName.title = What is your trading name?
+tradingName.error.required = Enter your trading name
+
+#CheckAnswers
+checkAnswers.contactNumber = Contact number
+checkAnswers.email = Contact email
+checkAnswers.address = Contact address
+checkAnswers.tradingName = Trading name
+checkAnswers.secondNumber = Secondary contact number
+
 completeContactDetails.heading = Complete your contact details
 completeContactDetails.contactDetailsUse = We use your contact details to send you correspondence related to the service and your account.
 completeContactDetails.postcode = Postcode

@@ -30,7 +30,7 @@ import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request, 
 import repositories.SessionRepository
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 import utils.UniqueIdGenerator
-import views.html.{CheckYourAnswersView, CompleteContactDetailsView}
+import views.html.CompleteContactDetailsView
 import play.api.Logging
 
 import scala.concurrent.{ExecutionContext, Future}

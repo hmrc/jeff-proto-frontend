@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2026 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,26 +12,10 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@import views.html.components._
-@import controllers.registration.{routes => registrationRoutes}
+package viewmodels
 
-@this(
-    layout: templates.Layout,
-    startNowButton: startNowButton
-)
+import play.api.mvc.Call
 
-@()(implicit request: Request[_], messages: Messages)
-
-@layout(
-    pageTitle    = titleNoForm(messages("index.title")),
-    showBackLink = false
-) {
-
-    <h1 class="govuk-heading-xl">@messages("index.heading")</h1>
-
-    <p class="govuk-body">@messages("index.guidance")</p>
-
-    @startNowButton(registrationRoutes.AddressController.onPageLoad(NormalMode).url)
-}
+final case class Link(href: Call, linkId: String, messageKey: String, visuallyHiddenMessageKey: Option[String] = None)

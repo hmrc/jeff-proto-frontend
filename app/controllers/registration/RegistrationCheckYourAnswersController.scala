@@ -14,32 +14,33 @@
  * limitations under the License.
  */
 
-package controllers
+package controllers.registration
 
 import com.google.inject.Inject
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
-import viewmodels.govuk.summarylist._
-import views.html.CheckYourAnswersView
+import viewmodels.RegistrationCheckAnswers.createRegistrationSummaryRows
+import viewmodels.govuk.summarylist.*
+import views.html.registration.RegistrationCheckYourAnswersView
 
-class CheckYourAnswersController @Inject()(
+class RegistrationCheckYourAnswersController @Inject()(
                                             override val messagesApi: MessagesApi,
                                             identify: IdentifierAction,
                                             getData: DataRetrievalAction,
                                             requireData: DataRequiredAction,
                                             val controllerComponents: MessagesControllerComponents,
-                                            view: CheckYourAnswersView
+                                            view: RegistrationCheckYourAnswersView
                                           ) extends FrontendBaseController with I18nSupport {
 
   def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData) {
     implicit request =>
+      Ok(view(createRegistrationSummaryRows(request.userAnswers)))
+  }
 
-      val list = SummaryListViewModel(
-        rows = Seq.empty
-      )
-
-      Ok(view(list))
+  def onSubmit(): Action[AnyContent] = (identify andThen getData andThen requireData) {
+    implicit request =>
+      Ok(view(createRegistrationSummaryRows(request.userAnswers)))
   }
 }
