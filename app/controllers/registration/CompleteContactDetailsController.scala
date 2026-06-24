@@ -22,16 +22,16 @@ import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierA
 import forms.mappings.ContactDetails
 import forms.mappings.ContactDetails.form
 import models.NormalMode
-import models.Registration.frontend.{RegisterRatepayerRequest}
+import models.Registration.frontend.RegisterRatepayerRequest
 import navigation.Navigator
 import pages.CompleteContactDetailsPage
+import play.api.Logging
 import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request, Result}
+import play.api.mvc.*
 import repositories.SessionRepository
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 import utils.UniqueIdGenerator
 import views.html.CompleteContactDetailsView
-import play.api.Logging
 
 import scala.concurrent.{ExecutionContext, Future}
 

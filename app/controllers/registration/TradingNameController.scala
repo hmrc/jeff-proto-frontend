@@ -21,7 +21,7 @@ import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierA
 import forms.mappings.TradingName.form
 import models.Mode
 import navigation.Navigator
-import pages.{MobilePhonePage, ContactNumberPage, TradingNamePage}
+import pages.TradingNamePage
 import play.api.Logging
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}

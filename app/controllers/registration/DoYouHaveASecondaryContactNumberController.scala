@@ -21,7 +21,7 @@ import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierA
 import forms.mappings.DoYouHaveASecondaryContactNumber.form
 import models.Mode
 import navigation.Navigator
-import pages.{DoYouHaveASecondaryContactNumberPage, DoYouHaveATradingNamePage}
+import pages.DoYouHaveASecondaryContactNumberPage
 import play.api.Logging
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}

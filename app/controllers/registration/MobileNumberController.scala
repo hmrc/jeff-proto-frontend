@@ -19,7 +19,7 @@ package controllers.registration
 import com.google.inject.Inject
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
 import forms.mappings.MobilePhone.form
-import models.{Mode, NormalMode}
+import models.Mode
 import navigation.Navigator
 import pages.MobilePhonePage
 import play.api.Logging

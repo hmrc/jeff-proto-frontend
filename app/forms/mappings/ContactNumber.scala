@@ -16,9 +16,8 @@
 
 package forms.mappings
 
-import forms.mappings.EmailAddressValidation.isValidEmail
 import play.api.data.Form
-import play.api.data.Forms.{mapping, optional}
+import play.api.data.Forms.mapping
 import play.api.libs.json.{Json, OFormat}
 
 final case class ContactNumber(

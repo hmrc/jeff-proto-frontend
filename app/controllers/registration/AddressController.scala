@@ -21,13 +21,13 @@ import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierA
 import forms.mappings.Address.form
 import models.Mode
 import navigation.Navigator
-import pages.{AddressPage, MobilePhonePage, ContactNumberPage, TradingNamePage}
+import pages.AddressPage
 import play.api.Logging
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepository
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
-import views.html.registration.{AddressView, MobileNumberView, TradingNameView}
+import views.html.registration.AddressView
 
 import scala.concurrent.{ExecutionContext, Future}
 
