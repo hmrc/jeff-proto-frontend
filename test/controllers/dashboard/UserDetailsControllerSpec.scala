@@ -18,7 +18,7 @@ package controllers.dashboard
 
 import base.SpecBase
 import controllers.actions.{DataRequiredActionImpl, FakeDataRetrievalAction, FakeIdentifierAction}
-import models.Registration.frontend.Address
+
 import play.api.inject.bind
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
