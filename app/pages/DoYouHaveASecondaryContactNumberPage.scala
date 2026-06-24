@@ -17,11 +17,27 @@
 package pages
 
 import forms.mappings.{DoYouHaveASecondaryContactNumber, DoYouHaveATradingName}
+import models.UserAnswers
 import play.api.libs.json.JsPath
+
+import scala.util.Try
+
 
 case object DoYouHaveASecondaryContactNumberPage extends QuestionPage[DoYouHaveASecondaryContactNumber] {
 
   override def path: JsPath = JsPath \ toString
 
   override def toString: String = "doYouHaveASecondaryContactNumber"
+
+  override def cleanup(
+                        value: Option[DoYouHaveASecondaryContactNumber],
+                        userAnswers: UserAnswers
+                      ): Try[UserAnswers] =
+    value match {
+      case Some(answer) if answer.value =>
+        super.cleanup(value, userAnswers)
+
+      case _ =>
+        userAnswers.remove(MobilePhonePage)
+    }
 }

@@ -17,11 +17,26 @@
 package pages
 
 import forms.mappings.DoYouHaveATradingName
+import models.UserAnswers
 import play.api.libs.json.JsPath
+
+import scala.util.Try
 
 case object DoYouHaveATradingNamePage extends QuestionPage[DoYouHaveATradingName] {
 
   override def path: JsPath = JsPath \ toString
 
   override def toString: String = "doYouHaveATradingName"
+
+  override def cleanup(
+                        value: Option[DoYouHaveATradingName],
+                        userAnswers: UserAnswers
+                      ): Try[UserAnswers] =
+    value match {
+      case Some(answer) if answer.value =>
+        super.cleanup(value, userAnswers)
+
+      case _ =>
+        userAnswers.remove(TradingNamePage)
+    }
 }

@@ -20,8 +20,8 @@ POST        /registration/contact-number                              controller
 POST        /registration/change-contact-number                       controllers.registration.ContactNumberController.onSubmit(mode: Mode = CheckMode)
 
 GET         /registration/do-you-have-a-secondary-contact-number           controllers.registration.DoYouHaveASecondaryContactNumberController.onPageLoad(mode: Mode = NormalMode)
-GET         /registration/do-you-have-a-secondary-contact-number           controllers.registration.DoYouHaveASecondaryContactNumberController.onPageLoad(mode: Mode = CheckMode)
-POST        /registration/do-you-have-a-secondary-contact-number    controllers.registration.DoYouHaveASecondaryContactNumberController.onSubmit(mode: Mode = NormalMode)
+GET         /registration/change-do-you-have-a-secondary-contact-number    controllers.registration.DoYouHaveASecondaryContactNumberController.onPageLoad(mode: Mode = CheckMode)
+POST        /registration/do-you-have-a-secondary-contact-number           controllers.registration.DoYouHaveASecondaryContactNumberController.onSubmit(mode: Mode = NormalMode)
 POST        /registration/change-do-you-have-a-secondary-contact-number    controllers.registration.DoYouHaveASecondaryContactNumberController.onSubmit(mode: Mode = CheckMode)
 
 GET         /registration/mobile-phone                                controllers.registration.MobileNumberController.onPageLoad(mode: Mode = NormalMode)
@@ -30,8 +30,8 @@ POST        /registration/change-mobile-phone                         controller
 POST        /registration/change-mobile-phone                         controllers.registration.MobileNumberController.onSubmit(mode: Mode = CheckMode)
 
 GET         /registration/do-you-have-a-trading-name                  controllers.registration.DoYouHaveATradingNameController.onPageLoad(mode: Mode = NormalMode)
-GET         /registration/do-you-have-a-trading-name                  controllers.registration.DoYouHaveATradingNameController.onPageLoad(mode: Mode = CheckMode)
-POST        /registration/change-do-you-have-a-trading-name           controllers.registration.DoYouHaveATradingNameController.onSubmit(mode: Mode = NormalMode)
+GET         /registration/change-do-you-have-a-trading-name           controllers.registration.DoYouHaveATradingNameController.onPageLoad(mode: Mode = CheckMode)
+POST        /registration/do-you-have-a-trading-name                  controllers.registration.DoYouHaveATradingNameController.onSubmit(mode: Mode = NormalMode)
 POST        /registration/change-do-you-have-a-trading-name           controllers.registration.DoYouHaveATradingNameController.onSubmit(mode: Mode = CheckMode)
 
 GET         /registration/trading-name                                controllers.registration.TradingNameController.onPageLoad(mode: Mode = NormalMode)

@@ -33,7 +33,7 @@ class Navigator @Inject()() {
     case ContactNumberPage => _ => registrationRoutes.DoYouHaveASecondaryContactNumberController.onPageLoad(NormalMode)
     case DoYouHaveASecondaryContactNumberPage => userAnswers => if(userAnswers.get(DoYouHaveASecondaryContactNumberPage).get.value) registrationRoutes.MobileNumberController.onPageLoad(NormalMode) else registrationRoutes.DoYouHaveATradingNameController.onPageLoad(NormalMode)
     case MobilePhonePage => _ => registrationRoutes.DoYouHaveATradingNameController.onPageLoad(NormalMode)
-    case DoYouHaveATradingNamePage => userAnswers => if(userAnswers.get(DoYouHaveATradingNamePage).get.value) registrationRoutes.TradingNameController.onPageLoad(NormalMode) else registrationRoutes.CompleteContactDetailsController.onPageLoad()
+    case DoYouHaveATradingNamePage => userAnswers => if(userAnswers.get(DoYouHaveATradingNamePage).get.value) registrationRoutes.TradingNameController.onPageLoad(NormalMode) else registrationRoutes.RegistrationCheckYourAnswersController.onPageLoad()
     case TradingNamePage => _ => registrationRoutes.RegistrationCheckYourAnswersController.onPageLoad()
     case CompleteContactDetailsPage => _ => registrationRoutes.CreateConfirmationController.onPageLoad()
     case UpdateTelephoneNumberPage => _ => dashboardRoutes.HomeController.onPageLoad()
@@ -42,7 +42,15 @@ class Navigator @Inject()() {
   }
 
   private val checkRouteMap: Page => UserAnswers => Call = {
-    case _ => _ => registrationRoutes.RegistrationCheckYourAnswersController.onPageLoad()
+    case _ => userAnswers =>
+      userAnswers match {
+        case userAnswers if userAnswers.get(DoYouHaveATradingNamePage).get.value =>
+          registrationRoutes.TradingNameController.onPageLoad(CheckMode)
+        case userAnswers if userAnswers.get(DoYouHaveASecondaryContactNumberPage).get.value =>
+          registrationRoutes.MobileNumberController.onPageLoad (CheckMode)
+        case _ => registrationRoutes.RegistrationCheckYourAnswersController.onPageLoad()
+      }
+
   }
 
   def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call = mode match {

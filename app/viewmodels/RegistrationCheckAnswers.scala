@@ -124,7 +124,7 @@ object RegistrationCheckAnswers {
           labelKey = "checkAnswers.secondNumber",
           value = secondNumber.mobilePhone,
           linkId = "second-contact-number",
-          href = Some(registrationRoutes.DoYouHaveASecondaryContactNumberController.onPageLoad(NormalMode)),
+          href = Some(registrationRoutes.DoYouHaveASecondaryContactNumberController.onPageLoad(CheckMode)),
           hiddenKey = "second-contact-number"
         )
       },
@@ -134,7 +134,7 @@ object RegistrationCheckAnswers {
           labelKey = "checkAnswers.tradingName",
           value = tradingName.value,
           linkId = "trading-name",
-          href = Some(registrationRoutes.DoYouHaveATradingNameController.onPageLoad(NormalMode)),
+          href = Some(registrationRoutes.DoYouHaveATradingNameController.onPageLoad(CheckMode)),
           hiddenKey = "trading-name"
         )
       }

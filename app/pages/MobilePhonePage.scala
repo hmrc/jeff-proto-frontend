@@ -23,5 +23,5 @@ case object MobilePhonePage extends QuestionPage[MobilePhone] {
 
   override def path: JsPath = JsPath \ toString
 
-  override def toString: String = "completeContactDetails"
+  override def toString: String = "MobilePhone"
 }
