@@ -16,27 +16,25 @@
 
 package forms.mappings
 
-import forms.mappings.EmailAddressValidation.isValidEmail
 import play.api.data.Form
 import play.api.data.Forms.mapping
 import play.api.libs.json.{Json, OFormat}
 
-final case class UpdateEmail(
-                                 email: String,
-                                 confirmedEmail: String
+final case class DoYouHaveASecondaryContactNumber(
+                                 value: Boolean,
                                )
 
-object UpdateEmail extends Mappings {
+object DoYouHaveASecondaryContactNumber extends Mappings {
 
-  implicit val format: OFormat[UpdateEmail] = Json.format[UpdateEmail]
+  implicit val format: OFormat[DoYouHaveASecondaryContactNumber] = Json.format[DoYouHaveASecondaryContactNumber]
 
-  def unapply(updateEmail: UpdateEmail): Option[(String, String)] = Some((updateEmail.email, updateEmail.confirmedEmail))
+  def unapply(secondaryContactNumber: DoYouHaveASecondaryContactNumber): Option[(Boolean)] = Some(secondaryContactNumber.value)
 
-  def form: Form[UpdateEmail] =
+  def form: Form[DoYouHaveASecondaryContactNumber] =
     Form(
       mapping(
-        "email" -> isValidEmail,
-        "confirmedEmail" -> TextMatching("email", "Email does not match"),
-      )(UpdateEmail.apply)(UpdateEmail.unapply)
+        "doYouHaveASecondaryContactNumber" ->
+          boolean("doYouHaveASecondaryContactNumber.error.required")
+      )(DoYouHaveASecondaryContactNumber.apply)(DoYouHaveASecondaryContactNumber.unapply)
     )
 }

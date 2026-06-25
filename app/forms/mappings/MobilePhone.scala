@@ -16,27 +16,24 @@
 
 package forms.mappings
 
-import forms.mappings.EmailAddressValidation.isValidEmail
 import play.api.data.Form
 import play.api.data.Forms.mapping
 import play.api.libs.json.{Json, OFormat}
 
-final case class UpdateEmail(
-                                 email: String,
-                                 confirmedEmail: String
+final case class MobilePhone(
+                                 mobilePhone: String,
                                )
 
-object UpdateEmail extends Mappings {
+object MobilePhone extends Mappings {
 
-  implicit val format: OFormat[UpdateEmail] = Json.format[UpdateEmail]
+  implicit val format: OFormat[MobilePhone] = Json.format[MobilePhone]
 
-  def unapply(updateEmail: UpdateEmail): Option[(String, String)] = Some((updateEmail.email, updateEmail.confirmedEmail))
+  def unapply(contactDetails: MobilePhone): Option[(String)] = Some(contactDetails.mobilePhone)
 
-  def form: Form[UpdateEmail] =
+  def form: Form[MobilePhone] =
     Form(
       mapping(
-        "email" -> isValidEmail,
-        "confirmedEmail" -> TextMatching("email", "Email does not match"),
-      )(UpdateEmail.apply)(UpdateEmail.unapply)
+        "mobileNumber" -> validatePhoneNumber,
+      )(MobilePhone.apply)(MobilePhone.unapply)
     )
 }

@@ -14,16 +14,14 @@
  * limitations under the License.
  */
 
-package forms.mappings
+package pages
 
-import play.api.data.Form
+import forms.mappings.{ContactDetails, MobilePhone}
+import play.api.libs.json.JsPath
 
-import javax.inject.Inject
+case object MobilePhonePage extends QuestionPage[MobilePhone] {
 
-class UpdateTelephoneNumberFormProvider @Inject() extends Mappings {
+  override def path: JsPath = JsPath \ toString
 
-  def apply(): Form[String] =
-    Form(
-      "telephone" -> validatePhoneNumber
-    )
+  override def toString: String = "MobilePhone"
 }

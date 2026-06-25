@@ -14,16 +14,8 @@
  * limitations under the License.
  */
 
-package forms.mappings
+package viewmodels
 
-import play.api.data.Form
+import play.api.mvc.Call
 
-import javax.inject.Inject
-
-class UpdateTelephoneNumberFormProvider @Inject() extends Mappings {
-
-  def apply(): Form[String] =
-    Form(
-      "telephone" -> validatePhoneNumber
-    )
-}
+final case class Link(href: Call, linkId: String, messageKey: String, visuallyHiddenMessageKey: Option[String] = None)

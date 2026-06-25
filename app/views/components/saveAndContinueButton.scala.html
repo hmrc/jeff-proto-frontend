@@ -1,5 +1,5 @@
-/*
- * Copyright 2026 HM Revenue & Customs
+@*
+ * Copyright 2024 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,18 +12,21 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+ *@
 
-package forms.mappings
+@import uk.gov.hmrc.govukfrontend.views.Aliases.{Button, Text}
+@import uk.gov.hmrc.govukfrontend.views.html.components.GovukButton
 
-import play.api.data.Form
+@this(govukButton: GovukButton)
 
-import javax.inject.Inject
+@(msg: String, isStartButton: Boolean = false, href: Option[String] = None)(implicit messages: Messages)
 
-class UpdateTelephoneNumberFormProvider @Inject() extends Mappings {
-
-  def apply(): Form[String] =
-    Form(
-      "telephone" -> validatePhoneNumber
-    )
-}
+@govukButton(
+ Button(
+  content = Text(messages(msg)),
+  attributes = Map("id" -> "continue"),
+  preventDoubleClick = Some(true),
+  href = None,
+  isStartButton = isStartButton
+ )
+)

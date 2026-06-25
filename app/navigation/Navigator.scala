@@ -28,15 +28,29 @@ import models.*
 class Navigator @Inject()() {
 
   private val normalRoutes: Page => UserAnswers => Call = {
-    case UpdateEmailPage => _ => dashboardRoutes.HomeController.onPageLoad()
+    case AddressPage => _ => registrationRoutes.EmailController.onPageLoad(NormalMode)
+    case EmailPage => _ => registrationRoutes.ContactNumberController.onPageLoad(NormalMode)
+    case ContactNumberPage => _ => registrationRoutes.DoYouHaveASecondaryContactNumberController.onPageLoad(NormalMode)
+    case DoYouHaveASecondaryContactNumberPage => userAnswers => if(userAnswers.get(DoYouHaveASecondaryContactNumberPage).get.value) registrationRoutes.MobileNumberController.onPageLoad(NormalMode) else registrationRoutes.DoYouHaveATradingNameController.onPageLoad(NormalMode)
+    case MobilePhonePage => _ => registrationRoutes.DoYouHaveATradingNameController.onPageLoad(NormalMode)
+    case DoYouHaveATradingNamePage => userAnswers => if(userAnswers.get(DoYouHaveATradingNamePage).get.value) registrationRoutes.TradingNameController.onPageLoad(NormalMode) else registrationRoutes.RegistrationCheckYourAnswersController.onPageLoad()
+    case TradingNamePage => _ => registrationRoutes.RegistrationCheckYourAnswersController.onPageLoad()
     case CompleteContactDetailsPage => _ => registrationRoutes.CreateConfirmationController.onPageLoad()
     case UpdateTelephoneNumberPage => _ => dashboardRoutes.HomeController.onPageLoad()
+    case UpdateEmailPage => _ => dashboardRoutes.HomeController.onPageLoad()
     case _ => _ => routes.IndexController.onPageLoad()
   }
 
-  private val checkRouteMap: Page => UserAnswers => Call = {
-    case _ => _ => routes.CheckYourAnswersController.onPageLoad()
-  }
+
+  private val checkRouteMap: Page => UserAnswers => Call =
+    _ => userAnswers =>
+      if (userAnswers.get(DoYouHaveATradingNamePage).exists(_.value)) {
+        registrationRoutes.TradingNameController.onPageLoad(CheckMode)
+      } else if (userAnswers.get(DoYouHaveASecondaryContactNumberPage).exists(_.value)) {
+        registrationRoutes.MobileNumberController.onPageLoad(CheckMode)
+      } else {
+        registrationRoutes.RegistrationCheckYourAnswersController.onPageLoad()
+      }
 
   def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call = mode match {
     case NormalMode =>
