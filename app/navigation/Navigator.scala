@@ -41,17 +41,16 @@ class Navigator @Inject()() {
     case _ => _ => routes.IndexController.onPageLoad()
   }
 
-  private val checkRouteMap: Page => UserAnswers => Call = {
-    case _ => userAnswers =>
-      userAnswers match {
-        case userAnswers if userAnswers.get(DoYouHaveATradingNamePage).get.value =>
-          registrationRoutes.TradingNameController.onPageLoad(CheckMode)
-        case userAnswers if userAnswers.get(DoYouHaveASecondaryContactNumberPage).get.value =>
-          registrationRoutes.MobileNumberController.onPageLoad (CheckMode)
-        case _ => registrationRoutes.RegistrationCheckYourAnswersController.onPageLoad()
-      }
 
-  }
+  private val checkRouteMap: Page => UserAnswers => Call =
+    _ => userAnswers =>
+      if (userAnswers.get(DoYouHaveATradingNamePage).exists(_.value)) {
+        registrationRoutes.TradingNameController.onPageLoad(CheckMode)
+      } else if (userAnswers.get(DoYouHaveASecondaryContactNumberPage).exists(_.value)) {
+        registrationRoutes.MobileNumberController.onPageLoad(CheckMode)
+      } else {
+        registrationRoutes.RegistrationCheckYourAnswersController.onPageLoad()
+      }
 
   def nextPage(page: Page, mode: Mode, userAnswers: UserAnswers): Call = mode match {
     case NormalMode =>
