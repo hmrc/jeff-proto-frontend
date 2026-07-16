@@ -14,6 +14,7 @@
  * limitations under the License.
  *@
 
+@import controllers.dashboard.routes as dashboardRoutes
 @import config.FrontendAppConfig
 @import models.requests.CcaAuthenticatedRequest
 @import forms.mappings.Address
@@ -47,22 +48,22 @@
             <tr class="govuk-table__row">
                 <th scope="row" class="govuk-table__header">@messages("userDetails.address")</th>
                 <td class="govuk-table__cell"> @request.individualAccount.details.addressId</td>
-                <td class="govuk-table__cell"><a class="govuk-link" aria-label="@messages("details.address")" href="">@messages("userDetails.update")</a></td>
+                <td class="govuk-table__cell"><a class="govuk-link" aria-label="@messages("details.address")" href="@dashboardRoutes.UpdateAddressController.onPageLoad().url">@messages("userDetails.update")</a></td>
             </tr>
             <tr class="govuk-table__row">
                 <th scope="row" class="govuk-table__header">@messages("userDetails.telephone")</th>
                 <td class="govuk-table__cell">@request.organisationAccount.phone</td>
-                <td class="govuk-table__cell"><a class="govuk-link" aria-label="@messages("userDetails.telephone")" href="">@messages("userDetails.update")</a></td>
+                <td class="govuk-table__cell"><a class="govuk-link" aria-label="@messages("userDetails.telephone")" href="@dashboardRoutes.UpdateTelephoneNumberController.onPageLoad().url">@messages("userDetails.update")</a></td>
             </tr>
             <tr class="govuk-table__row">
                 <th scope="row" class="govuk-table__header">@messages("userDetails.mobileNumber")</th>
                 <td class="govuk-table__cell">@request.individualAccount.details.phone2.getOrElse(messages("userDetails.notSet"))</td>
-                <td class="govuk-table__cell"><a class="govuk-link" aria-label="@messages("userDetails.mobileNumber")" href="">@messages("userDetails.update")</a></td>
+                <td class="govuk-table__cell"><a class="govuk-link" aria-label="@messages("userDetails.mobileNumber")" href="@dashboardRoutes.UpdateMobileNumberController.onPageLoad().url">@messages("userDetails.update")</a></td>
             </tr>
             <tr class="govuk-table__row">
                 <th scope="row" class="govuk-table__header">@messages("userDetails.email")</th>
                 <td class="govuk-table__cell">@request.organisationAccount.email</td>
-                <td class="govuk-table__cell"><a class="govuk-link" aria-label="@messages("userDetails.email")" href="">@messages("userDetails.update")</a></td>
+                <td class="govuk-table__cell"><a class="govuk-link" aria-label="@messages("userDetails.email")" href="@dashboardRoutes.UpdateEmailController.onPageLoad().url">@messages("userDetails.update")</a></td>
             </tr>
             <tr class="govuk-table__row">
                 <th scope="row" class="govuk-table__header">@messages("userDetails.tradingName")</th>

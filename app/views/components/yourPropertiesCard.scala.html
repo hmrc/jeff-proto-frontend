@@ -15,6 +15,7 @@
  *@
 
 @import models.propertyLinks.owner.OwnerAuthorisation
+@import controllers.propertyLinking.routes as propertyLinkingRoutes
 
 @(ownerPropertyLinkCount: Int, ownerAuthorisationOpt: Option[OwnerAuthorisation])(implicit messages: Messages)
 
@@ -36,7 +37,7 @@
             }
 
 
-            <li><a id="claim-property-link" class="govuk-link" href=''>@messages("home.yourPropertiesCard.claimNewProperty")</a></li>
+            <li><a id="claim-property-link" class="govuk-link" href='@propertyLinkingRoutes.FindPropertyController.onPageLoad().url'>@messages("home.yourPropertiesCard.claimNewProperty")</a></li>
 
         </ul>
     </div>

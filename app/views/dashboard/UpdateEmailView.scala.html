@@ -19,11 +19,11 @@
 @import models.propertyLinks.owner.OwnerAuthorisation
 
 @this(
-layout: templates.Layout,
-formHelper: FormWithCSRF,
-govukErrorSummary: GovukErrorSummary,
-govukInput: GovukInput,
-govukButton: GovukButton
+    layout: templates.Layout,
+    formHelper: FormWithCSRF,
+    govukErrorSummary: GovukErrorSummary,
+    govukInput: GovukInput,
+    govukButton: GovukButton
 )
 
 @(
@@ -75,7 +75,7 @@ govukButton: GovukButton
         @govukButton(Button(
         content = Text(messages("site.update"))
         ))
-        <a class="govuk-link" href="#">@messages("site.cancel")</a>
+        <a class="govuk-link" href="@dashboardRoutes.UserDetailsController.onPageLoad().url">@messages("site.cancel")</a>
     </div>
  }
 }

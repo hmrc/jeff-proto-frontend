@@ -36,7 +36,7 @@ class UserDetailsControllerSpec extends SpecBase {
 
       val request = FakeRequest(GET, "/user-details")
 
-      val result = controller.show()(request)
+      val result = controller.onPageLoad()(request)
 
       status(result) mustEqual OK
 

@@ -1,0 +1,209 @@
+@*
+ * Copyright 2026 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+@import views.html.components.Link
+@import models.properties.PostcodeSearchResult
+@import controllers.propertyLinking.routes as propertyLinkingRoutes
+
+@this(
+layout: templates.Layout,
+sortingComponent: views.html.components.Sorting,
+govukTable: GovukTable,
+govukSelect: GovukSelect,
+govukPagination: GovukPagination,
+linkComponent: Link,
+govukButton: GovukButton,
+govukDetails: GovukDetails
+)
+
+@(postcodeAddressSearchResult: PostcodeSearchResult,
+sortBy: String
+)(implicit request: Request[_], messages: Messages)
+
+@results = @{
+postcodeAddressSearchResult.results
+}
+
+@records = @{
+results.records
+}
+
+@currentPage = @{
+    results.current_page
+}
+
+@pageSize = @{
+results.page_size
+}
+
+@totalProperties = @{
+results.total_results
+}
+
+@totalPages = @{
+results.total_pages
+}
+
+@postcode = @{
+records.headOption
+.map(_.list_entry.addresses.property_full_address.takeRight(8))
+.getOrElse("")
+}
+
+@dropDownContent = {
+<p class="govuk-body">@messages("propertyResults.details.content.1")</p>
+
+<p class="govuk-body">
+    @linkComponent(
+    label = messages("propertyResults.details.link"),
+    hrefUrl = propertyLinkingRoutes.FindPropertyController.onPageLoad().url,
+    beforeLinkContent = messages("propertyResults.details.content.2"),
+    afterLinkContent = "."
+    )
+</p>
+
+<p class="govuk-body">
+    @messages("propertyResults.details.telephone")<br>
+    <strong>@messages("propertyResults.details.telephoneNumber")</strong>
+    @messages("propertyResults.details.england")<br>
+
+    <strong>@messages("propertyResults.details.telephoneNumber.welsh")</strong>
+    @messages("propertyResults.details.wales")
+</p>
+
+<p class="govuk-body">
+    @messages("propertyResults.details.openTime")<br>
+    <strong>@messages("propertyResults.details.openDaysAndTime")</strong>
+</p>
+}
+
+@layout(
+pageTitle = messages("propertyResults.title", postcode),
+fullWidth = true
+) {
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+
+        <h1 class="govuk-heading-l">
+            @messages("propertyResults.title", postcode)
+        </h1>
+
+        <h2 class="govuk-heading-l">
+            @messages("propertyResults.heading", totalProperties)
+        </h2>
+
+        @helper.form(
+        action = propertyLinkingRoutes.PropertyResultsController.onPageLoad(currentPage, sortBy),
+        Symbol("autoComplete") -> "off"
+        ) {
+        @sortingComponent(sortBy, propertyLinkingRoutes.PropertyResultsController.onPageLoad(currentPage, sortBy))
+        }
+
+        @defining(
+        records.zipWithIndex.map { case (record, i) =>
+        val index = (currentPage - 1) * pageSize + i
+        (record, index)
+        }
+        ) { indexedRecords =>
+
+        @govukTable(
+        Table(
+        head = Some(Seq(
+        HeadCell(Text(messages("propertyResults.address"))),
+        HeadCell(Text(messages("propertyResults.propertyId"))),
+        HeadCell(Text(messages("propertyResults.ref"))),
+        HeadCell(Text(messages("propertyResults.value"))),
+        HeadCell(Text(""))
+        )),
+        rows = indexedRecords.map { case (record, index) =>
+        Seq(
+        TableRow(
+        Text(record.list_entry.addresses.property_full_address)
+        ),
+        TableRow(
+        Text(record.list_entry.relevant_property.id)
+        ),
+        TableRow(
+        Text(record.list.id)
+        ),
+        TableRow(
+        Text(record.list_entry.valuation.value)
+        ),
+        TableRow(
+        HtmlContent(
+        linkComponent(
+        label = messages("propertyResults.select"),
+        hrefUrl = propertyLinkingRoutes.PropertyResultsController.selectProperty(index, sortBy).url
+        )
+        )
+        )
+        )
+        },
+        caption = None,
+        captionClasses = "",
+        firstCellIsHeader = false,
+        classes = "",
+        attributes = Map.empty
+        )
+        )
+        }
+
+        @if(totalPages > 1) {
+        @govukPagination(
+        Pagination(
+        items = Some(
+        (1 to totalPages).map { page =>
+        PaginationItem(
+        number = Some(page.toString),
+        href = propertyLinkingRoutes.PropertyResultsController.onPageLoad(page, sortBy).url,
+        current = Some(page == currentPage)
+        )
+        }
+        ),
+        previous =
+        if (results.has_previous)
+        Some(
+        PaginationLink(
+        href = propertyLinkingRoutes.PropertyResultsController.onPageLoad(currentPage - 1, sortBy).url
+        )
+        )
+        else None,
+        next =
+        if (results.has_next)
+        Some(
+        PaginationLink(
+        href = propertyLinkingRoutes.PropertyResultsController.onPageLoad(currentPage + 1, sortBy).url
+        )
+        )
+        else None
+        )
+        )
+        }
+
+
+
+        <div class="govuk-!-margin-top-6">
+            @linkComponent(
+            label = messages("propertyResults.searchAgain"),
+            hrefUrl = propertyLinkingRoutes.FindPropertyController.onPageLoad().url
+            )
+        </div>
+
+    </div>
+</div>
+}

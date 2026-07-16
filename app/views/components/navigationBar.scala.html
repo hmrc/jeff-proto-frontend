@@ -15,6 +15,7 @@
  *@
 
 @import play.i18n.Lang
+@import controllers.dashboard.routes as dashboardRoutes
 @import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcLanguageSelectHelper
 @import models.requests.CcaAuthenticatedRequest
 @import models.requests.AuthenticatedRequestHelper._
@@ -24,13 +25,13 @@
 @(backUri: Option[String], showHomeLink: Boolean = true)(implicit request: RequestHeader, messages: Messages)
 
 @homeLink = @{
-    ""
+    dashboardRoutes.HomeController.onPageLoad()
 }
 @signOutLink = @{
     ""
 }
 @yourDetailsLink = @{
-    ""
+    dashboardRoutes.UserDetailsController.onPageLoad()
 }
 
 @noAccountLinks = {

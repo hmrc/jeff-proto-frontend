@@ -28,7 +28,10 @@ class FrontendAppConfig @Inject() (configuration: Configuration, servicesConfig:
   val host: String    = configuration.get[String]("host")
   val appName: String = configuration.get[String]("appName")
   val bridgeIntegration: String = servicesConfig.baseUrl("bridge-integration")
-
+  val timeToLive: String = servicesConfig.getString("time-to-live.time")
+  val bridgeIntegrationStubHost: String = servicesConfig.getString("microservice.services.bridge-integration-stub.host")
+  val vmvAddressLookup: String = servicesConfig.baseUrl("vmv")
+  val useStubForVmv: Boolean = configuration.get[Boolean]("features.vmvPropertyLookupTestEnabled")
   private val contactHost = configuration.get[String]("contact-frontend.host")
   private val contactFormServiceIdentifier = "jeff-proto-frontend"
 

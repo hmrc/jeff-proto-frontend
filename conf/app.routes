@@ -59,14 +59,29 @@ GET         /unauthorised                                controllers.Unauthorise
 GET         /complete-contact-details                    controllers.registration.CompleteContactDetailsController.onPageLoad()
 POST        /complete-contact-details                    controllers.registration.CompleteContactDetailsController.onSubmit()
 
-GET         /update-email                                controllers.dashboard.UpdateEmailController.onPageLoad()
-POST        /update-email                                controllers.dashboard.UpdateEmailController.onSubmit()
-
 GET         /create-confirmation                         controllers.registration.CreateConfirmationController.onPageLoad()
 
 GET         /home                                        controllers.dashboard.HomeController.onPageLoad()
 
-GET         /user-details                                controllers.dashboard.UserDetailsController.show()
+GET         /user-details                                controllers.dashboard.UserDetailsController.onPageLoad()
+
+GET        /update-address                               controllers.dashboard.UpdateAddressController.onPageLoad()
+POST       /update-address                               controllers.dashboard.UpdateAddressController.onSubmit()
 
 GET        /update-telephone-number                      controllers.dashboard.UpdateTelephoneNumberController.onPageLoad()
 POST       /update-telephone-number                      controllers.dashboard.UpdateTelephoneNumberController.onSubmit()
+
+GET        /update-mobile-number                         controllers.dashboard.UpdateMobileNumberController.onPageLoad()
+POST       /update-mobile-number                         controllers.dashboard.UpdateMobileNumberController.onSubmit()
+
+GET         /update-email                                controllers.dashboard.UpdateEmailController.onPageLoad()
+POST        /update-email                                controllers.dashboard.UpdateEmailController.onSubmit()
+
+GET         /find-property                               controllers.propertyLinking.FindPropertyController.onPageLoad()
+POST        /find-property                               controllers.propertyLinking.FindPropertyController.onSubmit()
+
+GET        /property-results                             controllers.propertyLinking.PropertyResultsController.onPageLoad(page: Int ?= 1 ,sortBy: String ?= "AddressASC")
+POST       /property-results                             controllers.propertyLinking.PropertyResultsController.sort
+GET        /property-results/select/:index               controllers.propertyLinking.PropertyResultsController.selectProperty(index: Int, sortBy: String ?= "AddressASC")
+
+GET         /no-results-found                            controllers.propertyLinking.NoResultsFoundController.onPageLoad()

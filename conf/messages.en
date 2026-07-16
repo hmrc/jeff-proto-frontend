@@ -161,13 +161,6 @@ home.helpAndGuidanceCard.link3=Help with appointing and managing agents
 home.helpAndGuidanceCard.link4=How business properties are valued
 home.helpAndGuidanceCard.link5=More help with business rates
 
-#updateEmail
-updateEmail.title = Update email
-updateEmail.hint = This should be your preferred contact email address for your business.
-updateBusinessEmail.title = Update business email
-updateEmail.confirm = Confirm email
-updateEmail.email.help = This should be your preferred contact email address for your business.
-
 # User Details
 userDetails.title=Your details
 userDetails.weUseYourDetails = We use your contact details to send you correspondence related to the service and your account.
@@ -189,3 +182,43 @@ updateTelephoneNumber.error.required = Enter your updateTelephoneNumber
 updateTelephoneNumber.error.wholeNumber = Enter your updateTelephoneNumber using whole numbers
 updateTelephoneNumber.error.outOfRange = UpdateTelephoneNumber must be between {0} and {1}
 updateTelephoneNumber.change.hidden = UpdateTelephoneNumber
+
+updateMobileNumber.title = Update secondary contact number
+updateMobileNumber.heading = Secondary contact number
+updateMobile.hint = This should be your preferred secondary contact number
+updateMobileNumber.checkYourAnswersLabel = Update secondary contact number
+updateMobileNumber.error.nonNumeric = Enter your secondary contact number using numbers
+updateMobileNumber.error.required = Enter your updated secondary contact number
+updateMobileNumber.error.wholeNumber = Enter your secondary contact number using whole numbers
+updateMobileNumber.error.outOfRange = Updated secondary contact number must be between {0} and {1}
+updateMobileNumber.change.hidden = UpdateSecondaryContactNumber
+
+#updateEmail
+updateEmail.title = Update email
+updateEmail.hint = This should be your preferred contact email address for your business.
+updateBusinessEmail.title = Update business email
+updateEmail.confirm = Confirm email
+updateEmail.email.help = This should be your preferred contact email address for your business.
+
+#findAProperty
+findAProperty.title= Find a property
+findAProperty.postcode.label=Postcode
+findAProperty.postcode.hint= This must be a valid postcode such as TF1 1AA
+findAProperty.button = Find address
+findAProperty.postcode.empty.error=Enter postcode
+findAProperty.postcode.invalid.error=Enter a full UK postcode
+findAProperty.property.invalid.error=Property name or number must be 100 characters or less
+
+#propertyResults
+propertyResults.title = Property Results
+propertyResults.heading = Matching Results: {0}
+results.sortBy.label = Sort by:
+propertyResults.address = Address
+propertyResults.propertyId    = Property ID
+propertyResults.ref = reference
+propertyResults.value = Value
+propertyResults.select = Select
+results.sortBy.apply = Apply
+results.sortBy.addressDesc = Address Descending
+results.sortBy.addressAsc = Address Ascending
+propertyResults.searchAgain = Search again
