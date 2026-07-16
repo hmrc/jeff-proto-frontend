@@ -102,14 +102,7 @@ class PropertyResultsController @Inject()(
 
           sortedRecords.lift(index) match {
             case Some(selected) =>
-              // TODO: Use selected when ready.
-              // Example available values:
-              // selected.list_entry.relevant_property.id
               // selected.list_entry.addresses.property_full_address
-              // selected.list.collection_authority.ons_code
-              // selected.list.id
-              // selected.list_entry.valuation.value
-
               Redirect(routes.FindPropertyController.onPageLoad())
 
             case None =>
