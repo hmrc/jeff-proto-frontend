@@ -56,7 +56,7 @@ classes = "govuk-label--m"
     @govukButton(Button(
     content = Text(messages("site.update"))
     ))
-    <a class="govuk-link" href="#">@messages("site.cancel")</a>
+    <a class="govuk-link" href="@dashboardRoutes.UserDetailsController.onPageLoad().url">@messages("site.cancel")</a>
 </div>
 }
 }

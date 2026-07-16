@@ -36,7 +36,9 @@ class Navigator @Inject()() {
     case DoYouHaveATradingNamePage => userAnswers => if(userAnswers.get(DoYouHaveATradingNamePage).get.value) registrationRoutes.TradingNameController.onPageLoad(NormalMode) else registrationRoutes.RegistrationCheckYourAnswersController.onPageLoad()
     case TradingNamePage => _ => registrationRoutes.RegistrationCheckYourAnswersController.onPageLoad()
     case CompleteContactDetailsPage => _ => registrationRoutes.CreateConfirmationController.onPageLoad()
+    case UpdateAddressPage => _ => dashboardRoutes.HomeController.onPageLoad()
     case UpdateTelephoneNumberPage => _ => dashboardRoutes.HomeController.onPageLoad()
+    case UpdateMobileNumberPage => _ => dashboardRoutes.HomeController.onPageLoad()
     case UpdateEmailPage => _ => dashboardRoutes.HomeController.onPageLoad()
     case _ => _ => routes.IndexController.onPageLoad()
   }

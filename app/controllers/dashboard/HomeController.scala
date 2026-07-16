@@ -19,7 +19,6 @@ package controllers.dashboard
 import com.google.inject.Inject
 import connectors.BridgeIntegrationConnector
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
-import forms.mappings.ContactDetails.form
 import models.UserCounts
 import models.accounts.*
 import models.dashboard.Persons
@@ -27,7 +26,6 @@ import models.propertyLinks.PropertyLinkStatus
 import models.propertyLinks.owner.OwnerAuthorisation
 import models.requests.CcaAuthenticatedRequest
 import navigation.Navigator
-import pages.CompleteContactDetailsPage
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
 import repositories.SessionRepository

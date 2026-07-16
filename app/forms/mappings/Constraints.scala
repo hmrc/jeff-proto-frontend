@@ -20,9 +20,20 @@ import config.CurrencyFormatter
 import play.api.data.validation.{Constraint, Invalid, Valid}
 
 import java.time.LocalDate
+import java.util.regex.Pattern
 
 trait Constraints {
 
+  val postcodeRegexPattern: Pattern = Pattern.compile("^([A-Za-z][A-Ha-hJ-Yj-y]?[0-9][A-Za-z0-9]? ?[0-9][A-Za-z]{2}|[Gg][Ii][Rr] ?0[Aa]{2})$")
+  
+  protected def isNotEmpty(value: String, errorKey: String): Constraint[String] =
+    Constraint {
+      case str if str.trim.nonEmpty =>
+        Valid
+      case _ =>
+        Invalid(errorKey, value)
+    }
+  
   protected def firstError[A](constraints: Constraint[A]*): Constraint[A] =
     Constraint {
       input =>
