@@ -66,6 +66,11 @@ email.hint = This should be your preferred contact email address for your busine
 email.confirm = Confirm email
 email.email.help = This should be your preferred contact email address for your business.
 
+submitEmail.title = Confirm your email address
+submitEmail.heading = Confirm your email address
+submitEmail.youHave = You have told us to use the email address
+submitEmail.youMust = You must continue to save your contact preference.
+
 #ContactNumber
 phoneNumber.title = What is your preferred contact number?
 phoneNumber.hint =  This can be a mobile or landline number, for example 07700 900 982 or 01632 960 001.

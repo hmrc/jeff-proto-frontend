@@ -17,15 +17,20 @@
 package controllers.registration
 
 import com.google.inject.Inject
+import config.FrontendAppConfig
+import connectors.EmailVerificationConnector
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
 import forms.mappings.Email.form
-import models.Mode
+import models.emailVerification.{EmailVerificationDetails, EmailVerificationRequest, VerificationDetails}
+import models.{Mode, NormalMode, UserAnswers}
 import navigation.Navigator
 import pages.EmailPage
 import play.api.Logging
-import play.api.i18n.{I18nSupport, MessagesApi}
+import play.api.i18n.{I18nSupport, Messages, MessagesApi}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import repositories.SessionRepository
+import services.EmailVerificationService
+import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 import views.html.registration.EmailView
 
@@ -38,8 +43,11 @@ class EmailController @Inject()(
                                  requireData: DataRequiredAction,
                                  sessionRepository: SessionRepository,
                                  navigator: Navigator,
+                                 emailVerificationService: EmailVerificationService,
+                                 emailVerificationConnector: EmailVerificationConnector,
+                                 config: FrontendAppConfig,
                                  val controllerComponents: MessagesControllerComponents,
-                                 view: EmailView
+                                 view: EmailView,
                                )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport with Logging {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) {
@@ -56,11 +64,88 @@ class EmailController @Inject()(
       form.bindFromRequest().fold(
         formWithErrors =>
           Future.successful(BadRequest(view(formWithErrors, mode))),
-        value =>
-          for {
-            updatedAnswers <- Future.fromTry(request.userAnswers.set(EmailPage, value))
-            _ <- sessionRepository.set(updatedAnswers)
-          } yield Redirect(navigator.nextPage(EmailPage, mode, updatedAnswers))
+        value => {
+
+          Future.fromTry(request.userAnswers.set(EmailPage, value)).flatMap { updatedAnswers =>
+            emailVerificationService
+              .retrieveAddressStatus(
+                VerificationDetails("0000000026936462"),
+                value.email,
+                updatedAnswers
+              )
+              .flatMap {
+                case Left(error) =>
+                  logger.warn(
+                    "[EmailController][onSubmit] Error retrieving email verification status: " +
+                      s"${error.code} and message: ${error.message}"
+                  )
+                  Future.successful(
+                    Redirect(controllers.routes.JourneyRecoveryController.onPageLoad())
+                  )
+
+                case Right(verificationDetails) =>
+                  logger.warn(Console.RED + s"Reached Right branch: $verificationDetails" + Console.RESET)
+                  emailVerificationService.redirectIfLocked(
+                    handleRedirect(
+                      updatedAnswers,
+                      verificationDetails,
+                      "0000000026936462"
+                    ),
+                    verificationDetails.isLocked
+                  )
+              }
+          }
+        }
       )
   }
+
+
+  private def handleRedirect(
+                              updatedAnswers: UserAnswers,
+                              details: EmailVerificationDetails,
+                              credId: String
+                            )(implicit hc: HeaderCarrier, messages: Messages) = {
+
+    sessionRepository.set(updatedAnswers)
+      .flatMap { _ =>
+        if (details.isVerified) {
+          Future.successful(
+            Redirect(navigator.nextPage(EmailPage, NormalMode, updatedAnswers))
+          )
+        } else {
+          startEmailVerification(details.emailAddress, credId)
+        }
+      }
+      .recover {
+        case e =>
+          logger.warn(
+            s"[EnterEmailController][handleRedirect] Error setting user answers: ${e.getMessage}"
+          )
+          Redirect(controllers.routes.JourneyRecoveryController.onPageLoad())
+      }
+  }
+
+
+  private def startEmailVerification(email: String, credId: String)
+                                    (implicit hc: HeaderCarrier, messages: Messages) = {
+
+    val evRequest = emailVerificationService.createRequest(credId, email)
+    handoffToEmailVerification(evRequest)
+  }
+
+  private def handoffToEmailVerification(evRequest: EmailVerificationRequest)
+                                        (implicit hc: HeaderCarrier) = {
+
+    emailVerificationConnector.startEmailVerification(evRequest).map {
+      case Left(error) =>
+        logger.warn("[EnterEmailController][handoffToEmailVerification] Error starting email verification with status: " +
+          s"${error.code} and message: ${error.message}")
+        Redirect(controllers.routes.JourneyRecoveryController.onPageLoad())
+      case Right(redirectUri) =>
+        val redirectTo = s"${config.emailVerificationRedirectBaseUrl}${redirectUri.redirectUri}"
+        Redirect(redirectTo)
+    }
+  }
+
+
 }

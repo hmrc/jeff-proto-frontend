@@ -71,7 +71,6 @@ class HomeController @Inject()(
   def buildDemoRequest(request: Request[AnyContent], persons: Persons): CcaAuthenticatedRequest[AnyContent] = {
     val email = "test@gmail.com"
     val item = persons.persons.head.items.head
-
     CcaAuthenticatedRequest(
       organisationAccount = GroupAccount(
         id = 123L,
@@ -110,7 +109,6 @@ class HomeController @Inject()(
         case Some(persons) =>
           implicit val demoRequest: CcaAuthenticatedRequest[AnyContent] =
             buildDemoRequest(request, persons)
-
           Ok(
             view(
               userCounts = userCounts,
@@ -118,7 +116,6 @@ class HomeController @Inject()(
               ownerAuthorisationOpt = Some(ownerAuthorisation)
             )
           )
-
         case None =>
           InternalServerError("Failed to get ratepayer info")
       }

@@ -14,6 +14,9 @@ GET         /registration/change-email                                controller
 POST        /registration/email                                       controllers.registration.EmailController.onSubmit(mode: Mode = NormalMode)
 POST        /registration/change-email                                controllers.registration.EmailController.onSubmit(mode: Mode = CheckMode)
 
+GET         /registration/submit-email                                controllers.registration.SubmitEmailController.onPageLoad()
+POST        /registration/submit-email                                controllers.registration.SubmitEmailController.onSubmit()
+
 GET         /registration/contact-number                              controllers.registration.ContactNumberController.onPageLoad(mode: Mode = NormalMode)
 GET         /registration/change-contact-number                       controllers.registration.ContactNumberController.onPageLoad(mode: Mode = CheckMode)
 POST        /registration/contact-number                              controllers.registration.ContactNumberController.onSubmit(mode: Mode = NormalMode)

@@ -29,6 +29,8 @@ class FrontendAppConfig @Inject() (configuration: Configuration, servicesConfig:
   val appName: String = configuration.get[String]("appName")
   val bridgeIntegration: String = servicesConfig.baseUrl("bridge-integration")
 
+  val bridgeIntegrationStubHost: String = configuration.get[String]("microservice.services.bridge-integration-stub.host")
+
   private val contactHost = configuration.get[String]("contact-frontend.host")
   private val contactFormServiceIdentifier = "jeff-proto-frontend"
 
@@ -45,6 +47,9 @@ class FrontendAppConfig @Inject() (configuration: Configuration, servicesConfig:
   val languageTranslationEnabled: Boolean =
     configuration.get[Boolean]("features.welsh-translation")
 
+  val emailVerificationEnabled: Boolean =
+    configuration.get[Boolean]("features.email-verification")
+
   def languageMap: Map[String, Lang] = Map(
     "en" -> Lang("en"),
     "cy" -> Lang("cy")
@@ -54,4 +59,30 @@ class FrontendAppConfig @Inject() (configuration: Configuration, servicesConfig:
   val countdown: Int = configuration.get[Int]("timeout-dialog.countdown")
 
   val cacheTtl: Long = configuration.get[Int]("mongodb.timeToLiveInSeconds")
+
+  val startEmailVerificationContinueUrl: String = s"$host/jeff-proto-frontend/registration/submit-email"
+  val startEmailVerificationBackUrl: String = s"$host/jeff-proto-frontend/registration/email"
+
+  private val startEmailVerificationJourneyBaseUrl: String = servicesConfig.baseUrl("email-verification")
+  private val startEmailVerificationJourneyUrlSuffix: String =
+    configuration.get[String]("microservice.services.email-verification.url.startEmailVerificationJourney")
+
+  val startEmailVerificationJourneyUrl: String =
+    s"$startEmailVerificationJourneyBaseUrl$startEmailVerificationJourneyUrlSuffix"
+
+  val emailVerificationRedirectBaseUrl: String =
+    configuration.get[String]("microservice.services.email-verification-frontend.prefix")
+
+  val emailVerificationGetVerifiedEmailsPrefix: String =
+    configuration.get[String]("microservice.services.email-verification.url.getVerifiedEmails")
+
+  def getVerifiedEmailsUrl(credId: String): String = {
+    if (emailVerificationEnabled) {
+      s"$startEmailVerificationJourneyBaseUrl$emailVerificationGetVerifiedEmailsPrefix/$credId"
+    } else {
+      s"$bridgeIntegrationStubHost/bridge-integration-stub/verification-status/$credId"
+    }
+
+  }
+
 }
