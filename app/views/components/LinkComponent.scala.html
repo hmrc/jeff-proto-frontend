@@ -1,5 +1,5 @@
 @*
- * Copyright 2024 HM Revenue & Customs
+ * Copyright 2025 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,19 +14,13 @@
  * limitations under the License.
  *@
 
-@import uk.gov.hmrc.govukfrontend.views.Aliases.{Button, Text}
-@import uk.gov.hmrc.govukfrontend.views.html.components.GovukButton
+@this()
 
-@this(govukButton: GovukButton)
+@(label: String, hrefUrl: String, beforeLinkContent:String = "", afterLinkContent: String = "", target: String = "")
 
-@(msg: String, showSaveProgressButton: Boolean = true, isStartButton: Boolean = false, disabled: Boolean = false)(implicit messages: Messages)
-
-@govukButton(
-Button(
-content = Text(messages(msg)),
-attributes = Map("id" -> "continue"),
-preventDoubleClick = Some(true),
-isStartButton = isStartButton,
-disabled = disabled
-)
-)
+<p class="govuk-body">
+    @beforeLinkContent
+    <a href="@hrefUrl" class="govuk-link" target=@target>
+        @label
+    </a>@afterLinkContent
+</p>

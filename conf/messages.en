@@ -194,3 +194,6 @@ updateTelephoneNumber.error.required = Enter your updateTelephoneNumber
 updateTelephoneNumber.error.wholeNumber = Enter your updateTelephoneNumber using whole numbers
 updateTelephoneNumber.error.outOfRange = UpdateTelephoneNumber must be between {0} and {1}
 updateTelephoneNumber.change.hidden = UpdateTelephoneNumber
+
+uploadEvidence.title = Upload Evidence
+uploadEvidence.p1 = The file must be a PDF or image (PNG or JPG) and be less than 25MB.

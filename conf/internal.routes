@@ -1,0 +1,2 @@
+
+POST       /upscan-callback                     controllers.internal.UploadCallbackController.callback()

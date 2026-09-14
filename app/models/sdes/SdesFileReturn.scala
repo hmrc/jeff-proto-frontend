@@ -1,5 +1,5 @@
-@*
- * Copyright 2024 HM Revenue & Customs
+/*
+ * Copyright 2023 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,21 +12,20 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@import uk.gov.hmrc.govukfrontend.views.Aliases.{Button, Text}
-@import uk.gov.hmrc.govukfrontend.views.html.components.GovukButton
+package models.sdes
 
-@this(govukButton: GovukButton)
+import play.api.libs.json.{Json, OFormat}
 
-@(msg: String, showSaveProgressButton: Boolean = true, isStartButton: Boolean = false, disabled: Boolean = false)(implicit messages: Messages)
-
-@govukButton(
-Button(
-content = Text(messages(msg)),
-attributes = Map("id" -> "continue"),
-preventDoubleClick = Some(true),
-isStartButton = isStartButton,
-disabled = disabled
+case class SdesFileReturn(
+  attachmentUrl: String,
+  attachmentId: String,
+  attachmentSha256Checksum: String,
+  attachmentContentType: String,
+  nrSubmissionId: String
 )
-)
+
+object SdesFileReturn {
+  implicit val format: OFormat[SdesFileReturn] = Json.format[SdesFileReturn]
+}

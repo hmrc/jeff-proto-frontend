@@ -20,12 +20,11 @@
 @import components.*
 
 @this(
-layout: templates.Layout,
-formHelper: FormWithCSRF,
-govukButton: GovukButton,
-h1: Heading,
-p: Paragraph,
-link: Link
+ layout: templates.Layout,
+ formHelper: FormWithCSRF,
+ govukButton: GovukButton,
+ h1: Heading,
+ p: Paragraph
 )
 
 @(email: String)(implicit request: Request[_], messages: Messages)
