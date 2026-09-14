@@ -73,3 +73,8 @@ GET         /user-details                                controllers.dashboard.U
 
 GET        /update-telephone-number                      controllers.dashboard.UpdateTelephoneNumberController.onPageLoad()
 POST       /update-telephone-number                      controllers.dashboard.UpdateTelephoneNumberController.onSubmit()
+
+GET        /evidence-upload                              controllers.challenge.EvidenceUploadController.onPageLoad(errorCode: Option[String], evidenceType: Option[String])
+GET        /uploaded-evidence                            controllers.challenge.UploadedEvidenceController.onPageLoad(uploadId: models.upscan.UploadId)
+GET        /remove-uploaded-file                         controllers.challenge.RemoveUploadedEvidenceController.onPageLoad
+GET        /confirm-remove-file                          controllers.challenge.RemoveUploadedEvidenceController.remove

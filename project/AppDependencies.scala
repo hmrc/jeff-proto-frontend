@@ -6,12 +6,12 @@ object AppDependencies {
   private val hmrcMongoVersion = "2.7.0"
   private val enumeratumVersion = "1.9.4"
 
-  val compile = Seq(
-    play.sbt.PlayImport.ws,
-    "uk.gov.hmrc"       %% "play-frontend-hmrc-play-30"    % "12.8.0",
-    "uk.gov.hmrc"       %% "bootstrap-frontend-play-30"    % bootstrapVersion,
-    "uk.gov.hmrc.mongo" %% "hmrc-mongo-play-30"            % hmrcMongoVersion,
-    "com.beachape"      %% "enumeratum-play"               % enumeratumVersion,
+  val compile: Seq[ModuleID] = Seq(
+    "uk.gov.hmrc.objectstore" %% "object-store-client-play-30"      % "2.5.0",
+    "uk.gov.hmrc"             %% "play-frontend-hmrc-play-30"       % "12.8.0",
+    "uk.gov.hmrc"             %% "bootstrap-frontend-play-30"       % bootstrapVersion,
+    "uk.gov.hmrc.mongo"       %% "hmrc-mongo-play-30"               % hmrcMongoVersion,
+    "com.beachape"            %% "enumeratum-play"                  % enumeratumVersion,
 
   )
 

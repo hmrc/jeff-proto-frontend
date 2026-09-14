@@ -44,7 +44,8 @@
     fullWidth: Boolean = false,
     showNavigation: Boolean = false,
     backUri: Option[String] = None,
-    showHomeLink: Boolean = true
+    showHomeLink: Boolean = true,
+    additionalHeadBlock: Option[Html] = None,
 )(contentBlock: Html)(implicit rh: RequestHeader, messages: Messages)
 
 
@@ -59,6 +60,7 @@
 
 @head = {
     @stylesheets()
+    @additionalHeadBlock
     @if(timeout) {
         @hmrcTimeoutDialog(TimeoutDialog(
             timeout             = Some(appConfig.timeout),

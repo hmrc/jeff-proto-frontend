@@ -17,6 +17,7 @@
 package config
 
 import com.google.inject.{Inject, Singleton}
+import models.sdes.Algorithm
 import play.api.Configuration
 import play.api.i18n.Lang
 import play.api.mvc.RequestHeader
@@ -75,6 +76,16 @@ class FrontendAppConfig @Inject() (configuration: Configuration, servicesConfig:
 
   val emailVerificationGetVerifiedEmailsPrefix: String =
     configuration.get[String]("microservice.services.email-verification.url.getVerifiedEmails")
+
+  lazy val propertyLinkingHost: String = servicesConfig.getString("microservice.services.jeff-proto-frontend.host")
+  val upscanHost: String = servicesConfig.baseUrl("upscan")
+  val callbackEndpointTarget: String = servicesConfig.getString("upscan.callback-endpoint")
+  val timeToLive: String = servicesConfig.getString("time-to-live.time")
+  val internalAuthToken: String = servicesConfig.getString("internal-auth.token")
+  val internalAuthService: String = servicesConfig.baseUrl("internal-auth")
+  val sdesChecksumAlgorithm: Algorithm = Algorithm(servicesConfig.getString("sdes.checksum-algorithm"))
+  val uploadRedirectTargetBase: String = servicesConfig.getString("upscan.upload-redirect-target-base")
+  val jeffFrontendUrl: String = s"$propertyLinkingHost/jeff-proto-frontend"
 
   def getVerifiedEmailsUrl(credId: String): String = {
     if (emailVerificationEnabled) {

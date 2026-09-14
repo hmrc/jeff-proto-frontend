@@ -1,5 +1,5 @@
-@*
- * Copyright 2023 HM Revenue & Customs
+/*
+ * Copyright 2025 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,12 +12,10 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@this()
+package models
 
-@(id: String, text: String, href: String, classes: String = "govuk-link govuk-body", newTabText: Option[String] = None)
+import play.api.mvc.Call
 
-<a class="@classes" href="@href" @if(newTabText.isDefined){ target="_blank" rel="noopener noreferrer" } id="@id">
-    @text @newTabText.map(_.toString)
-</a>
+final case class Link(href: Call, linkId: String, messageKey: String, visuallyHiddenMessageKey: Option[String] = None)
