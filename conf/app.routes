@@ -74,6 +74,17 @@ GET         /user-details                                controllers.dashboard.U
 GET        /update-telephone-number                      controllers.dashboard.UpdateTelephoneNumberController.onPageLoad()
 POST       /update-telephone-number                      controllers.dashboard.UpdateTelephoneNumberController.onSubmit()
 
+
+GET        /start                                        controllers.StartController.onPageLoad()
+GET        /search                                       controllers.SearchController.onPageLoad()
+POST       /search                                       controllers.SearchController.onSubmit()
+GET        /search-results/:postcode                     controllers.SearchResultsController.onPageLoad(postcode: String)
+GET        /property-details/:reference                  controllers.PropertyDetailsController.onPageLoad(reference: String)
+GET        /self-cert                                    controllers.SelfCertController.onPageLoad(mode: Mode = NormalMode)
+GET        /self-cert                                    controllers.SelfCertController.onPageLoad(mode: Mode = CheckMode)
+POST       /self-cert                                   controllers.SelfCertController.onSubmit(mode: Mode = NormalMode)
+POST       /self-cert                                   controllers.SelfCertController.onSubmit(mode: Mode = CheckMode)
+
 GET        /evidence-upload                              controllers.challenge.EvidenceUploadController.onPageLoad(errorCode: Option[String], evidenceType: Option[String])
 GET        /uploaded-evidence                            controllers.challenge.UploadedEvidenceController.onPageLoad(uploadId: models.upscan.UploadId)
 GET        /remove-uploaded-file                         controllers.challenge.RemoveUploadedEvidenceController.onPageLoad

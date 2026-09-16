@@ -16,12 +16,7 @@
 
 package models.upscan
 
-import play.api.data.{FieldMapping, Form, FormError}
-import play.api.data.Forms.of
-import play.api.data.format.Formatter
 import play.api.libs.json.{Format, Json}
-
-import javax.inject.Inject
 
 case class UploadForm(
                        href  : String,

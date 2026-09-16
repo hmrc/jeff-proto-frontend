@@ -14,19 +14,10 @@
  * limitations under the License.
  */
 
-package models.Registration.frontend
+package models
 
-import play.api.libs.json.Format
-
-enum AgentStatus {
-  case AGENT, AUTONOMOUS
-}
-
-object AgentStatus {
-
-  implicit val format: Format[AgentStatus] =
-    implicitly[Format[String]].bimap(
-      str => AgentStatus.valueOf(str),
-      _.toString
-    )
-}
+case class SearchResult(
+                         address: String,
+                         councilTaxBand: String,
+                         localAuthority: String
+                       )

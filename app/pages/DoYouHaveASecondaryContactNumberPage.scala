@@ -16,7 +16,7 @@
 
 package pages
 
-import forms.mappings.{DoYouHaveASecondaryContactNumber, DoYouHaveATradingName}
+import forms.mappings.DoYouHaveASecondaryContactNumber
 import models.UserAnswers
 import play.api.libs.json.JsPath
 

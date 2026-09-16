@@ -16,7 +16,7 @@
 
 package pages
 
-import forms.mappings.{ContactDetails, UpdateEmail}
+import forms.mappings.UpdateEmail
 import play.api.libs.json.JsPath
 
 case object UpdateEmailPage extends QuestionPage[UpdateEmail] {

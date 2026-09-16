@@ -195,5 +195,130 @@ updateTelephoneNumber.error.wholeNumber = Enter your updateTelephoneNumber using
 updateTelephoneNumber.error.outOfRange = UpdateTelephoneNumber must be between {0} and {1}
 updateTelephoneNumber.change.hidden = UpdateTelephoneNumber
 
+start.heading = Review your Council Tax band
+start.title = Review your Council Tax band
+
+start.welsh = This page is also available in
+start.welsh.link = Welsh (Cymraeg).
+
+start.whatThisServiceIsFor = What this service is for
+
+start.guidance = This service is provided by the Valuation Office (VO)
+
+start.youCanUseThisServiceTo = You can use this service to:
+
+start.bullet.1 = find out the Council Tax band of any home in England and Wales
+start.bullet.2 = check and update the information we have about your home
+start.bullet.3 = let us know if you think your Council Tax band is wrong
+
+start.role.heading = The role of the VO
+
+start.role.paragraph = The Valuation Office (VO) puts every home in England and Wales into a group called a 'band'. These bands range from A to I, where band A is the lowest. The VO does not set the amount of Council Tax you pay, send out bills, or collect payments.
+
+start.button = Start now
+
+start.vo.intro = The VO:
+
+start.vo.bullet.1 = values every home in England and Wales and puts them into one of the nine Council Tax bands (Bands A to I)
+start.vo.bullet.2 = keeps the list of homes on the Council Tax list up to date
+start.vo.bullet.3 = handles challenges from people who think their band is wrong
+
+start.vo.responsible = The VO is responsible for valuing your home and looks at what homes were selling for on that date, not what it is worth today. The band your home is in is based on how much it was worth on 1 April 2003. Find out more about
+
+start.vo.link = Council Tax band ranges.
+start.vo.link.url = #
+
+start.council.heading = The role of your local council
+
+start.council.intro = Council Tax is a tax on every home in England and Wales. The money raised by this tax helps pay for things like schools, rubbish collection, emergency services and social care.
+
+start.council.list.intro = Your local council:
+
+start.council.bullet.1 = works out the amount of Council Tax to charge for each band every year
+start.council.bullet.2 = sends you your Council Tax bill and collects payments
+start.council.bullet.3 = decides how your council tax is spent, for example paying for schools, rubbish collections and emergency services
+
+start.council.outro = Your local council decides how much Council Tax you pay, based on the band your home is in. Your local council is also responsible for any Council Tax discounts, exemptions or reductions you can apply for, such as the Single Person Discount.
+
+start.council.link = Council Tax
+start.council.link.url = #
+
+start.before.heading = Before you start
+
+start.before.bullet.1 = to check the Council tax band of a property in England and Wales, you will need a valid postcode and address details for the property
+start.before.bullet.2.pre = to view and manage the details of your property, you will need a Government
+start.before.bullet.2.link = One Login account
+start.before.bullet.2.url = #
+
+start.before.bullet.3.pre = to request a review of your Council Tax band, you may be asked to provide evidence and additional information. You should have this prepared before you start. Find out more about the process of
+start.before.bullet.3.link = requesting a band review
+start.before.bullet.3.url = #
+
+start.accessibility.pre = If you are unable to use this online service, find out more about
+start.accessibility.link = other ways you can access this service
+start.accessibility.url = #
+
+service.name = Review your Council Tax band
+
+enterPostcode.title = Enter the property postcode
+enterPostcode.heading = Enter the property postcode
+enterPostcode.guidance = You can search for any home in England and Wales by entering the postcode.
+enterPostcode.hint = For example CF5 4GP
+enterPostcode.noPostcode = I do not know the postcode
+
+searchResults.title = Search results for {0}
+searchResults.heading = Search results for {0}
+searchResults.vo.link = Valuation Office (VO)
+searchResults.vo.text = puts every home in England into a group called a 'band', based on the value of the property on 1 April 1991.
+searchResults.band.info = The lowest band is 'A', and the highest band is 'H'.
+searchResults.showing = Showing 1 - {0} results
+searchResults.lastUpdated = Last updated on 15 July 2026
+searchResults.table.address = Address
+searchResults.table.band = Council Tax band
+searchResults.table.authority = Local authority
+searchResults.cannotFind = I cannot find my property
+searchResults.commercialUse = This data is not to be used for commercial use
+searchResults.searchAgain = Search again
+searchResults.postcode = Enter a postcode
+searchResults.search = Search
+searchResults.otherOptions = Other search options
+
+propertyDetails.title=Property details
+propertyDetails.informationFor=Information for:
+propertyDetails.publicInformation=Public information
+propertyDetails.publicInformationHint=Anybody can view this information
+propertyDetails.band=Council Tax band
+propertyDetails.band.hint=The current band for the property. This is based on the property value on 01 April 1991.
+propertyDetails.effectiveFrom=With effect from
+propertyDetails.effectiveFrom.hint= The date the current band came into effect.
+propertyDetails.localAuthority=Local Council
+propertyDetails.localAuthority.hint=The Local Council sets the amount of Council Tax you pay each year, based on the band.
+propertyDetails.reference=Local Council reference number
+propertyDetails.reference.hint=A reference number for the property.
+propertyDetails.improvementIndicator=Improvement indicator
+propertyDetails.improvementIndicator.hint=If a property has been improved or extended since it was placed in a Council Tax band, a Yes will be shown. This means the band will be reviewed and may increase following the sale of the property.
+propertyDetails.mixedUse=Mixed-use property
+propertyDetails.mixedUse.hint=A property which is used as a home and a business. For example, a working farm or a flat above a shop.
+propertyDetails.courtCode=Court code
+propertyDetails.courtCode.hint=If the Council Tax band has been reviewed by a Valuation Tribunal or High Court, a court code will be shown.
+propertyDetails.councilTaxBands=Council Tax bands England
+propertyDetails.codeMeaning=What the codes mean
+propertyDetails.beforeContinue=Before you continue
+propertyDetails.youCan=You can:
+propertyDetails.previousBands=View previous Council Tax bands for this property
+propertyDetails.actionOne=tell us if you think the Council Tax band is wrong if you pay Council Tax for the property, or have permission from the Council Tax payer
+propertyDetails.actionTwo=ask us to remove the property from the Council Tax list if it has been demolished, is derelict, or is undergoing major renovation
+propertyDetails.signIn=You'll need a GOV Gateway or GOV.UK One Login Account to sign in.
+propertyDetails.print=Print this page
+propertyDetails.searchAnother=Search for another property
+
+selfCert.title=Are you responsible for the Council Tax on this property?
+selfCert.heading=Are you responsible for the Council Tax on this property?
+selfCert.guidance=Only people who are responsible for the Council Tax on this property have permission to view more details. This includes people acting for someone who is responsible.
+selfCert.warning=If you are not responsible for the Council Tax on this property, you should not continue with this service.
+selfCert.actingForSomeone=I am acting for someone who is responsible
+selfCert.permissionHint=You will need their written permission
+selfCert.error.required=Select whether you are responsible for the Council Tax on this property
+
 uploadEvidence.title = Upload Evidence
 uploadEvidence.p1 = The file must be a PDF or image (PNG or JPG) and be less than 25MB.

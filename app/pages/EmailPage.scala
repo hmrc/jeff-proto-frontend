@@ -16,7 +16,7 @@
 
 package pages
 
-import forms.mappings.{ContactDetails, Email}
+import forms.mappings.Email
 import play.api.libs.json.JsPath
 
 

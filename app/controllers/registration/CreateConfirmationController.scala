@@ -19,11 +19,9 @@ package controllers.registration
 import com.google.inject.Inject
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
 import forms.mappings.ContactDetails.form
-import navigation.Navigator
 import pages.CompleteContactDetailsPage
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import repositories.SessionRepository
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 import views.html.CreateConfirmationView
 
@@ -34,8 +32,6 @@ class CreateConfirmationController @Inject()(
                                               identify: IdentifierAction,
                                               getData: DataRetrievalAction,
                                               requireData: DataRequiredAction,
-                                              sessionRepository: SessionRepository,
-                                              navigator: Navigator,
                                               val controllerComponents: MessagesControllerComponents,
                                               view: CreateConfirmationView
                                             )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport {

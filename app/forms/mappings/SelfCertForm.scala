@@ -14,19 +14,27 @@
  * limitations under the License.
  */
 
-package models.Registration.frontend
+package forms.mappings
 
-import play.api.libs.json.Format
+import play.api.data.Form
+import play.api.data.Forms.mapping
+import play.api.libs.json.{Json, OFormat}
 
-enum AgentStatus {
-  case AGENT, AUTONOMOUS
-}
+final case class SelfCertForm(
+                                 value: Boolean,
+                               )
 
-object AgentStatus {
+object SelfCertForm extends Mappings {
 
-  implicit val format: Format[AgentStatus] =
-    implicitly[Format[String]].bimap(
-      str => AgentStatus.valueOf(str),
-      _.toString
+  implicit val format: OFormat[SelfCertForm] = Json.format[SelfCertForm]
+
+  def unapply(selfCert: SelfCertForm): Option[Boolean] = Some(selfCert.value)
+
+  def form: Form[SelfCertForm] =
+    Form(
+      mapping(
+        "selfCert" ->
+          boolean("selfCert.error.required")
+      )(SelfCertForm.apply)(SelfCertForm.unapply)
     )
 }
