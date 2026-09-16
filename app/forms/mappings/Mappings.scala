@@ -20,12 +20,20 @@ import models.Enumerable
 import play.api.data.{FieldMapping, FormError, Forms, Mapping}
 import play.api.data.Forms.{of, text}
 import play.api.i18n.Messages
-import play.api.data.validation.{Constraint, Constraints}
+import play.api.data.validation.{Constraint, Constraints, Valid}
 
 import java.time.LocalDate
 
 trait Mappings extends Formatters with Constraints {
-
+  
+  protected def firstError[A](constraints: Constraint[A]*): Constraint[A] =
+    Constraint { input =>
+      constraints
+        .map(_.apply(input))
+        .find(_ != Valid)
+        .getOrElse(Valid)
+    }
+  
   protected def text(errorKey: String = "error.required", args: Seq[String] = Seq.empty): FieldMapping[String] =
     of(stringFormatter(errorKey, args))
 

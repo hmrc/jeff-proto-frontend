@@ -28,113 +28,112 @@ startNowButton: startNowButton
 pageTitle    = titleNoForm(messages("start.title")),
 showBackLink = false
 ) {
+    <h1 class="govuk-heading-xl">
+        @messages("start.heading")
+    </h1>
 
-<h1 class="govuk-heading-xl">
-    @messages("start.heading")
-</h1>
-
-<div class="govuk-inset-text">
-    @messages("start.welsh")
-    <a class="govuk-link" href="#">@messages("start.welsh.link")</a>
-    </a>
-</div>
-
-<h2 class="govuk-heading-l">
-    @messages("start.whatThisServiceIsFor")
-</h2>
-
-<p class="govuk-body">
-    @messages("start.guidance")
-</p>
-
-<p class="govuk-body">
-    @messages("start.youCanUseThisServiceTo")
-</p>
-
-<ul class="govuk-list govuk-list--bullet">
-    <li>@messages("start.bullet.1")</li>
-    <li>@messages("start.bullet.2")</li>
-    <li>@messages("start.bullet.3")</li>
-</ul>
-
-<h2 class="govuk-heading-m">
-    @messages("start.role.heading")
-</h2>
-
-<p class="govuk-body">
-    @messages("start.role.paragraph")
-</p>
-
-<p class="govuk-body">
-    @messages("start.vo.intro")
-</p>
-
-<ul class="govuk-list govuk-list--bullet">
-    <li>@messages("start.vo.bullet.1")</li>
-    <li>@messages("start.vo.bullet.2")</li>
-    <li>@messages("start.vo.bullet.3")</li>
-</ul>
-
-<p class="govuk-body">
-    @messages("start.vo.responsible")
-    <a class="govuk-link" href="#">@messages("start.vo.link")</a>
-    </a>
-</p>
-
-<h2 class="govuk-heading-l">
-    @messages("start.council.heading")
-</h2>
-
-<p class="govuk-body">
-    @messages("start.council.intro")
-</p>
-
-<p class="govuk-body">
-    @messages("start.council.list.intro")
-</p>
-
-<ul class="govuk-list govuk-list--bullet">
-    <li>@messages("start.council.bullet.1")</li>
-    <li>@messages("start.council.bullet.2")</li>
-    <li>@messages("start.council.bullet.3")</li>
-</ul>
-
-<p class="govuk-body">
-    @messages("start.council.outro")
-    <a class="govuk-link" href="#">@messages("start.council.link")</a>
-    </a>
-</p>
-
-<h2 class="govuk-heading-l">
-    @messages("start.before.heading")
-</h2>
-
-<ul class="govuk-list govuk-list--bullet">
-    <li>
-        @messages("start.before.bullet.1")
-    </li>
-
-    <li>
-        @messages("start.before.bullet.2.pre")
-
-        <a class="govuk-link" href="#">@messages("start.before.bullet.2.link")
+    <div class="govuk-inset-text">
+        @messages("start.welsh")
+        <a class="govuk-link" href="#">@messages("start.welsh.link")</a>
         </a>
-    </li>
+    </div>
 
-    <li>
-        @messages("start.before.bullet.3.pre")
-        <a class="govuk-link" href="#">@messages("start.before.bullet.3.link")
+    <h2 class="govuk-heading-l">
+        @messages("start.whatThisServiceIsFor")
+    </h2>
+
+    <p class="govuk-body">
+        @messages("start.guidance")
+    </p>
+
+    <p class="govuk-body">
+        @messages("start.youCanUseThisServiceTo")
+    </p>
+
+    <ul class="govuk-list govuk-list--bullet">
+        <li>@messages("start.bullet.1")</li>
+        <li>@messages("start.bullet.2")</li>
+        <li>@messages("start.bullet.3")</li>
+    </ul>
+
+    <h2 class="govuk-heading-m">
+        @messages("start.role.heading")
+    </h2>
+
+    <p class="govuk-body">
+        @messages("start.role.paragraph")
+    </p>
+
+    <p class="govuk-body">
+        @messages("start.vo.intro")
+    </p>
+
+    <ul class="govuk-list govuk-list--bullet">
+        <li>@messages("start.vo.bullet.1")</li>
+        <li>@messages("start.vo.bullet.2")</li>
+        <li>@messages("start.vo.bullet.3")</li>
+    </ul>
+
+    <p class="govuk-body">
+        @messages("start.vo.responsible")
+        <a class="govuk-link" href="#">@messages("start.vo.link")</a>
         </a>
-    </li>
-</ul>
+    </p>
 
-<p class="govuk-body">
-    @messages("start.accessibility.pre")
-    <a class="govuk-link" href="#">@messages("start.accessibility.link")
-    </a>.
-</p>
+    <h2 class="govuk-heading-l">
+        @messages("start.council.heading")
+    </h2>
 
-@startNowButton(
-registrationRoutes.AddressController.onPageLoad(NormalMode).url
-)
+    <p class="govuk-body">
+        @messages("start.council.intro")
+    </p>
+
+    <p class="govuk-body">
+        @messages("start.council.list.intro")
+    </p>
+
+    <ul class="govuk-list govuk-list--bullet">
+        <li>@messages("start.council.bullet.1")</li>
+        <li>@messages("start.council.bullet.2")</li>
+        <li>@messages("start.council.bullet.3")</li>
+    </ul>
+
+    <p class="govuk-body">
+        @messages("start.council.outro")
+        <a class="govuk-link" href="#">@messages("start.council.link")</a>
+        </a>
+    </p>
+
+    <h2 class="govuk-heading-l">
+        @messages("start.before.heading")
+    </h2>
+
+    <ul class="govuk-list govuk-list--bullet">
+        <li>
+            @messages("start.before.bullet.1")
+        </li>
+
+        <li>
+            @messages("start.before.bullet.2.pre")
+
+            <a class="govuk-link" href="#">@messages("start.before.bullet.2.link")
+            </a>
+        </li>
+
+        <li>
+            @messages("start.before.bullet.3.pre")
+            <a class="govuk-link" href="#">@messages("start.before.bullet.3.link")
+            </a>
+        </li>
+    </ul>
+
+    <p class="govuk-body">
+        @messages("start.accessibility.pre")
+        <a class="govuk-link" href="#">@messages("start.accessibility.link")
+        </a>.
+    </p>
+
+    @startNowButton(
+        routes.SearchController.onPageLoad().url
+    )
 }

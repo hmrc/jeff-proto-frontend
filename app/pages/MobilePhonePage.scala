@@ -16,7 +16,7 @@
 
 package pages
 
-import forms.mappings.{ContactDetails, MobilePhone}
+import forms.mappings.MobilePhone
 import play.api.libs.json.JsPath
 
 case object MobilePhonePage extends QuestionPage[MobilePhone] {

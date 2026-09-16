@@ -258,5 +258,67 @@ start.accessibility.pre = If you are unable to use this online service, find out
 start.accessibility.link = other ways you can access this service
 start.accessibility.url = #
 
+service.name = Review your Council Tax band
+
+enterPostcode.title = Enter the property postcode
+enterPostcode.heading = Enter the property postcode
+enterPostcode.guidance = You can search for any home in England and Wales by entering the postcode.
+enterPostcode.hint = For example CF5 4GP
+enterPostcode.noPostcode = I do not know the postcode
+
+searchResults.title = Search results for {0}
+searchResults.heading = Search results for {0}
+searchResults.vo.link = Valuation Office (VO)
+searchResults.vo.text = puts every home in England into a group called a 'band', based on the value of the property on 1 April 1991.
+searchResults.band.info = The lowest band is 'A', and the highest band is 'H'.
+searchResults.showing = Showing 1 - {0} results
+searchResults.lastUpdated = Last updated on 15 July 2026
+searchResults.table.address = Address
+searchResults.table.band = Council Tax band
+searchResults.table.authority = Local authority
+searchResults.cannotFind = I cannot find my property
+searchResults.commercialUse = This data is not to be used for commercial use
+searchResults.searchAgain = Search again
+searchResults.postcode = Enter a postcode
+searchResults.search = Search
+searchResults.otherOptions = Other search options
+
+propertyDetails.title=Property details
+propertyDetails.informationFor=Information for:
+propertyDetails.publicInformation=Public information
+propertyDetails.publicInformationHint=Anybody can view this information
+propertyDetails.band=Council Tax band
+propertyDetails.band.hint=The current band for the property. This is based on the property value on 01 April 1991.
+propertyDetails.effectiveFrom=With effect from
+propertyDetails.effectiveFrom.hint= The date the current band came into effect.
+propertyDetails.localAuthority=Local Council
+propertyDetails.localAuthority.hint=The Local Council sets the amount of Council Tax you pay each year, based on the band.
+propertyDetails.reference=Local Council reference number
+propertyDetails.reference.hint=A reference number for the property.
+propertyDetails.improvementIndicator=Improvement indicator
+propertyDetails.improvementIndicator.hint=If a property has been improved or extended since it was placed in a Council Tax band, a Yes will be shown. This means the band will be reviewed and may increase following the sale of the property.
+propertyDetails.mixedUse=Mixed-use property
+propertyDetails.mixedUse.hint=A property which is used as a home and a business. For example, a working farm or a flat above a shop.
+propertyDetails.courtCode=Court code
+propertyDetails.courtCode.hint=If the Council Tax band has been reviewed by a Valuation Tribunal or High Court, a court code will be shown.
+propertyDetails.councilTaxBands=Council Tax bands England
+propertyDetails.codeMeaning=What the codes mean
+propertyDetails.beforeContinue=Before you continue
+propertyDetails.youCan=You can:
+propertyDetails.previousBands=View previous Council Tax bands for this property
+propertyDetails.actionOne=tell us if you think the Council Tax band is wrong if you pay Council Tax for the property, or have permission from the Council Tax payer
+propertyDetails.actionTwo=ask us to remove the property from the Council Tax list if it has been demolished, is derelict, or is undergoing major renovation
+propertyDetails.signIn=You'll need a GOV Gateway or GOV.UK One Login Account to sign in.
+propertyDetails.print=Print this page
+propertyDetails.searchAnother=Search for another property
+
+selfCert.title=Are you responsible for the Council Tax on this property?
+selfCert.heading=Are you responsible for the Council Tax on this property?
+selfCert.guidance=Only people who are responsible for the Council Tax on this property have permission to view more details. This includes people acting for someone who is responsible.
+selfCert.warning=If you are not responsible for the Council Tax on this property, you should not continue with this service.
+selfCert.actingForSomeone=I am acting for someone who is responsible
+selfCert.permissionHint=You will need their written permission
+selfCert.error.required=Select whether you are responsible for the Council Tax on this property
+
 uploadEvidence.title = Upload Evidence
 uploadEvidence.p1 = The file must be a PDF or image (PNG or JPG) and be less than 25MB.

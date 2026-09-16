@@ -16,8 +16,6 @@
 
 package controllers.registration
 
-import config.FrontendAppConfig
-import connectors.EmailVerificationConnector
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
 import models.NormalMode
 import models.emailVerification.VerificationDetails

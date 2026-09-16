@@ -16,7 +16,7 @@
 
 package pages
 
-import forms.mappings.{ContactDetails, MobilePhone, TradingName}
+import forms.mappings.TradingName
 import play.api.libs.json.JsPath
 
 case object TradingNamePage extends QuestionPage[TradingName] {

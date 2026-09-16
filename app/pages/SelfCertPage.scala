@@ -14,19 +14,18 @@
  * limitations under the License.
  */
 
-package models.Registration.frontend
+package pages
 
-import play.api.libs.json.Format
+import forms.mappings.*
+import models.UserAnswers
+import play.api.libs.json.JsPath
 
-enum AgentStatus {
-  case AGENT, AUTONOMOUS
+import scala.util.Try
+
+case object SelfCertPage extends QuestionPage[SelfCertForm] {
+
+  override def path: JsPath = JsPath \ toString
+
+  override def toString: String = "selfCert"
 }
 
-object AgentStatus {
-
-  implicit val format: Format[AgentStatus] =
-    implicitly[Format[String]].bimap(
-      str => AgentStatus.valueOf(str),
-      _.toString
-    )
-}

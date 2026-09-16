@@ -17,19 +17,18 @@
 package repositories
 
 import com.mongodb.client.model.Indexes.descending
+import config.FrontendAppConfig
+import models.upscan.{Reference, UploadDetails, UploadId, UploadStatus}
 import org.bson.types.ObjectId
-import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Updates.{combine, set}
-import org.mongodb.scala.SingleObservableFuture
 import org.mongodb.scala.bson.BsonDocument
-import org.mongodb.scala.model.{FindOneAndUpdateOptions, IndexModel, IndexOptions, Indexes, Updates}
+import org.mongodb.scala.model.Filters.equal
+import org.mongodb.scala.model.Updates.set
+import org.mongodb.scala.model.*
 import play.api.libs.functional.syntax.*
 import play.api.libs.json.*
 import uk.gov.hmrc.mongo.MongoComponent
-import models.upscan.{Reference, UploadDetails, UploadId, UploadStatus}
 import uk.gov.hmrc.mongo.play.json.formats.{MongoFormats, MongoJavatimeFormats}
 import uk.gov.hmrc.mongo.play.json.{Codecs, PlayMongoRepository}
-import config.FrontendAppConfig
 
 import java.net.{URI, URL}
 import java.time.Instant

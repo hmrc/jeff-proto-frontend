@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-package models.Registration.frontend
+package forms.mappings
 
-import play.api.libs.json.Format
+import play.api.data.Form
 
-enum AgentStatus {
-  case AGENT, AUTONOMOUS
-}
+class EnterPostcodeFormProvider extends Mappings {
 
-object AgentStatus {
-
-  implicit val format: Format[AgentStatus] =
-    implicitly[Format[String]].bimap(
-      str => AgentStatus.valueOf(str),
-      _.toString
+  def apply(): Form[String] =
+    Form(
+      "value" -> text("enterPostcode.error.required")
+        .verifying(
+          firstError(
+            nonEmpty("enterPostcode.error.required")
+          )
+        )
     )
 }

@@ -16,9 +16,9 @@
 
 package models.upscan
 
+import models.upscan.UploadStatus.UploadedSuccessfully
 import org.bson.types.ObjectId
 import play.api.mvc.QueryStringBindable
-import models.upscan.UploadStatus.{Failed, InProgress, UploadedSuccessfully}
 
 import java.net.URL
 import java.time.Instant

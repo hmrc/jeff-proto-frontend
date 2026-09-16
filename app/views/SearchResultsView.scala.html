@@ -1,0 +1,145 @@
+@*
+ * Copyright 2026 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import models.SearchResult
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+@import views.html.components._
+
+@this(
+layout: templates.Layout,
+govukTable: GovukTable,
+govukInput: GovukInput,
+govukButton: GovukButton,
+formHelper: FormWithCSRF
+)
+
+@(
+postcode: String,
+results: Seq[SearchResult],
+searchForm: Form[String]
+)(implicit request: Request[_], messages: Messages)
+
+@layout(
+pageTitle = titleNoForm(messages("searchResults.title", postcode))
+) {
+
+<h1 class="govuk-heading-xl">
+    @messages("searchResults.heading", postcode)
+</h1>
+
+<p class="govuk-body">
+    #
+    @messages("searchResults.vo.link")
+    </a>
+    @messages("searchResults.vo.text")
+</p>
+
+<p class="govuk-body">
+    @messages("searchResults.band.info")
+</p>
+
+<div class="govuk-grid-row govuk-!-margin-bottom-4">
+    <div class="govuk-grid-column-one-half">
+        <p class="govuk-body">
+            @messages("searchResults.showing", results.size)
+        </p>
+    </div>
+
+    <div class="govuk-grid-column-one-half govuk-!-text-align-right">
+        <p class="govuk-body">
+            @messages("searchResults.lastUpdated")
+        </p>
+    </div>
+</div>
+
+@govukTable(
+Table(
+head = Some(Seq(
+HeadCell(content = Text("Address")),
+HeadCell(content = Text("Council Tax band")),
+HeadCell(content = Text("Local authority"))
+)),
+rows = results.map { result =>
+Seq(
+TableRow(
+content = HtmlContent(
+s"""#${result.address}</a>"""
+)
+),
+TableRow(content = Text(result.councilTaxBand)),
+TableRow(
+content = HtmlContent(
+s"""#${result.localAuthority}</a>"""
+)
+)
+)
+}
+)
+)
+
+<nav class="govuk-pagination govuk-!-margin-bottom-6" aria-label="Pagination">
+    <ul class="govuk-pagination__list">
+        <li class="govuk-pagination__item govuk-pagination__item--current">
+            #1</a>
+        </li>
+        <li class="govuk-pagination__item">
+            #2</a>
+        </li>
+        <li class="govuk-pagination__item">
+            #3</a>
+        </li>
+    </ul>
+</nav>
+
+<p class="govuk-body">
+    #
+    @messages("searchResults.cannotFind")
+    </a>
+</p>
+
+<p class="govuk-body">
+    @messages("searchResults.commercialUse")
+</p>
+
+<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+<h2 class="govuk-heading-l">
+    @messages("searchResults.searchAgain")
+</h2>
+
+@formHelper(action = controllers.routes.SearchController.onSubmit()) {
+
+@govukInput(
+InputViewModel(
+field = searchForm("value"),
+label = LabelViewModel(
+messages("searchResults.postcode")
+)
+)
+.withCssClass("govuk-input--width-10")
+)
+
+@govukButton(
+ButtonViewModel(messages("searchResults.search"))
+)
+}
+
+<p class="govuk-body">
+    #
+    @messages("searchResults.otherOptions")
+    </a>
+</p>
+}

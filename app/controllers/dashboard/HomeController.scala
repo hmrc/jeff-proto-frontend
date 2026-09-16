@@ -41,8 +41,6 @@ class HomeController @Inject()(
                                 identify: IdentifierAction,
                                 getData: DataRetrievalAction,
                                 requireData: DataRequiredAction,
-                                sessionRepository: SessionRepository,
-                                navigator: Navigator,
                                 val controllerComponents: MessagesControllerComponents,
                                 view: HomeView,
                                 connector: BridgeIntegrationConnector

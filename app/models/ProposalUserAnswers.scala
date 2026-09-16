@@ -16,9 +16,8 @@
 
 package models
 
-import play.api.libs.json.{Format, Json}
-import play.api.mvc.{Action, ControllerComponents}
 import models.sdes.*
+import play.api.libs.json.{Format, Json}
 
 case class ProposalUserAnswers (credId: String,
                                 objectStoreFile: Option[File] = None,
