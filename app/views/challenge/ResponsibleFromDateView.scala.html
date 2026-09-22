@@ -1,0 +1,110 @@
+@*
+ * Copyright 2026 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import controllers.challenge.routes
+@import java.time.LocalDate
+@import play.api.data.Form
+@import play.api.i18n.Messages
+@import play.api.mvc.Request
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+@import viewmodels.govuk.all._
+@import views.html.components._
+
+@this(
+layout: templates.Layout,
+formHelper: FormWithCSRF,
+govukErrorSummary: GovukErrorSummary,
+govukDateInput: GovukDateInput,
+govukButton: GovukButton
+)
+
+@(form: Form[LocalDate])(implicit request: Request[_], messages: Messages)
+
+@layout(
+pageTitle = title(
+form,
+messages("responsibleFromDate.title")
+)
+) {
+
+@formHelper(
+action = routes.ResponsibleFromDateController.onSubmit()
+) {
+
+@if(form.hasErrors) {
+@govukErrorSummary(
+ErrorSummaryViewModel(form)
+)
+}
+
+<h1 class="govuk-heading-xl">
+ @messages("responsibleFromDate.heading")
+</h1>
+
+<p class="govuk-body govuk-hint">
+ @messages("responsibleFromDate.guidance")
+</p>
+
+<p class="govuk-body govuk-hint">
+ @messages("responsibleFromDate.hint")
+</p>
+
+@govukDateInput(
+DateInput(
+id = "value",
+namePrefix = Some("value"),
+fieldset = Some(
+Fieldset(
+legend = Some(
+Legend(
+content = Text(
+messages("responsibleFromDate.dateInputLegend")
+),
+classes = "govuk-visually-hidden"
+)
+)
+)
+),
+items = Seq(
+InputItem(
+name = "day",
+classes = "govuk-input--width-2",
+value = form("value.day").value,
+label = Some("Day")
+),
+InputItem(
+name = "month",
+classes = "govuk-input--width-2",
+value = form("value.month").value,
+label = Some("Month")
+),
+InputItem(
+name = "year",
+classes = "govuk-input--width-4",
+value = form("value.year").value,
+label = Some("Year")
+)
+)
+)
+)
+
+@govukButton(
+ButtonViewModel(
+content = Text(messages("site.continue"))
+)
+)
+}
+}

@@ -1,0 +1,214 @@
+@*
+ * Copyright 2026 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import controllers.challenge as challengeRoutes
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+@import views.html.components._
+
+@this(
+layout: templates.Layout,
+formHelper: FormWithCSRF,
+govukButton: GovukButton
+)
+
+@()(implicit request: Request[_], messages: Messages)
+
+@layout(
+pageTitle = titleNoForm(messages("formalReview.title"))
+) {
+
+<h1 class="govuk-heading-xl">
+ @messages("formalReview.heading")
+</h1>
+
+<p class="govuk-body">
+ @messages("formalReview.selection.before")
+ <strong>
+  @messages("formalReview.selection.answer")
+ </strong>
+</p>
+
+<p class="govuk-body">
+ @messages("formalReview.introduction")
+</p>
+
+<div class="govuk-inset-text">
+ @messages("formalReview.changeSelection")
+</div>
+
+<div class="govuk-button-group">
+ @formHelper(
+ action = challengeRoutes.routes.FormalReviewController.onContinue()
+ ) {
+ @govukButton(
+ ButtonViewModel(
+ content = Text(messages("site.continue"))
+ )
+ )
+ }
+
+ @challengeRoutes.routes.FormalReviewController.onPageLoad()
+ @messages("site.back")
+ </a>
+</div>
+
+<h2 class="govuk-heading-l">
+ @messages("formalReview.howItWorks.heading")
+</h2>
+
+<table class="govuk-table">
+ <caption class="govuk-table__caption govuk-visually-hidden">
+  @messages("formalReview.table.caption")
+ </caption>
+
+ <tbody class="govuk-table__body">
+ <tr class="govuk-table__row">
+  <th
+          scope="row"
+          class="govuk-table__header govuk-!-width-one-quarter"
+  >
+   @messages("formalReview.whatItIs.heading")
+  </th>
+
+  <td class="govuk-table__cell">
+   @messages("formalReview.whatItIs.content")
+  </td>
+ </tr>
+
+ <tr class="govuk-table__row">
+  <th
+          scope="row"
+          class="govuk-table__header govuk-!-width-one-quarter"
+  >
+   @messages("formalReview.whatItIsFor.heading")
+  </th>
+
+  <td class="govuk-table__cell">
+   @messages("formalReview.whatItIsFor.content")
+  </td>
+ </tr>
+
+ <tr class="govuk-table__row">
+  <th
+          scope="row"
+          class="govuk-table__header govuk-!-width-one-quarter"
+  >
+   @messages("formalReview.when.heading")
+  </th>
+
+  <td class="govuk-table__cell">
+   @messages("formalReview.when.before")
+   <strong>
+    @messages("formalReview.when.answer")
+   </strong>
+  </td>
+ </tr>
+
+ <tr class="govuk-table__row">
+  <th
+          scope="row"
+          class="govuk-table__header govuk-!-width-one-quarter"
+  >
+   @messages("formalReview.duration.heading")
+  </th>
+
+  <td class="govuk-table__cell">
+   @messages("formalReview.duration.content")
+  </td>
+ </tr>
+
+ <tr class="govuk-table__row">
+  <th
+          scope="row"
+          class="govuk-table__header govuk-!-width-one-quarter"
+  >
+   @messages("formalReview.evidenceRequired.heading")
+  </th>
+
+  <td class="govuk-table__cell">
+   @messages("formalReview.evidenceRequired.content")
+  </td>
+ </tr>
+
+ <tr class="govuk-table__row">
+  <th
+          scope="row"
+          class="govuk-table__header govuk-!-width-one-quarter"
+  >
+   @messages("formalReview.evidenceExamples.heading")
+  </th>
+
+  <td class="govuk-table__cell">
+   <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-0">
+    <li>
+     @messages("formalReview.evidenceExamples.bullet.1")
+    </li>
+
+    <li>
+     @messages("formalReview.evidenceExamples.bullet.2")
+    </li>
+
+    <li>
+     @messages("formalReview.evidenceExamples.bullet.3")
+    </li>
+   </ul>
+  </td>
+ </tr>
+
+ <tr class="govuk-table__row">
+  <th
+          scope="row"
+          class="govuk-table__header govuk-!-width-one-quarter"
+  >
+   @messages("formalReview.decision.heading")
+  </th>
+
+  <td class="govuk-table__cell">
+   <p class="govuk-body govuk-!-margin-bottom-2">
+    @messages("formalReview.decision.introduction")
+   </p>
+
+   <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-0">
+    <li>
+     @messages("formalReview.decision.bullet.1")
+    </li>
+
+    <li>
+     @messages("formalReview.decision.bullet.2")
+    </li>
+
+    <li>
+     @messages("formalReview.decision.bullet.3")
+    </li>
+   </ul>
+  </td>
+ </tr>
+
+ <tr class="govuk-table__row">
+  <th
+          scope="row"
+          class="govuk-table__header govuk-!-width-one-quarter"
+  >
+   @messages("formalReview.afterDecision.heading")
+  </th>
+
+  <td class="govuk-table__cell">
+   @messages("formalReview.afterDecision.content")
+  </td>
+ </tr>
+ </tbody>
+</table>
+}

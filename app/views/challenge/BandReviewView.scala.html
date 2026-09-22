@@ -1,0 +1,134 @@
+@*
+ * Copyright 2026 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import controllers.challenge as challengeRoutes
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+@import views.html.components._
+
+@this(
+layout: templates.Layout,
+formHelper: FormWithCSRF,
+govukButton: GovukButton
+)
+
+@()(implicit request: Request[_], messages: Messages)
+
+@layout(
+pageTitle = titleNoForm(messages("bandReview.title"))
+) {
+
+<h1 class="govuk-heading-xl">
+ @messages("bandReview.heading")
+</h1>
+
+<p class="govuk-body">
+ @messages("bandReview.introduction")
+</p>
+
+<p class="govuk-body">
+ @messages("bandReview.noCharge")
+</p>
+
+<p class="govuk-body">
+ @messages("bandReview.evidenceIntroduction")
+</p>
+
+<h2 class="govuk-heading-l">
+ @messages("bandReview.when.heading")
+</h2>
+
+<p class="govuk-body">
+ @messages("bandReview.when.introduction")
+</p>
+
+<ul class="govuk-list govuk-list--bullet">
+ <li>
+  @messages("bandReview.when.bullet.1")
+ </li>
+
+ <li>
+  @messages("bandReview.when.bullet.2")
+ </li>
+
+ <li>
+  @messages("bandReview.when.bullet.3")
+ </li>
+</ul>
+
+<p class="govuk-body">
+ @messages("bandReview.changes.introduction")
+</p>
+
+<ul class="govuk-list govuk-list--bullet">
+ <li>
+  @messages("bandReview.changes.bullet.1")
+ </li>
+
+ <li>
+  @messages("bandReview.changes.bullet.2")
+ </li>
+
+ <li>
+  @messages("bandReview.changes.bullet.3")
+ </li>
+
+ <li>
+  @messages("bandReview.changes.bullet.4")
+ </li>
+
+ <li>
+  @messages("bandReview.changes.bullet.5")
+ </li>
+</ul>
+
+<p class="govuk-body">
+ @messages("bandReview.appeal")
+</p>
+
+<p class="govuk-body">
+ @messages("bandReview.improvements")
+</p>
+
+<h2 class="govuk-heading-l">
+ @messages("bandReview.localCouncil.heading")
+</h2>
+
+<p class="govuk-body">
+ @messages("bandReview.localCouncil.guidance")
+</p>
+
+<h2 class="govuk-heading-l">
+ @messages("bandReview.otherReason.heading")
+</h2>
+
+<p class="govuk-body">
+ @messages("bandReview.otherReason.evidence")
+</p>
+
+<p class="govuk-body">
+ @messages("bandReview.otherReason.appeal")
+</p>
+
+@formHelper(
+ action = challengeRoutes.routes.BandReviewController.onContinue()
+) {
+ @govukButton(
+  ButtonViewModel(
+   content = Text(messages("site.continue"))
+  )
+ )
+ }
+}
