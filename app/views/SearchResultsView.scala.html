@@ -41,7 +41,8 @@ pageTitle = titleNoForm(messages("searchResults.title", postcode))
 </h1>
 
 <p class="govuk-body">
-    #
+    @messages("searchResults.vo.the")
+    <a class="govuk-link">
     @messages("searchResults.vo.link")
     </a>
     @messages("searchResults.vo.text")
@@ -76,13 +77,13 @@ rows = results.map { result =>
 Seq(
 TableRow(
 content = HtmlContent(
-s"""#${result.address}</a>"""
+s"""<a class="govuk-link">${result.address}</a>"""
 )
 ),
 TableRow(content = Text(result.councilTaxBand)),
 TableRow(
 content = HtmlContent(
-s"""#${result.localAuthority}</a>"""
+s"""<a class="govuk-link">${result.localAuthority}</a>"""
 )
 )
 )
@@ -93,19 +94,19 @@ s"""#${result.localAuthority}</a>"""
 <nav class="govuk-pagination govuk-!-margin-bottom-6" aria-label="Pagination">
     <ul class="govuk-pagination__list">
         <li class="govuk-pagination__item govuk-pagination__item--current">
-            #1</a>
+            <a class="govuk-link">1</a>
         </li>
         <li class="govuk-pagination__item">
-            #2</a>
+            <a class="govuk-link">2</a>
         </li>
         <li class="govuk-pagination__item">
-            #3</a>
+            <a class="govuk-link">3</a>
         </li>
     </ul>
 </nav>
 
 <p class="govuk-body">
-    #
+    <a class="govuk-link">
     @messages("searchResults.cannotFind")
     </a>
 </p>
@@ -138,7 +139,7 @@ ButtonViewModel(messages("searchResults.search"))
 }
 
 <p class="govuk-body">
-    #
+    <a class="govuk-link">
     @messages("searchResults.otherOptions")
     </a>
 </p>

@@ -1,0 +1,253 @@
+@*
+ * Copyright 2026 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import controllers.challenge.routes
+@import play.api.data.Form
+@import play.api.i18n.Messages
+@import play.api.mvc.Request
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+@import viewmodels.govuk.all._
+@import views.html.components._
+@import controllers.challenge as challengeRoutes
+
+@this(
+layout: templates.Layout,
+formHelper: FormWithCSRF,
+govukErrorSummary: GovukErrorSummary,
+govukButton: GovukButton
+)
+
+@(form: Form[String])(implicit request: Request[_], messages: Messages)
+
+@field = @{form("value")}
+
+@layout(
+pageTitle = title(
+form,
+messages("expectedCouncilTaxBand.title")
+)
+) {
+
+ @formHelper(
+ action = challengeRoutes.routes.ExpectedCouncilTaxBandController.onSubmit()
+ ) {
+
+ @if(form.hasErrors) {
+ @govukErrorSummary(
+ ErrorSummaryViewModel(form)
+ )
+ }
+
+ <div class="@if(field.hasErrors) {govuk-form-group govuk-form-group--error} else {govuk-form-group}">
+
+  <fieldset class="govuk-fieldset">
+
+   <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
+    <h1 class="govuk-fieldset__heading">
+     @messages("expectedCouncilTaxBand.heading")
+    </h1>
+   </legend>
+
+   <p class="govuk-body">
+    @messages("expectedCouncilTaxBand.hint")
+    <a>
+    @messages("expectedCouncilTaxBand.hint.link.text")
+    </a>
+   </p>
+
+   <details class="govuk-details">
+    <summary class="govuk-details__summary">
+             <span class="govuk-details__summary-text">
+               @messages("expectedCouncilTaxBand.details.summary")
+             </span>
+    </summary>
+
+    <div class="govuk-details__text">
+     @messages("expectedCouncilTaxBand.details.content")
+    </div>
+   </details>
+
+   @if(field.hasErrors) {
+   <p
+           id="value-error"
+           class="govuk-error-message"
+   >
+             <span class="govuk-visually-hidden">
+               @messages("error.prefix")
+             </span>
+    @messages(field.errors.head.message)
+   </p>
+   }
+
+   <div class="govuk-radios" data-module="govuk-radios">
+
+    <div class="govuk-radios__item">
+     <input
+             class="govuk-radios__input"
+             id="value-a"
+             name="value"
+             type="radio"
+             value="A"
+     >
+     <label
+             class="govuk-label govuk-radios__label"
+             for="value-a"
+     >
+      @messages("expectedCouncilTaxBand.bandA")
+     </label>
+    </div>
+
+    <div class="govuk-radios__item">
+     <input
+             class="govuk-radios__input"
+             id="value-b"
+             name="value"
+             type="radio"
+             value="B"
+     >
+     <label
+             class="govuk-label govuk-radios__label"
+             for="value-b"
+     >
+      @messages("expectedCouncilTaxBand.bandB")
+     </label>
+    </div>
+
+    <div class="govuk-radios__item">
+     <input
+             class="govuk-radios__input"
+             id="value-c"
+             name="value"
+             type="radio"
+             value="C"
+     >
+     <label
+             class="govuk-label govuk-radios__label"
+             for="value-c"
+     >
+      @messages("expectedCouncilTaxBand.bandC")
+     </label>
+    </div>
+
+    <div class="govuk-radios__item">
+     <input
+             class="govuk-radios__input"
+             id="value-d"
+             name="value"
+             type="radio"
+             value="D"
+     >
+     <label
+             class="govuk-label govuk-radios__label"
+             for="value-d"
+     >
+      @messages("expectedCouncilTaxBand.bandD")
+     </label>
+    </div>
+
+    <div class="govuk-radios__item">
+     <input
+             class="govuk-radios__input"
+             id="value-e"
+             name="value"
+             type="radio"
+             value="E"
+     >
+     <label
+             class="govuk-label govuk-radios__label"
+             for="value-e"
+     >
+      @messages("expectedCouncilTaxBand.bandE")
+     </label>
+    </div>
+
+    <div class="govuk-radios__item">
+     <input
+             class="govuk-radios__input"
+             id="value-f"
+             name="value"
+             type="radio"
+             value="F"
+     >
+     <label
+             class="govuk-label govuk-radios__label"
+             for="value-f"
+     >
+      @messages("expectedCouncilTaxBand.bandF")
+     </label>
+    </div>
+
+    <div class="govuk-radios__item">
+     <input
+             class="govuk-radios__input"
+             id="value-g"
+             name="value"
+             type="radio"
+             value="G"
+     >
+     <label
+             class="govuk-label govuk-radios__label"
+             for="value-g"
+     >
+      @messages("expectedCouncilTaxBand.bandG")
+     </label>
+    </div>
+
+    <div class="govuk-radios__item">
+     <input
+             class="govuk-radios__input"
+             id="value-h"
+             name="value"
+             type="radio"
+             value="H"
+     >
+     <label
+             class="govuk-label govuk-radios__label"
+             for="value-h"
+     >
+      @messages("expectedCouncilTaxBand.bandH")
+     </label>
+    </div>
+
+    <div class="govuk-radios__item">
+     <input
+             class="govuk-radios__input"
+             id="value-not-sure"
+             name="value"
+             type="radio"
+             value="notSure"
+     >
+     <label
+             class="govuk-label govuk-radios__label"
+             for="value-not-sure"
+     >
+      @messages("expectedCouncilTaxBand.notSure")
+     </label>
+    </div>
+
+   </div>
+  </fieldset>
+ </div>
+
+ @govukButton(
+  ButtonViewModel(
+   content = Text(
+    messages("site.continue")
+   )
+  )
+ )
+ }
+}

@@ -1,0 +1,247 @@
+@*
+ * Copyright 2026 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import controllers.challenge.routes
+@import forms.mappings.ChallengeContactDetails
+@import play.api.i18n.Messages
+@import play.api.mvc.Request
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+@import views.html.components._
+
+@this(
+layout: templates.Layout,
+formHelper: FormWithCSRF,
+govukButton: GovukButton
+)
+
+@(contactDetails: ChallengeContactDetails)(implicit request: Request[_], messages: Messages)
+
+@preferredContact = @{
+contactDetails.contactPreferences.map {
+case "email"       => messages("checkYourAnswers.contact.email")
+case "phone"       => messages("checkYourAnswers.contact.phone")
+case "textMessage" => messages("checkYourAnswers.contact.textMessage")
+case value         => value
+}.mkString(", ")
+}
+
+@layout(
+pageTitle = titleNoForm(
+messages("checkYourAnswers.title")
+)
+) {
+
+<h1 class="govuk-heading-xl">
+ @messages("checkYourAnswers.heading")
+</h1>
+
+<dl class="govuk-summary-list govuk-!-margin-bottom-6">
+
+ <div class="govuk-summary-list__row">
+  <dt class="govuk-summary-list__key">
+   @messages("checkYourAnswers.address")
+  </dt>
+
+  <dd class="govuk-summary-list__value">
+  </dd>
+
+  <dd class="govuk-summary-list__actions">
+  </dd>
+ </div>
+
+ <div class="govuk-summary-list__row">
+  <dt class="govuk-summary-list__key">
+   @messages("checkYourAnswers.reviewType")
+  </dt>
+
+  <dd class="govuk-summary-list__value">
+  </dd>
+
+  <dd class="govuk-summary-list__actions">
+  </dd>
+ </div>
+
+</dl>
+
+<h2 class="govuk-heading-l">
+ @messages("checkYourAnswers.challengeDetails")
+</h2>
+
+<h2 class="govuk-heading-l">
+ @messages("checkYourAnswers.contactDetails")
+</h2>
+
+<dl class="govuk-summary-list">
+
+ <div class="govuk-summary-list__row">
+
+  <dt class="govuk-summary-list__key">
+   @messages("checkYourAnswers.firstName")
+  </dt>
+
+  <dd class="govuk-summary-list__value">
+   @contactDetails.firstName
+  </dd>
+
+  <dd class="govuk-summary-list__actions">
+   <a class="govuk-link" href="">
+    @messages("site.change")
+   </a>
+   <span class="govuk-visually-hidden">
+            @messages("checkYourAnswers.firstName")
+          </span>
+   </a>
+  </dd>
+
+ </div>
+
+ <div class="govuk-summary-list__row">
+
+  <dt class="govuk-summary-list__key">
+   @messages("checkYourAnswers.lastName")
+  </dt>
+
+  <dd class="govuk-summary-list__value">
+   @contactDetails.lastName
+  </dd>
+
+  <dd class="govuk-summary-list__actions">
+   <a class="govuk-link" href="">
+    @messages("site.change")
+   </a>
+   <span class="govuk-visually-hidden">
+            @messages("checkYourAnswers.lastName")
+          </span>
+   </a>
+  </dd>
+
+ </div>
+
+ <div class="govuk-summary-list__row">
+
+  <dt class="govuk-summary-list__key">
+   @messages("checkYourAnswers.emailAddress")
+  </dt>
+
+  <dd class="govuk-summary-list__value">
+   @contactDetails.emailAddress
+  </dd>
+
+  <dd class="govuk-summary-list__actions">
+   <a class="govuk-link" href="">
+    @messages("site.change")
+   </a>
+   <span class="govuk-visually-hidden">
+            @messages("checkYourAnswers.emailAddress")
+          </span>
+   </a>
+  </dd>
+
+ </div>
+
+ <div class="govuk-summary-list__row">
+
+  <dt class="govuk-summary-list__key">
+   @messages("checkYourAnswers.telephoneNumber")
+  </dt>
+
+  <dd class="govuk-summary-list__value">
+   @contactDetails.telephoneNumber
+  </dd>
+
+  <dd class="govuk-summary-list__actions">
+   <a class="govuk-link" href="">
+   @messages("site.change")
+    </a>
+   <span class="govuk-visually-hidden">
+            @messages("checkYourAnswers.telephoneNumber")
+          </span>
+   </a>
+  </dd>
+
+ </div>
+
+ <div class="govuk-summary-list__row">
+
+  <dt class="govuk-summary-list__key">
+   @messages("checkYourAnswers.preferredContact")
+  </dt>
+
+  <dd class="govuk-summary-list__value">
+   @preferredContact
+  </dd>
+
+  <dd class="govuk-summary-list__actions">
+   <a class="govuk-link" href="">
+    @messages("site.change")
+   </a>
+   <span class="govuk-visually-hidden">
+            @messages("checkYourAnswers.preferredContact")
+          </span>
+   </a>
+  </dd>
+
+ </div>
+
+</dl>
+
+<h2 class="govuk-heading-l govuk-!-margin-top-7">
+ @messages("checkYourAnswers.send.heading")
+</h2>
+
+<p class="govuk-body">
+ @messages("checkYourAnswers.send.guidance")
+</p>
+
+<h2 class="govuk-heading-l">
+ @messages("checkYourAnswers.acting.heading")
+</h2>
+
+<p class="govuk-body">
+ @messages("checkYourAnswers.acting.before")
+
+ <a id="authorityToAct" href="" class="govuk-link">
+  @messages("checkYourAnswers.authorityToAct")
+ </a>
+
+ @messages("checkYourAnswers.acting.middle")
+
+ <a id="letterOfAuthority" href="" class="govuk-link">
+ @messages("checkYourAnswers.letterOfAuthority")
+ </a>
+
+ @messages("checkYourAnswers.acting.after")
+</p>
+
+<p class="govuk-body">
+ <a class="govuk-link" href="">
+  @messages("checkYourAnswers.print")
+ </a>
+</p>
+
+@formHelper(
+action = routes.CheckYourAnswersController.onSubmit()
+) {
+
+@govukButton(
+ButtonViewModel(
+content = Text(
+messages("checkYourAnswers.confirmAndSend")
+)
+)
+)
+}
+}

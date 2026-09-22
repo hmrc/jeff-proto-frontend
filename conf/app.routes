@@ -76,16 +76,46 @@ POST       /update-telephone-number                      controllers.dashboard.U
 
 
 GET        /start                                        controllers.StartController.onPageLoad()
+
 GET        /search                                       controllers.SearchController.onPageLoad()
 POST       /search                                       controllers.SearchController.onSubmit()
+
 GET        /search-results/:postcode                     controllers.SearchResultsController.onPageLoad(postcode: String)
 GET        /property-details/:reference                  controllers.PropertyDetailsController.onPageLoad(reference: String)
+
 GET        /self-cert                                    controllers.SelfCertController.onPageLoad(mode: Mode = NormalMode)
 GET        /self-cert                                    controllers.SelfCertController.onPageLoad(mode: Mode = CheckMode)
-POST       /self-cert                                   controllers.SelfCertController.onSubmit(mode: Mode = NormalMode)
-POST       /self-cert                                   controllers.SelfCertController.onSubmit(mode: Mode = CheckMode)
+POST       /self-cert                                    controllers.SelfCertController.onSubmit(mode: Mode = NormalMode)
+POST       /self-cert                                    controllers.SelfCertController.onSubmit(mode: Mode = CheckMode)
 
-GET        /evidence-upload                              controllers.challenge.EvidenceUploadController.onPageLoad(errorCode: Option[String], evidenceType: Option[String])
-GET        /uploaded-evidence                            controllers.challenge.UploadedEvidenceController.onPageLoad(uploadId: models.upscan.UploadId)
-GET        /remove-uploaded-file                         controllers.challenge.RemoveUploadedEvidenceController.onPageLoad
-GET        /confirm-remove-file                          controllers.challenge.RemoveUploadedEvidenceController.remove
+GET        /challenge                                    controllers.challenge.BandReviewController.onPageLoad()
+POST       /challenge                                    controllers.challenge.BandReviewController.onContinue()
+
+GET        /challenge/scenario                           controllers.challenge.ScenarioController.onPageLoad()
+POST       /challenge/scenario                           controllers.challenge.ScenarioController.onSubmit()
+
+GET        /challenge/option1                            controllers.challenge.FormalReviewController.onPageLoad()
+POST       /challenge/option1                            controllers.challenge.FormalReviewController.onContinue()
+
+GET       /challenge/date-payer                          controllers.challenge.ResponsibleFromDateController.onPageLoad()
+POST      /challenge/date-payer                          controllers.challenge.ResponsibleFromDateController.onSubmit()
+
+GET       /challenge/wrong-details                       controllers.challenge.BandReviewReasonController.onPageLoad()
+POST      /challenge/wrong-details                       controllers.challenge.BandReviewReasonController.onSubmit()
+
+GET        /challenge/documents-to-upload                controllers.challenge.DocumentsToUploadController.onPageLoad()
+POST       /challenge/documents-to-upload                controllers.challenge.DocumentsToUploadController.onSubmit()
+
+GET        /challenge/evidence-upload                    controllers.challenge.EvidenceUploadController.onPageLoad(errorCode: Option[String], evidenceType: Option[String])
+GET        /challenge/uploaded-evidence                  controllers.challenge.UploadedEvidenceController.onPageLoad(uploadId: models.upscan.UploadId)
+GET        /challenge/remove-uploaded-file               controllers.challenge.RemoveUploadedEvidenceController.onPageLoad
+GET        /challenge/confirm-remove-file                controllers.challenge.RemoveUploadedEvidenceController.remove
+
+GET        /challenge/which-band                         controllers.challenge.ExpectedCouncilTaxBandController.onPageLoad()
+POST       /challenge/which-band                         controllers.challenge.ExpectedCouncilTaxBandController.onSubmit()
+
+GET        /challenge/contact-details                    controllers.challenge.ContactDetailsController.onPageLoad()
+POST       /challenge/contact-details                    controllers.challenge.ContactDetailsController.onSubmit()
+
+GET        /challenge/check-your-answers                 controllers.challenge.CheckYourAnswersController.onPageLoad()
+POST       /challenge/check-your-answers                 controllers.challenge.CheckYourAnswersController.onSubmit()

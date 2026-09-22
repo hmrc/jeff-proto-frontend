@@ -268,6 +268,7 @@ enterPostcode.noPostcode = I do not know the postcode
 
 searchResults.title = Search results for {0}
 searchResults.heading = Search results for {0}
+searchResults.vo.the = The
 searchResults.vo.link = Valuation Office (VO)
 searchResults.vo.text = puts every home in England into a group called a 'band', based on the value of the property on 1 April 1991.
 searchResults.band.info = The lowest band is 'A', and the highest band is 'H'.
@@ -322,3 +323,193 @@ selfCert.error.required=Select whether you are responsible for the Council Tax o
 
 uploadEvidence.title = Upload Evidence
 uploadEvidence.p1 = The file must be a PDF or image (PNG or JPG) and be less than 25MB.
+
+bandReview.title = Request a Council Tax band review
+bandReview.heading = Request a Council Tax band review
+
+bandReview.introduction = You can ask the VO (Valuation Office) for a Council Tax band review at any time.
+
+bandReview.noCharge = There is no charge for this service.
+
+bandReview.evidenceIntroduction = You will need to tell us why you think the band should be reviewed. We may ask you for more details, and you may be required to provide evidence to support your request.
+
+bandReview.when.heading = When you can request a Council Tax band review
+
+bandReview.when.introduction = You can request a review of your Council Tax band if:
+
+bandReview.when.bullet.1 = you became the new taxpayer within the last 6 months
+bandReview.when.bullet.2 = the Council Tax band has changed in the last 6 months
+bandReview.when.bullet.3 = the local area has physically changed
+
+bandReview.changes.introduction = You can also request a review if something has changed. For example, the property:
+
+bandReview.changes.bullet.1 = has been demolished
+bandReview.changes.bullet.2 = is derelict and cannot be lived in
+bandReview.changes.bullet.3 = is undergoing major renovations or repairs
+bandReview.changes.bullet.4 = is partly used for business
+bandReview.changes.bullet.5 = has been split into multiple properties or merged into one
+bandReview.appeal = If you request a review for one of these reasons, but do not agree with the outcome, you can appeal the decision.
+bandReview.improvements = We will take any improvements into account when setting the new band, which could be higher than the previous one. The new band will usually take effect from the date the property becomes fit to live in again.
+bandReview.localCouncil.heading = Contacting your Local Council
+bandReview.localCouncil.guidance = You should also check with your local council for advice and information about Council Tax. Visit your local council's website for more details.
+bandReview.otherReason.heading = Reviewing the band for any other reason
+bandReview.otherReason.evidence = If none of the above apply, we will only review your band if you provide supporting evidence. Your request for a band review will be rejected without this.
+bandReview.otherReason.appeal = You will not have any legal rights to appeal the outcome of a review.
+
+scenario.title = Choose which applies to you
+scenario.heading = Choose which applies to you
+scenario.lessThanSixMonths = I’ve been responsible for paying Council Tax for less than 6 months
+scenario.moreThanSixMonths = I’ve been responsible for paying Council Tax for more than 6 months
+scenario.bandChanged = My Council Tax band was changed by the Valuation Office (VO) in the last 6 months
+scenario.propertyOrAreaChanged = There have been changes made to my home or in the local area
+scenario.other = Other
+scenario.error.required = Select which applies to you
+
+formalReview.title = Asking for a formal review
+formalReview.heading = Asking for a formal review
+formalReview.selection.before = You have told us that you’ve been responsible for paying Council Tax on your home for
+formalReview.selection.answer = less than 6 months.
+formalReview.introduction = This means that you can ask for a formal review of your Council Tax band. This is also known as a ‘Formal Challenge’ or ‘Making a Proposal’.
+formalReview.changeSelection = You can change your selection if this option is not right for you.
+formalReview.howItWorks.heading = How a formal review works
+formalReview.table.caption = Information about how a formal review works
+formalReview.whatItIs.heading = What it is
+formalReview.whatItIs.content = You can ask the Valuation Office (VO) to review the Council Tax band your home is in.
+formalReview.whatItIsFor.heading = What it’s for
+formalReview.whatItIsFor.content = You can ask for a formal review if you think that your home is in the wrong Council Tax band.
+formalReview.when.heading = When you can ask for a formal review
+formalReview.when.before = If you have been responsible for the Council Tax on your home for
+formalReview.when.answer = less than 6 months.
+formalReview.duration.heading = How long it takes
+formalReview.duration.content = Up to 16 weeks
+formalReview.evidenceRequired.heading = Evidence required
+formalReview.evidenceRequired.content = You do not need to provide any evidence. However, any information you give us will help the VO understand why you think your home should be in a different band.
+formalReview.evidenceExamples.heading = Examples of evidence
+formalReview.evidenceExamples.bullet.1 = addresses of similar homes in a lower band than yours
+formalReview.evidenceExamples.bullet.2 = the price that your home or similar homes sold for between 1 April 2001 and 31 March 2005
+formalReview.evidenceExamples.bullet.3 = you can submit written evidence and upload up to 5 files including PDFs, documents and photos
+formalReview.decision.heading = Decision
+formalReview.decision.introduction = There are 3 possible decisions that can be made:
+formalReview.decision.bullet.1 = your home stays in the same band
+formalReview.decision.bullet.2 = your home is moved into a lower band
+formalReview.decision.bullet.3 = your home is moved into a higher band
+formalReview.afterDecision.heading = After a decision has been made
+formalReview.afterDecision.content = You have 4 months after the date of the decision to appeal to the Valuation Tribunal Wales if you are not satisfied with the outcome.
+
+responsibleFromDate.error.required = Enter the date you became responsible for paying Council Tax
+responsibleFromDate.error.twoRequired = The date you became responsible for paying Council Tax must include a day, month and year
+responsibleFromDate.error.invalid = Enter a real date
+responsibleFromDate.title = When did you become responsible for paying Council Tax for your home?
+responsibleFromDate.heading = When did you become responsible for paying Council Tax for your home?
+responsibleFromDate.guidance = You are responsible from the date you bought, or started renting, the home.
+responsibleFromDate.hint = For example, if the date was 27 April 2025, enter 27 4 2025.
+responsibleFromDate.error.required = Enter the date you became responsible for paying Council Tax
+responsibleFromDate.error.twoRequired = The date you became responsible for paying Council Tax must include a day, month and year
+responsibleFromDate.error.invalid = Enter a real date
+
+bandReviewReason.title = Tell us why you think the Council Tax band is wrong?
+bandReviewReason.heading = Tell us why you think the Council Tax band is wrong?
+bandReviewReason.warning = Your band will only be reviewed if you provide supporting evidence
+bandReviewReason.evidenceGuidance = The evidence you provide will be looked at before a case is opened. You should give as much detail as possible.
+bandReviewReason.details.summary = What evidence can you include?
+bandReviewReason.details.introduction = You can provide evidence such as:
+bandReviewReason.details.bullet.1 = addresses of similar homes in a lower Council Tax band
+bandReviewReason.details.bullet.2 = information about the sale price of your home or similar homes
+bandReviewReason.details.bullet.3 = details of any changes to your home or the local area
+bandReviewReason.provideEvidence.heading = How to provide your evidence
+bandReviewReason.provideEvidence.guidance = You can type your evidence in the text box. You can use up to 1,000 characters. You can also upload up to 5 files including PDFs, documents and photos on the next page.
+bandReviewReason.charactersRemaining = You have 1,000 characters remaining
+bandReviewReason.error.required = Enter why you think the Council Tax band is wrong
+bandReviewReason.error.length = Your evidence must be 1,000 characters or fewer
+
+documentsToUpload.title = Do you have documents to upload as evidence?
+documentsToUpload.heading = Do you have documents to upload as evidence?
+documentsToUpload.hint = This could include screenshots of property listings, sale records, or other documents that support your request.
+documentsToUpload.error.required = Select yes if you have documents to upload as evidence
+
+expectedCouncilTaxBand.title = What do you think the Council Tax band should be?
+expectedCouncilTaxBand.heading = What do you think the Council Tax band should be?
+expectedCouncilTaxBand.hint.before = In Wales, the Council Tax band is based on the value of the property on 1 April 2003. The lowest band is "A", and the highest band is "I". Find out more about
+expectedCouncilTaxBand.hint.link.text = Council Tax bands in Wales
+expectedCouncilTaxBand.hint.link.url = #
+expectedCouncilTaxBand.details.summary = Council Tax bands Wales
+expectedCouncilTaxBand.details.introduction = Council Tax bands in Wales are based on the value of the property on 1 April 2003.
+expectedCouncilTaxBand.details.bullet.1 = Band A is the lowest Council Tax band
+expectedCouncilTaxBand.details.bullet.2 = The band is based on the property's value, not its current sale price
+expectedCouncilTaxBand.details.bullet.3 = You should select the band you believe applies to your home
+expectedCouncilTaxBand.option.band = Band {0}
+expectedCouncilTaxBand.option.notSure = I'm not sure
+expectedCouncilTaxBand.error.required = Select the Council Tax band you think your home should be in
+expectedCouncilTaxBand.error.invalid = Select a valid Council Tax band
+
+expectedCouncilTaxBand.title = What do you think the Council Tax band should be?
+expectedCouncilTaxBand.heading = What do you think the Council Tax band should be?
+expectedCouncilTaxBand.hint = In Wales, the Council Tax band is based on the value of the property on 1 April 2003. The lowest band is "A", and the highest band is "I". Find out more about
+expectedCouncilTaxBand.hint.link.text = Council Tax bands in Wales
+expectedCouncilTaxBand.hint.link.url = #
+expectedCouncilTaxBand.details.summary = Council Tax bands Wales
+expectedCouncilTaxBand.details.content = Council Tax bands in Wales are based on the value of the property on 1 April 2003.
+expectedCouncilTaxBand.bandA = Band A
+expectedCouncilTaxBand.bandB = Band B
+expectedCouncilTaxBand.bandC = Band C
+expectedCouncilTaxBand.bandD = Band D
+expectedCouncilTaxBand.bandE = Band E
+expectedCouncilTaxBand.bandF = Band F
+expectedCouncilTaxBand.bandG = Band G
+expectedCouncilTaxBand.bandH = Band H
+expectedCouncilTaxBand.notSure = I'm not sure
+expectedCouncilTaxBand.error.required = Select the Council Tax band you think your home should be in
+expectedCouncilTaxBand.error.invalid = Select a valid Council Tax band
+site.continue = Continue
+
+contactDetails.title = What are your contact details?
+contactDetails.heading = What are your contact details?
+contactDetails.guidance = We will only use these details to contact you about your review.
+
+contactDetails.firstName = First name
+contactDetails.lastName = Last name
+contactDetails.emailAddress = Email address
+
+contactDetails.telephoneNumber = Telephone number
+contactDetails.telephoneNumber.hint = Enter a phone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192
+
+contactDetails.contactPreferences = How would you like to be contacted?
+contactDetails.contactPreferences.hint = Select all options that are relevant to you
+contactDetails.contactPreferences.email = Email
+contactDetails.contactPreferences.phone = Phone
+contactDetails.contactPreferences.textMessage = Text message
+
+contactDetails.firstName.error.required = Enter your first name
+contactDetails.firstName.error.length = Your first name must be 100 characters or fewer
+contactDetails.lastName.error.required = Enter your last name
+contactDetails.lastName.error.length = Your last name must be 100 characters or fewer
+contactDetails.emailAddress.error.required = Enter your email address
+contactDetails.emailAddress.error.invalid = Enter an email address in the correct format, like name@example.com
+contactDetails.telephoneNumber.error.length = Your telephone number must be 50 characters or fewer
+contactDetails.contactPreferences.error.required = Select how you would like to be contacted
+contactDetails.contactPreferences.error.invalid = Select a valid contact method
+
+checkYourAnswers.title = Check your answers
+checkYourAnswers.heading = Check your answers
+checkYourAnswers.address = Address
+checkYourAnswers.reviewType = Review type
+checkYourAnswers.challengeDetails = Challenge details
+checkYourAnswers.contactDetails = Contact details
+checkYourAnswers.firstName = First name
+checkYourAnswers.lastName = Last name
+checkYourAnswers.emailAddress = Email address
+checkYourAnswers.telephoneNumber = Telephone number
+checkYourAnswers.preferredContact = Preferred contact
+checkYourAnswers.contact.email = Email
+checkYourAnswers.contact.phone = Phone
+checkYourAnswers.contact.textMessage = Text message
+checkYourAnswers.send.heading = Send your request for a review
+checkYourAnswers.send.guidance = By sending your request for a review you confirm that, to the best of your knowledge, these details are correct.
+checkYourAnswers.acting.heading = Acting for someone who is responsible
+checkYourAnswers.acting.before = You must send the VO an
+checkYourAnswers.authorityToAct = Authority to Act
+checkYourAnswers.acting.middle = form or a
+checkYourAnswers.letterOfAuthority = Letter of Authority
+checkYourAnswers.acting.after = within 28 days before we will review your request.
+checkYourAnswers.print = Print this page
+checkYourAnswers.confirmAndSend = Confirm and send

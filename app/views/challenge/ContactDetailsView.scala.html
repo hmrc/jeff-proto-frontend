@@ -1,0 +1,338 @@
+@*
+ * Copyright 2026 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import controllers.challenge.routes
+@import forms.mappings.ChallengeContactDetails
+@import play.api.data.Field
+@import play.api.data.Form
+@import play.api.i18n.Messages
+@import play.api.mvc.Request
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+@import viewmodels.govuk.all._
+@import views.html.components._
+
+@this(
+layout: templates.Layout,
+formHelper: FormWithCSRF,
+govukErrorSummary: GovukErrorSummary,
+govukButton: GovukButton
+)
+
+@(form: Form[ChallengeContactDetails])(implicit request: Request[_], messages: Messages)
+
+@firstNameField = @{form("firstName")}
+@lastNameField = @{form("lastName")}
+@emailAddressField = @{form("emailAddress")}
+@telephoneNumberField = @{form("telephoneNumber")}
+@contactPreferencesField = @{form("contactPreferences")}
+
+@selectedPreferences = @{
+contactPreferencesField.indexes.flatMap { index =>
+form(s"contactPreferences[$index]").value
+}.toSet
+}
+
+@formGroupClass(field: Field) = @{
+if (field.hasErrors) {
+"govuk-form-group govuk-form-group--error"
+} else {
+"govuk-form-group"
+}
+}
+
+@inputClass(field: Field) = @{
+if (field.hasErrors) {
+"govuk-input govuk-input--error govuk-!-width-two-thirds"
+} else {
+"govuk-input govuk-!-width-two-thirds"
+}
+}
+
+@layout(
+pageTitle = title(
+form,
+messages("contactDetails.title")
+)
+) {
+
+@formHelper(
+action = routes.ContactDetailsController.onSubmit()
+) {
+
+@if(form.hasErrors) {
+@govukErrorSummary(
+ErrorSummaryViewModel(form)
+)
+}
+
+<h1 class="govuk-heading-xl">
+ @messages("contactDetails.heading")
+</h1>
+
+<p class="govuk-body">
+ @messages("contactDetails.guidance")
+</p>
+
+<div class="@formGroupClass(firstNameField)">
+
+ <label
+         class="govuk-label"
+         for="firstName"
+ >
+  @messages("contactDetails.firstName")
+ </label>
+
+ @if(firstNameField.hasErrors) {
+ <p
+         id="firstName-error"
+         class="govuk-error-message"
+ >
+          <span class="govuk-visually-hidden">
+            @messages("error.prefix")
+          </span>
+  @messages(firstNameField.errors.head.message)
+ </p>
+ }
+
+ <input
+         class="@inputClass(firstNameField)"
+         id="firstName"
+         name="firstName"
+         type="text"
+         value="@firstNameField.value.getOrElse("")"
+ autocomplete="given-name"
+ >
+
+</div>
+
+<div class="@formGroupClass(lastNameField)">
+
+ <label
+         class="govuk-label"
+         for="lastName"
+ >
+  @messages("contactDetails.lastName")
+ </label>
+
+ @if(lastNameField.hasErrors) {
+ <p
+         id="lastName-error"
+         class="govuk-error-message"
+ >
+          <span class="govuk-visually-hidden">
+            @messages("error.prefix")
+          </span>
+  @messages(lastNameField.errors.head.message)
+ </p>
+ }
+
+ <input
+         class="@inputClass(lastNameField)"
+         id="lastName"
+         name="lastName"
+         type="text"
+         value="@lastNameField.value.getOrElse("")"
+ autocomplete="family-name"
+ >
+
+</div>
+
+<div class="@formGroupClass(emailAddressField)">
+
+ <label
+         class="govuk-label"
+         for="emailAddress"
+ >
+  @messages("contactDetails.emailAddress")
+ </label>
+
+ @if(emailAddressField.hasErrors) {
+ <p
+         id="emailAddress-error"
+         class="govuk-error-message"
+ >
+          <span class="govuk-visually-hidden">
+            @messages("error.prefix")
+          </span>
+  @messages(emailAddressField.errors.head.message)
+ </p>
+ }
+
+ <input
+         class="@inputClass(emailAddressField)"
+         id="emailAddress"
+         name="emailAddress"
+         type="email"
+         value="@emailAddressField.value.getOrElse("")"
+ autocomplete="email"
+ spellcheck="false"
+ >
+
+</div>
+
+<div class="@formGroupClass(telephoneNumberField)">
+
+ <label
+         class="govuk-label"
+         for="telephoneNumber"
+ >
+  @messages("contactDetails.telephoneNumber")
+ </label>
+
+ <div
+         id="telephoneNumber-hint"
+         class="govuk-hint"
+ >
+  @messages("contactDetails.telephoneNumber.hint")
+ </div>
+
+ @if(telephoneNumberField.hasErrors) {
+ <p
+         id="telephoneNumber-error"
+         class="govuk-error-message"
+ >
+          <span class="govuk-visually-hidden">
+            @messages("error.prefix")
+          </span>
+  @messages(telephoneNumberField.errors.head.message)
+ </p>
+ }
+
+ <input
+         class="@inputClass(telephoneNumberField)"
+         id="telephoneNumber"
+         name="telephoneNumber"
+         type="tel"
+         value="@telephoneNumberField.value.getOrElse("")"
+ autocomplete="tel"
+ aria-describedby="telephoneNumber-hint"
+ >
+
+</div>
+
+<div class="@formGroupClass(contactPreferencesField)">
+
+ <fieldset class="govuk-fieldset">
+
+  <legend class="govuk-fieldset__legend">
+   @messages("contactDetails.contactPreferences")
+  </legend>
+
+  <div
+          id="contactPreferences-hint"
+          class="govuk-hint"
+  >
+   @messages("contactDetails.contactPreferences.hint")
+  </div>
+
+  @if(contactPreferencesField.hasErrors) {
+  <p
+          id="contactPreferences-error"
+          class="govuk-error-message"
+  >
+            <span class="govuk-visually-hidden">
+              @messages("error.prefix")
+            </span>
+   @messages(contactPreferencesField.errors.head.message)
+  </p>
+  }
+
+  <div
+          class="govuk-checkboxes"
+          data-module="govuk-checkboxes"
+  >
+
+   <div class="govuk-checkboxes__item">
+
+    <input
+            class="govuk-checkboxes__input"
+            id="contactPreferences-email"
+            name="contactPreferences[]"
+            type="checkbox"
+            value="email"
+            @if(selectedPreferences.contains("email")) {
+    checked
+    }
+    >
+
+    <label
+            class="govuk-label govuk-checkboxes__label"
+            for="contactPreferences-email"
+    >
+     @messages("contactDetails.contactPreferences.email")
+    </label>
+
+   </div>
+
+   <div class="govuk-checkboxes__item">
+
+    <input
+            class="govuk-checkboxes__input"
+            id="contactPreferences-phone"
+            name="contactPreferences[]"
+            type="checkbox"
+            value="phone"
+            @if(selectedPreferences.contains("phone")) {
+    checked
+    }
+    >
+
+    <label
+            class="govuk-label govuk-checkboxes__label"
+            for="contactPreferences-phone"
+    >
+     @messages("contactDetails.contactPreferences.phone")
+    </label>
+
+   </div>
+
+   <div class="govuk-checkboxes__item">
+
+    <input
+            class="govuk-checkboxes__input"
+            id="contactPreferences-text-message"
+            name="contactPreferences[]"
+            type="checkbox"
+            value="textMessage"
+            @if(selectedPreferences.contains("textMessage")) {
+    checked
+    }
+    >
+
+    <label
+            class="govuk-label govuk-checkboxes__label"
+            for="contactPreferences-text-message"
+    >
+     @messages("contactDetails.contactPreferences.textMessage")
+    </label>
+
+   </div>
+
+  </div>
+
+ </fieldset>
+
+</div>
+
+@govukButton(
+ButtonViewModel(
+content = Text(
+messages("site.continue")
+)
+)
+)
+}
+}
