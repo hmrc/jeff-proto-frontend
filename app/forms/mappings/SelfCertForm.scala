@@ -21,20 +21,21 @@ import play.api.data.Forms.mapping
 import play.api.libs.json.{Json, OFormat}
 
 final case class SelfCertForm(
-                                 value: Boolean,
-                               )
+                               value: String
+                             )
 
 object SelfCertForm extends Mappings {
 
   implicit val format: OFormat[SelfCertForm] = Json.format[SelfCertForm]
 
-  def unapply(selfCert: SelfCertForm): Option[Boolean] = Some(selfCert.value)
+  def unapply(selfCert: SelfCertForm): Option[String] =
+    Some(selfCert.value)
 
   def form: Form[SelfCertForm] =
     Form(
       mapping(
         "selfCert" ->
-          boolean("selfCert.error.required")
+          text("selfCert.error.required")
       )(SelfCertForm.apply)(SelfCertForm.unapply)
     )
 }

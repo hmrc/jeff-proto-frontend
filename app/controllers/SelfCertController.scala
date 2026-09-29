@@ -16,22 +16,14 @@
 
 package controllers
 
-import controllers.actions.{
-  DataRequiredAction,
-  DataRetrievalAction,
-  IdentifierAction
-}
+import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
 import forms.mappings.SelfCertForm
 import models.Mode
 import navigation.Navigator
 import pages.SelfCertPage
 import play.api.i18n.I18nSupport
-import play.api.mvc.{
-  Action,
-  AnyContent,
-  MessagesControllerComponents
-}
-import repositories.ProposalRepo
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import repositories.{ProposalRepo, SessionRepository}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 import views.html.SelfCertView
 
@@ -44,6 +36,7 @@ class SelfCertController @Inject() (
                                      getData: DataRetrievalAction,
                                      requireData: DataRequiredAction,
                                      proposalRepo: ProposalRepo,
+                                     sessionRepository: SessionRepository,
                                      navigator: Navigator,
                                      view: SelfCertView
                                    )(implicit ec: ExecutionContext)
@@ -76,6 +69,7 @@ class SelfCertController @Inject() (
                 updatedAnswers <- Future.fromTry(
                   request.userAnswers.set(SelfCertPage, value)
                 )
+                _ <- sessionRepository.set(updatedAnswers)
               } yield {
                 Redirect(
                   navigator.nextPage(

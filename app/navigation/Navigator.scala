@@ -21,6 +21,7 @@ import play.api.mvc.Call
 import controllers.routes
 import controllers.registration.routes as registrationRoutes
 import controllers.dashboard.routes as dashboardRoutes
+import controllers.challenge.routes as challengeRoutes
 import pages.*
 import models.*
 
@@ -38,6 +39,7 @@ class Navigator @Inject()() {
     case CompleteContactDetailsPage => _ => registrationRoutes.CreateConfirmationController.onPageLoad()
     case UpdateTelephoneNumberPage => _ => dashboardRoutes.HomeController.onPageLoad()
     case UpdateEmailPage => _ => dashboardRoutes.HomeController.onPageLoad()
+    case SelfCertPage => userAnswers => if(userAnswers.get(SelfCertPage).get.value.matches("NO") ) routes.IndexController.onPageLoad() else challengeRoutes.BandReviewController.onPageLoad()
     case _ => _ => routes.IndexController.onPageLoad()
   }
 
