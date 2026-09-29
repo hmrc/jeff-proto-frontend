@@ -513,3 +513,8 @@ checkYourAnswers.letterOfAuthority = Letter of Authority
 checkYourAnswers.acting.after = within 28 days before we will review your request.
 checkYourAnswers.print = Print this page
 checkYourAnswers.confirmAndSend = Confirm and send
+
+noLiable.title = noLiable
+noLiable.heading = You do not have permission to view more details
+noLiable.message = Only people who are responsible for the Council Tax on this property have permission to view more details. This includes people acting for someone who is responsible.
+noLiable.backToProperties.message = Back to property details
