@@ -120,3 +120,4 @@ POST       /challenge/contact-details                    controllers.challenge.C
 GET        /challenge/check-your-answers                 controllers.challenge.CheckYourAnswersController.onPageLoad()
 POST       /challenge/check-your-answers                 controllers.challenge.CheckYourAnswersController.onSubmit()
 GET        /errors/no-liable                             controllers.NoLiableController.onPageLoad()
+GET        /historic-bands-full                          controllers.historicBandsFullController.onPageLoad()

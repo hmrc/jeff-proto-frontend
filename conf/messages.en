@@ -518,3 +518,38 @@ noLiable.title = noLiable
 noLiable.heading = You do not have permission to view more details
 noLiable.message = Only people who are responsible for the Council Tax on this property have permission to view more details. This includes people acting for someone who is responsible.
 noLiable.backToProperties.label = Back to property details
+historicBandsFull.title = historicBandsFull
+historicBandsFull.heading = historicBandsFull
+historicBandsFull.localAuthorityReference.heading=Local authority reference number
+historicBandsFull.localAuthorityReference.text=The unique number given to the property when it was added to the Council Tax list.
+
+historicBandsFull.councilTaxBand.heading=Council Tax Band
+historicBandsFull.councilTaxBand.text=The band the property is currently in. This determines how much Council Tax is paid.
+
+historicBandsFull.improvementIndicator.heading=Improvement indicator
+historicBandsFull.improvementIndicator.text=If the property has been improved or extended since it was placed in a Council Tax band, a Yes will be shown. If a Yes is shown, the band will be reviewed and may increase following the sale of the property.
+
+historicBandsFull.withEffectFrom.heading=With effect from
+historicBandsFull.withEffectFrom.text=The date the Council Tax band became effective from.
+
+historicBandsFull.mixedUseProperty.heading=Mixed-use property
+historicBandsFull.mixedUseProperty.text=A residential property also used for business. For example, a shop with a flat above.
+
+historicBandsFull.courtCode.heading=Court code
+historicBandsFull.courtCode.text=If the Council Tax band has been reviewed by a Valuation Tribunal or High Court, a court code will be shown. The codes are:
+
+historicBandsFull.courtCode.v=V - Valuation Tribunal determination
+historicBandsFull.courtCode.c=C - Valuation Tribunal confirmation
+historicBandsFull.courtCode.d=D - High Court determination
+historicBandsFull.courtCode.h=H - High Court confirmation
+historicBandsFull.courtCode.r=R - Valuation Tribunal re-determination following High Court referral
+historicBandsFull.courtCode.e=E - High Court consent order
+historicBandsFull.valuationList.heading=Valuation list
+historicBandsFull.valuationList.text=This identifies all properties banded for Council Tax purposes. Lists of Council Tax bands were originally created for England and Wales in 1993 and again in Wales in 2005.
+historicBandsFull.contact.telephone.heading=Telephone
+historicBandsFull.contact.telephone.england=03000 501 501 for England
+historicBandsFull.contact.telephone.wales=03000 505 505 for Wales
+historicBandsFull.contact.telephone.hours=Monday to Friday, 9:00am to 4:30pm (except public holidays)
+historicBandsFull.contact.email.heading=Email
+historicBandsFull.print = Print this page
+historicBandsFull.contact.email.heading=Email
