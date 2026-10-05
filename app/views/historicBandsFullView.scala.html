@@ -23,7 +23,8 @@
 layout: templates.Layout,
 govukButton: GovukButton,
 govukTable: GovukTable,
-govukDetails : GovukDetails
+govukDetails : GovukDetails,
+linkComponent: LinkComponent
 )
 
 @(property: PropertyDetails)(implicit request: Request[_], messages: Messages)
@@ -135,9 +136,7 @@ govukDetails : GovukDetails
 ))
 
 <p class="govuk-body">
-    <a class="govuk-link" href="">
-        @messages("historicBandsFull.print")
-    </a>
+    @linkComponent(label = messages("historicBandsFull.print"), hrefUrl="")
 </p>
 
 }
