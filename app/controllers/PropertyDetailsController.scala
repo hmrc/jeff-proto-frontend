@@ -44,7 +44,8 @@ class PropertyDetailsController @Inject()(
       localAuthorityReference = "1103 8000 8111 0001 00",
       improvementIndicator = true,
       mixedUseProperty = false,
-      courtCode = "None"
+      courtCode = "None",
+      valuationList = "None"
     )
 
     Ok(view(property))

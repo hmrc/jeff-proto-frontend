@@ -24,5 +24,6 @@ case class PropertyDetails(
                             localAuthorityReference: String,
                             improvementIndicator: Boolean,
                             mixedUseProperty: Boolean,
-                            courtCode: String
+                            courtCode: String,
+                            valuationList: String
                           )

@@ -1,0 +1,142 @@
+@*
+ * Copyright 2026 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import models.PropertyDetails
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+@import views.html.components._
+
+
+@this(
+layout: templates.Layout,
+govukButton: GovukButton,
+govukTable: GovukTable,
+govukDetails : GovukDetails,
+linkComponent: LinkComponent
+)
+
+@(property: PropertyDetails)(implicit request: Request[_], messages: Messages)
+
+@propertyInformationContent = {
+  <h2 class="govuk-heading-s">@messages("historicBandsFull.localAuthorityReference.heading")</h2>
+    <p class="govuk-body">@messages("historicBandsFull.localAuthorityReference.text")</p>
+
+    <h2 class="govuk-heading-s">@messages("historicBandsFull.councilTaxBand.heading")</h2>
+    <p class="govuk-body">@messages("historicBandsFull.councilTaxBand.text")</p>
+
+    <h2 class="govuk-heading-s">@messages("historicBandsFull.improvementIndicator.heading")</h2>
+    <p class="govuk-body">@messages("historicBandsFull.improvementIndicator.text")</p>
+
+    <h2 class="govuk-heading-s">@messages("historicBandsFull.withEffectFrom.heading")</h2>
+    <p class="govuk-body">@messages("historicBandsFull.withEffectFrom.text")</p>
+
+    <h2 class="govuk-heading-s">@messages("historicBandsFull.mixedUseProperty.heading")</h2>
+    <p class="govuk-body">@messages("historicBandsFull.mixedUseProperty.text")</p>
+
+    <h2 class="govuk-heading-s">@messages("historicBandsFull.courtCode.heading")</h2>
+    <p class="govuk-body">@messages("historicBandsFull.courtCode.text")</p>
+
+    <ul class="govuk-list govuk-list--bullet">
+      <li>@messages("historicBandsFull.courtCode.v")</li>
+      <li>@messages("historicBandsFull.courtCode.c")</li>
+      <li>@messages("historicBandsFull.courtCode.d")</li>
+      <li>@messages("historicBandsFull.courtCode.h")</li>
+      <li>@messages("historicBandsFull.courtCode.r")</li>
+      <li>@messages("historicBandsFull.courtCode.e")</li>
+    </ul>
+
+    <h2 class="govuk-heading-s">@messages("historicBandsFull.valuationList.heading")</h2>
+    <p class="govuk-body">@messages("historicBandsFull.valuationList.text")</p>
+}
+
+@contactInformationContent = {
+    <div class="govuk-!-margin-top-2">
+        <strong>@messages("historicBandsFull.contact.telephone.heading")</strong>
+        <div>@messages("historicBandsFull.contact.telephone.england")</div>
+        <div>@messages("historicBandsFull.contact.telephone.wales")</div>
+        <div>@messages("historicBandsFull.contact.telephone.hours")</div>
+    </div>
+
+    <br aria-hidden="true">
+
+    <div>
+      <strong>@messages("historicBandsFull.contact.email.heading")</strong>
+      <br aria-hidden="true">
+    </div>
+}
+
+@layout(pageTitle = titleNoForm(messages("historicBandsFull.title"))) {
+
+
+<h1 class="govuk-heading-l">
+    <span class="govuk-caption-l">Information for:</span>
+    @property.address
+</h1>
+
+    @govukTable(
+        Table(
+            firstCellIsHeader = true,
+            rows = Seq(
+                Seq(
+                    TableRow(content = Text("Local Authority")),
+                    TableRow(content = HtmlContent(s"<a class=\"govuk-link\" href>${property.localAuthority}</a>"))
+                ),
+                Seq(
+                    TableRow(content = Text("Local authority reference number")),
+                    TableRow(content = Text(property.localAuthorityReference))
+                ),
+                Seq(
+                    TableRow(content = Text("Council Tax band")),
+                    TableRow(content = Text(property.band))
+                ),
+                Seq(
+                    TableRow(content = Text("Improvement indicator")),
+                    TableRow(content = Text(property.improvementIndicator.toString()))
+                ),
+                Seq(
+                    TableRow(content = Text("With effect from")),
+                    TableRow(content = Text(property.effectiveFrom))
+                ),
+                Seq(
+                    TableRow(content = Text("Mixed-use property")),
+                    TableRow(content = Text(property.mixedUseProperty.toString()))
+                ),
+                Seq(
+                    TableRow(content = Text("Court code")),
+                    TableRow(content = Text(property.courtCode))
+                ),
+                Seq(
+                    TableRow(content = Text("Valuation list")),
+                    TableRow(content = Text(property.valuationList))
+                )
+            )
+        )
+    )
+
+@govukDetails(Details(
+    summary = Text("What does my property information mean?"),
+    content = HtmlContent(propertyInformationContent)
+))
+
+@govukDetails(Details(
+    summary = Text("Challenge your previous Council Tax band"),
+    content = HtmlContent(contactInformationContent)
+))
+
+<p class="govuk-body">
+    @linkComponent(label = messages("historicBandsFull.print"), hrefUrl="")
+</p>
+
+}
