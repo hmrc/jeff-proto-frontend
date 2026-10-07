@@ -14,10 +14,15 @@
  * limitations under the License.
  */
 
-package models
+package models.properties
+import play.api.libs.json.{Json, OFormat}
 
-case class SearchResult(
-                         address: String,
-                         councilTaxBand: String,
-                         localAuthority: String
-                       )
+
+
+final case class Postcode(value: String) {
+  override def toString: String = value
+}
+
+object Postcode {
+  implicit val format: OFormat[Postcode] = Json.format[Postcode]
+}

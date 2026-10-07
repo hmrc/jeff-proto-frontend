@@ -80,8 +80,10 @@ GET        /start                                        controllers.StartContro
 GET        /search                                       controllers.SearchController.onPageLoad()
 POST       /search                                       controllers.SearchController.onSubmit()
 
-GET        /search-results/:postcode                     controllers.SearchResultsController.onPageLoad(postcode: String)
-GET        /property-details/:reference                  controllers.PropertyDetailsController.onPageLoad(reference: String)
+GET        /search-results                               controllers.SearchResultsController.onPageLoad(page: Int ?= 1, sortBy: String ?= "AddressASC")
+POST       /search-results                               controllers.SearchResultsController.sort()
+GET        /search-results/select/:index/:sortBy         controllers.SearchResultsController.selectProperty(index: Int, sortBy: String)
+GET        /property-details                             controllers.PropertyDetailsController.onPageLoad()
 
 GET        /self-cert                                    controllers.SelfCertController.onPageLoad(mode: Mode = NormalMode)
 GET        /self-cert                                    controllers.SelfCertController.onPageLoad(mode: Mode = CheckMode)

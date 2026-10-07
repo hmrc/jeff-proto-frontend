@@ -16,38 +16,59 @@
 
 package controllers
 
+import connectors.BridgeIntegrationConnector
 import controllers.actions.IdentifierAction
-import forms.mappings.EnterPostcodeFormProvider
-import models.{PropertyDetails, SearchResult}
-import play.api.data.Form
+import play.api.Logging
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import repositories.ExplorePropertyRepo
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
+import uk.gov.hmrc.play.http.HeaderCarrierConverter
 import views.html.PropertyDetailsView
 
 import javax.inject.Inject
+import scala.concurrent.{ExecutionContext, Future}
 
 class PropertyDetailsController @Inject()(
-                                  val controllerComponents: MessagesControllerComponents,
-                                  identify: IdentifierAction,
-                                  view: PropertyDetailsView
-                                ) extends FrontendBaseController
-  with I18nSupport {
+                                           val controllerComponents: MessagesControllerComponents,
+                                           identify: IdentifierAction,
+                                           view: PropertyDetailsView,
+                                           connector: BridgeIntegrationConnector,
+                                           repo: ExplorePropertyRepo
+                                         )(implicit ec: ExecutionContext) extends FrontendBaseController
+  with I18nSupport with Logging {
 
-  def onPageLoad(reference: String): Action[AnyContent] = Action { implicit request =>
+  def onPageLoad(): Action[AnyContent] =
+    identify.async { implicit request =>
+      val hc = HeaderCarrierConverter.fromRequestAndSession(request, request.session)
+      val userId = hc.sessionId.map(_.value).getOrElse("id")
 
-    val property = PropertyDetails(
-      address = "19, Somerby Court, Bramcote, Nottingham, NG9 3NB",
-      band = "D",
-      effectiveFrom = "9 October 2008",
-      localAuthority = "Nottingham",
-      localAuthorityReference = "1103 8000 8111 0001 00",
-      improvementIndicator = true,
-      mixedUseProperty = false,
-      courtCode = "None",
-      valuationList = "None"
-    )
+      val propertyReference = request.session.get("propertyReference").getOrElse("")
 
-    Ok(view(property))
-  }
+      if (propertyReference.isEmpty) {
+        logger.warn("No propertyReference found in session")
+        Future.successful(Redirect(routes.SearchController.onPageLoad()))
+      } else {
+        connector.explore(propertyReference, "CVW")(hc).flatMap {
+
+          case Right(result) =>
+
+            logger.info(s"Explore result received: $result")
+
+            repo.upsert(userId, result).map { _ =>
+              Ok(view(result))
+            }
+
+          case Left(error) =>
+
+            logger.error(
+              s"Explore call failed for reference $propertyReference. Status=${error.statusCode}, message=${error.message}"
+            )
+
+            Future.successful(
+              Status(error.statusCode)(error.message)
+            )
+        }
+      }
+    }
 }
