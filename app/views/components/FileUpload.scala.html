@@ -44,7 +44,6 @@ classes = if(isPageHeading) "govuk-label--l" else if (labelHidden) "govuk-visual
 hint = hint.map(hintHtml => Hint(
 content = HtmlContent(hintHtml)
 )),
-value = form(name).value,
 errorMessage = errorMessage.map(error => ErrorMessage(content = Text(error))),
 attributes = attributes,
 javascript = Some(true)
