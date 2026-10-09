@@ -16,25 +16,32 @@
 
 package controllers
 
+import connectors.BridgeIntegrationConnector
 import controllers.actions.IdentifierAction
-import forms.mappings.EnterPostcodeFormProvider
+import forms.FindAPropertyBridgeForm
+import models.properties.PostcodeSearchResult
 import play.api.data.Form
 import play.api.i18n.I18nSupport
+import play.api.libs.json.Json
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import repositories.FindAPropertyBridgeRepo
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
+import uk.gov.hmrc.play.http.HeaderCarrierConverter
 import views.html.SearchView
 
 import javax.inject.Inject
+import scala.concurrent.{ExecutionContext, Future}
 
 class SearchController @Inject()(
                                   val controllerComponents: MessagesControllerComponents,
                                   identify: IdentifierAction,
-                                  formProvider: EnterPostcodeFormProvider,
+                                  connector: BridgeIntegrationConnector,
+                                  repo: FindAPropertyBridgeRepo,
                                   view: SearchView
-                                ) extends FrontendBaseController
+                                )(implicit ec: ExecutionContext) extends FrontendBaseController
   with I18nSupport {
 
-  private val form: Form[String] = formProvider()
+  private val form: Form[FindAPropertyBridgeForm] = FindAPropertyBridgeForm.form
 
   def onPageLoad(): Action[AnyContent] =
     identify { implicit request =>
@@ -42,12 +49,28 @@ class SearchController @Inject()(
     }
 
   def onSubmit(): Action[AnyContent] =
-    identify { implicit request =>
+    identify.async { implicit request =>
+      val hc = HeaderCarrierConverter.fromRequestAndSession(request, request.session)
+      val userId = request.userId
       form.bindFromRequest().fold(
         formWithErrors =>
-          BadRequest(view(formWithErrors)),
-        postcode =>
-          Redirect(routes.SearchController.onPageLoad())
+          Future.successful(BadRequest(view(formWithErrors))),
+
+        findAPropertyBridge => {
+          connector.postcodeSearch("CVW", findAPropertyBridge)(hc).flatMap {
+
+            case Right(searchResult) if searchResult.results.records.isEmpty =>
+              Future.successful(Redirect(routes.NoLiableController.onPageLoad()))
+
+            case Right(searchResult) =>
+              repo.upsert(userId, searchResult).map { _ =>
+                Redirect(routes.SearchResultsController.onPageLoad(1, "AddressASC"))
+              }
+            case Left(error) =>
+              Future.successful(Status(error.statusCode)(Json.toJson(error)))
+
+          }
+        }
       )
     }
 }

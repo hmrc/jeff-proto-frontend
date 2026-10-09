@@ -14,7 +14,7 @@
  * limitations under the License.
  *@
 
-@import models.SearchResult
+@import models.properties.PostcodeSearchResult
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import views.html.components._
 
@@ -27,17 +27,17 @@ formHelper: FormWithCSRF
 )
 
 @(
-postcode: String,
-results: Seq[SearchResult],
-searchForm: Form[String]
+    pagedProperties: PostcodeSearchResult,
+    sortBy: String,
+    searchForm: Form[String]
 )(implicit request: Request[_], messages: Messages)
 
 @layout(
-pageTitle = titleNoForm(messages("searchResults.title", postcode))
+    pageTitle = titleNoForm(messages("searchResults.title", pagedProperties.results.records.headOption.flatMap(_.list_entry.property.flatMap(_.address.flatMap(_.postcode))).getOrElse("")))
 ) {
 
 <h1 class="govuk-heading-xl">
-    @messages("searchResults.heading", postcode)
+    @messages("searchResults.heading", pagedProperties.results.records.headOption.flatMap(_.list_entry.property.flatMap(_.address.flatMap(_.postcode))).getOrElse(""))
 </h1>
 
 <p class="govuk-body">
@@ -55,7 +55,7 @@ pageTitle = titleNoForm(messages("searchResults.title", postcode))
 <div class="govuk-grid-row govuk-!-margin-bottom-4">
     <div class="govuk-grid-column-one-half">
         <p class="govuk-body">
-            @messages("searchResults.showing", results.size)
+            @messages("searchResults.showing", pagedProperties.results.records.size)
         </p>
     </div>
 
@@ -67,41 +67,37 @@ pageTitle = titleNoForm(messages("searchResults.title", postcode))
 </div>
 
 @govukTable(
-Table(
-head = Some(Seq(
-HeadCell(content = Text("Address")),
-HeadCell(content = Text("Council Tax band")),
-HeadCell(content = Text("Local authority"))
-)),
-rows = results.map { result =>
-Seq(
-TableRow(
-content = HtmlContent(
-s"""<a class="govuk-link">${result.address}</a>"""
-)
-),
-TableRow(content = Text(result.councilTaxBand)),
-TableRow(
-content = HtmlContent(
-s"""<a class="govuk-link">${result.localAuthority}</a>"""
-)
-)
-)
-}
-)
+    Table(
+        head = Some(Seq(
+            HeadCell(content = Text("Address")),
+            HeadCell(content = Text("Council Tax band")),
+            HeadCell(content = Text("Local authority"))
+        )),
+        rows = pagedProperties.results.records.zipWithIndex.map { case (record, index) =>
+            Seq(
+                TableRow(
+                    content = HtmlContent(
+                        s"""<a class="govuk-link" href="${controllers.routes.SearchResultsController.selectProperty(((pagedProperties.results.current_page.getOrElse(1) - 1) * pagedProperties.results.page_size.getOrElse(10)) + index, sortBy).url}">${record.list_entry.property.flatMap(_.address.flatMap(_.full)).getOrElse("")}</a>"""
+                    )
+                ),
+                TableRow(content = Text(record.list_entry.valuation.value.getOrElse(""))),
+                TableRow(
+                    content = HtmlContent(
+                        s"""<a class="govuk-link">${record.list.collection_authority.label}</a>"""
+                    )
+                )
+            )
+        }
+    )
 )
 
 <nav class="govuk-pagination govuk-!-margin-bottom-6" aria-label="Pagination">
     <ul class="govuk-pagination__list">
-        <li class="govuk-pagination__item govuk-pagination__item--current">
-            <a class="govuk-link">1</a>
-        </li>
-        <li class="govuk-pagination__item">
-            <a class="govuk-link">2</a>
-        </li>
-        <li class="govuk-pagination__item">
-            <a class="govuk-link">3</a>
-        </li>
+        @for(p <- 1 to pagedProperties.results.total_pages.getOrElse(1)) {
+            <li class="govuk-pagination__item @if(pagedProperties.results.current_page.contains(p)){govuk-pagination__item--current}">
+                <a class="govuk-link" href="@controllers.routes.SearchResultsController.onPageLoad(p, sortBy)">@p</a>
+            </li>
+        }
     </ul>
 </nav>
 

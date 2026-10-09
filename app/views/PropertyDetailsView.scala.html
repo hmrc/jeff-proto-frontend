@@ -14,25 +14,26 @@
  * limitations under the License.
  *@
 
-@import models.PropertyDetails
+@import models.properties.ExploreResult
 
 @this(
 layout: templates.Layout,
 govukButton: GovukButton
 )
 
-@(property: PropertyDetails)(implicit request: Request[_], messages: Messages)
+@(result: ExploreResult)(implicit request: Request[_], messages: Messages)
 
 @layout(
 pageTitle = titleNoForm(messages("propertyDetails.title"))
 ) {
 
+@result.results.records.headOption.map { record =>
 <span class="govuk-caption-l">
         @messages("propertyDetails.informationFor")
     </span>
 
 <h1 class="govuk-heading-xl">
-    @property.address
+    @record.data.list_entry.property.flatMap(_.address.flatMap(_.full)).getOrElse("")
 </h1>
 
 <h2 class="govuk-heading-l govuk-!-margin-bottom-1">
@@ -55,7 +56,7 @@ pageTitle = titleNoForm(messages("propertyDetails.title"))
             </div>
         </dt>
         <dd class="govuk-summary-list__value">
-            @property.band
+            @record.data.list_entry.valuation.value.getOrElse("")
         </dd>
     </div>
 
@@ -67,7 +68,7 @@ pageTitle = titleNoForm(messages("propertyDetails.title"))
             </div>
         </dt>
         <dd class="govuk-summary-list__value">
-            @property.effectiveFrom
+            @record.data.list_entry.period.flatMap(_.effective_from_date).getOrElse("")
         </dd>
     </div>
 
@@ -79,7 +80,7 @@ pageTitle = titleNoForm(messages("propertyDetails.title"))
             </div>
         </dt>
         <dd class="govuk-summary-list__value">
-            @property.localAuthority
+            @record.data.list.collection_authority.label.getOrElse("")
         </dd>
     </div>
 
@@ -91,7 +92,7 @@ pageTitle = titleNoForm(messages("propertyDetails.title"))
             </div>
         </dt>
         <dd class="govuk-summary-list__value">
-            @property.localAuthorityReference
+            @record.data.list_entry.administration.flatMap(_.collection_authority_ref).getOrElse("")
         </dd>
     </div>
 
@@ -103,7 +104,7 @@ pageTitle = titleNoForm(messages("propertyDetails.title"))
             </div>
         </dt>
         <dd class="govuk-summary-list__value">
-            @if(property.improvementIndicator) {
+            @if(record.data.list_entry.property.flatMap(_.workflow).flatMap(_.improvement_ind).contains("Y")) {
             @messages("site.yes")
             } else {
             @messages("site.no")
@@ -119,11 +120,7 @@ pageTitle = titleNoForm(messages("propertyDetails.title"))
             </div>
         </dt>
         <dd class="govuk-summary-list__value">
-            @if(property.mixedUseProperty) {
-            @messages("site.yes")
-            } else {
             @messages("site.no")
-            }
         </dd>
     </div>
 
@@ -135,7 +132,7 @@ pageTitle = titleNoForm(messages("propertyDetails.title"))
             </div>
         </dt>
         <dd class="govuk-summary-list__value">
-            @property.courtCode
+            @record.data.list_entry.property.flatMap(_.id).flatMap(_.value).getOrElse("")
         </dd>
     </div>
 
@@ -206,4 +203,5 @@ pageTitle = titleNoForm(messages("propertyDetails.title"))
    data-module="govuk-button">
     @messages("propertyDetails.searchAnother")
 </a>
+}
 }
