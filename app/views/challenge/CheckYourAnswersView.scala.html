@@ -20,11 +20,13 @@
 @import play.api.mvc.Request
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import views.html.components._
+@import controllers.challenge as challengeRoutes
 
 @this(
 layout: templates.Layout,
 formHelper: FormWithCSRF,
-govukButton: GovukButton
+govukButton: GovukButton,
+linkComponent: LinkComponent
 )
 
 @(contactDetails: ChallengeContactDetails)(implicit request: Request[_], messages: Messages)
@@ -97,9 +99,7 @@ messages("checkYourAnswers.title")
   </dd>
 
   <dd class="govuk-summary-list__actions">
-   <a class="govuk-link" href="">
-    @messages("site.change")
-   </a>
+   @linkComponent(label = messages("site.change"), hrefUrl = challengeRoutes.routes.ContactDetailsController.onPageLoad().url)
    <span class="govuk-visually-hidden">
             @messages("checkYourAnswers.firstName")
           </span>
@@ -119,9 +119,7 @@ messages("checkYourAnswers.title")
   </dd>
 
   <dd class="govuk-summary-list__actions">
-   <a class="govuk-link" href="">
-    @messages("site.change")
-   </a>
+   @linkComponent(label = messages("site.change"), hrefUrl = challengeRoutes.routes.ContactDetailsController.onPageLoad().url)
    <span class="govuk-visually-hidden">
             @messages("checkYourAnswers.lastName")
           </span>
@@ -141,9 +139,7 @@ messages("checkYourAnswers.title")
   </dd>
 
   <dd class="govuk-summary-list__actions">
-   <a class="govuk-link" href="">
-    @messages("site.change")
-   </a>
+   @linkComponent(label = messages("site.change"), hrefUrl = challengeRoutes.routes.ContactDetailsController.onPageLoad().url)
    <span class="govuk-visually-hidden">
             @messages("checkYourAnswers.emailAddress")
           </span>
@@ -163,9 +159,7 @@ messages("checkYourAnswers.title")
   </dd>
 
   <dd class="govuk-summary-list__actions">
-   <a class="govuk-link" href="">
-   @messages("site.change")
-    </a>
+   @linkComponent(label = messages("site.change"), hrefUrl = challengeRoutes.routes.ContactDetailsController.onPageLoad().url)
    <span class="govuk-visually-hidden">
             @messages("checkYourAnswers.telephoneNumber")
           </span>
@@ -185,9 +179,7 @@ messages("checkYourAnswers.title")
   </dd>
 
   <dd class="govuk-summary-list__actions">
-   <a class="govuk-link" href="">
-    @messages("site.change")
-   </a>
+   @linkComponent(label = messages("site.change"), hrefUrl = challengeRoutes.routes.ContactDetailsController.onPageLoad().url)
    <span class="govuk-visually-hidden">
             @messages("checkYourAnswers.preferredContact")
           </span>

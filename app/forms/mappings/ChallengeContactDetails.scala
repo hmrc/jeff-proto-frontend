@@ -20,6 +20,7 @@ import play.api.data.Form
 import play.api.data.Forms.list
 import play.api.data.Forms.mapping
 import play.api.data.Forms.text
+import play.api.libs.json.{Json, OFormat}
 
 import javax.inject.Inject
 
@@ -32,6 +33,8 @@ final case class ChallengeContactDetails(
                                         )
 
 object ChallengeContactDetails {
+
+  implicit val format: OFormat[ChallengeContactDetails] = Json.format[ChallengeContactDetails]
 
   val validContactPreferences =
     Set(
