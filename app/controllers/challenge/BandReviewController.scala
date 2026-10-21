@@ -39,7 +39,7 @@ class BandReviewController @Inject()(
   def onContinue(): Action[AnyContent] =
     identify { implicit request =>
       Redirect(
-        routes.ScenarioController.onPageLoad()
+       routes.ScenarioController.onPageLoad()
       )
     }
 }

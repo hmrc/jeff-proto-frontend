@@ -16,7 +16,7 @@
 
 @import controllers.challenge.routes
 @import forms.mappings.ChallengeContactDetails
-@import models.PropertyDetails
+@import models.properties.Property
 @import java.time.LocalDate
 @import java.time.format.DateTimeFormatter
 @import play.api.i18n.Messages
@@ -31,7 +31,7 @@ govukButton: GovukButton
 )
 
 @(
-propertyDetails: Option[PropertyDetails],
+propertyDetails: Option[Property],
 scenario: Option[String],
 responsibleFromDate: Option[LocalDate],
 contactDetails: Option[ChallengeContactDetails]

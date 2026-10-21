@@ -84,10 +84,7 @@ GET        /search-results                               controllers.SearchResul
 POST       /search-results                               controllers.SearchResultsController.sort()
 GET        /search-results/select/:index/:sortBy         controllers.SearchResultsController.selectProperty(index: Int, sortBy: String)
 GET        /property-details                             controllers.PropertyDetailsController.onPageLoad()
-GET        /search-results/:postcode                     controllers.SearchResultsController.onPageLoad(postcode: String)
-
-GET        /property-details/:reference                  controllers.PropertyDetailsController.onPageLoad(reference: String)
-POST       /property-details/:reference                  controllers.PropertyDetailsController.onSubmit(reference: String)
+POST       /property-details                             controllers.PropertyDetailsController.onSubmit()
 
 GET        /self-cert                                    controllers.SelfCertController.onPageLoad(mode: Mode = NormalMode)
 GET        /self-cert                                    controllers.SelfCertController.onPageLoad(mode: Mode = CheckMode)

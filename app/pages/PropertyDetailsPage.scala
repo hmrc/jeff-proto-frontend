@@ -16,12 +16,14 @@
 
 package pages
 
-import models.PropertyDetails
+import models.properties.Property
 import play.api.libs.json.JsPath
 
-case object PropertyDetailsPage extends QuestionPage[PropertyDetails] {
+case object PropertyDetailsPage extends QuestionPage[Property] {
 
-  override def path: JsPath = JsPath \ toString
+  override def path: JsPath =
+    JsPath \ toString
 
-  override def toString: String = "propertyDetails"
+  override def toString: String =
+    "propertyDetails"
 }

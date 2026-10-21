@@ -192,7 +192,7 @@ pageTitle = titleNoForm(messages("propertyDetails.title"))
 </p>
 
 @formHelper(
-    action = controllers.routes.PropertyDetailsController.onSubmit(property.reference),
+    action = controllers.routes.PropertyDetailsController.onSubmit(),
     Symbol("autoComplete") -> "off"
 ) {
 
