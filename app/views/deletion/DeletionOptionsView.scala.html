@@ -15,6 +15,13 @@
  *@
 
 @import controllers.deletion.routes
+@import play.api.data.Form
+@import play.api.i18n.Messages
+@import play.api.mvc.Request
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+@import viewmodels.govuk.all._
+@import views.html.components._
+@import models.deletion.DeletionOptions
 @this(
     layout: templates.Layout,
     formHelper: FormWithCSRF,
