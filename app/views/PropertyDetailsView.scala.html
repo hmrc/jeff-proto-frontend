@@ -17,6 +17,7 @@
 @import models.properties.ExploreResult
 
 @this(
+formHelper: FormWithCSRF,
 layout: templates.Layout,
 govukButton: GovukButton
 )
@@ -190,10 +191,17 @@ pageTitle = titleNoForm(messages("propertyDetails.title"))
     </a>
 </p>
 
-@govukButton(
-    ButtonViewModel(messages("site.continue"))
-)
+@formHelper(
+    action = controllers.routes.PropertyDetailsController.onSubmit(property.reference),
+    Symbol("autoComplete") -> "off"
+) {
 
+    @govukButton(Button(
+        content = Text(messages("site.continue")),
+        attributes = Map("id" -> "continue")
+        ))
+
+}
 <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
 
 <a href="#"

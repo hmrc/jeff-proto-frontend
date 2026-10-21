@@ -16,7 +16,10 @@
 
 package models
 
+import play.api.libs.json.{Json, OFormat}
+
 case class PropertyDetails(
+                            reference: String,
                             address: String,
                             band: String,
                             effectiveFrom: String,
@@ -27,3 +30,7 @@ case class PropertyDetails(
                             courtCode: String,
                             valuationList: String
                           )
+
+object PropertyDetails {
+  implicit val format: OFormat[PropertyDetails] = Json.format[PropertyDetails]
+}

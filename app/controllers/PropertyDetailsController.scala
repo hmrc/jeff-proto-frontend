@@ -16,59 +16,74 @@
 
 package controllers
 
-import connectors.BridgeIntegrationConnector
-import controllers.actions.IdentifierAction
-import play.api.Logging
+import controllers.Execution.trampoline
+import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
+import forms.mappings.EnterPostcodeFormProvider
+import models.{NormalMode, PropertyDetails, SearchResult}
+import navigation.Navigator
+import pages.{ContactNumberPage, PropertyDetailsPage}
+import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import repositories.ExplorePropertyRepo
+import repositories.SessionRepository
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
-import uk.gov.hmrc.play.http.HeaderCarrierConverter
 import views.html.PropertyDetailsView
 
 import javax.inject.Inject
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.Future
 
 class PropertyDetailsController @Inject()(
-                                           val controllerComponents: MessagesControllerComponents,
-                                           identify: IdentifierAction,
-                                           view: PropertyDetailsView,
-                                           connector: BridgeIntegrationConnector,
-                                           repo: ExplorePropertyRepo
-                                         )(implicit ec: ExecutionContext) extends FrontendBaseController
-  with I18nSupport with Logging {
+                                  val controllerComponents: MessagesControllerComponents,
+                                  identify: IdentifierAction,
+                                  getData: DataRetrievalAction,
+                                  requireData: DataRequiredAction,
+                                  sessionRepository: SessionRepository,
+                                  navigator: Navigator,
+                                  view: PropertyDetailsView
+                                ) extends FrontendBaseController
+  with I18nSupport {
 
-  def onPageLoad(): Action[AnyContent] =
-    identify.async { implicit request =>
-      val hc = HeaderCarrierConverter.fromRequestAndSession(request, request.session)
-      val userId = hc.sessionId.map(_.value).getOrElse("id")
+  def onPageLoad(reference: String): Action[AnyContent] = Action { implicit request =>
 
-      val propertyReference = request.session.get("propertyReference").getOrElse("")
+    val property = PropertyDetails(
+      reference,
+      address = "19, Somerby Court, Bramcote, Nottingham, NG9 3NB",
+      band = "D",
+      effectiveFrom = "9 October 2008",
+      localAuthority = "Nottingham",
+      localAuthorityReference = "1103 8000 8111 0001 00",
+      improvementIndicator = true,
+      mixedUseProperty = false,
+      courtCode = "None",
+      valuationList = "None"
+    )
 
-      if (propertyReference.isEmpty) {
-        logger.warn("No propertyReference found in session")
-        Future.successful(Redirect(routes.SearchController.onPageLoad()))
-      } else {
-        connector.explore(propertyReference, "CVW")(hc).flatMap {
+    Ok(view(property))
+  }
 
-          case Right(result) =>
+  def onSubmit(reference: String): Action[AnyContent] =
+    (identify andThen getData andThen requireData).async { implicit request =>
 
-            logger.info(s"Explore result received: $result")
+      val property = PropertyDetails(
+        reference,
+        address = "19, Somerby Court, Bramcote, Nottingham, NG9 3NB",
+        band = "D",
+        effectiveFrom = "9 October 2008",
+        localAuthority = "Nottingham",
+        localAuthorityReference = "1103 8000 8111 0001 00",
+        improvementIndicator = true,
+        mixedUseProperty = false,
+        courtCode = "None",
+        valuationList = "None"
+      )
 
-            repo.upsert(userId, result).map { _ =>
-              Ok(view(result))
-            }
-
-          case Left(error) =>
-
-            logger.error(
-              s"Explore call failed for reference $propertyReference. Status=${error.statusCode}, message=${error.message}"
-            )
-
-            Future.successful(
-              Status(error.statusCode)(error.message)
-            )
-        }
-      }
+      for {
+        updatedAnswers <- Future.fromTry(
+          request.userAnswers.set(PropertyDetailsPage, property)
+        )
+        _ <- sessionRepository.set(updatedAnswers)
+      } yield Redirect(
+        controllers.routes.SelfCertController.onPageLoad(NormalMode)
+      )
     }
 }

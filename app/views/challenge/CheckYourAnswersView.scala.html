@@ -16,28 +16,77 @@
 
 @import controllers.challenge.routes
 @import forms.mappings.ChallengeContactDetails
+@import models.PropertyDetails
+@import java.time.LocalDate
+@import java.time.format.DateTimeFormatter
 @import play.api.i18n.Messages
 @import play.api.mvc.Request
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import views.html.components._
-@import controllers.challenge as challengeRoutes
 
 @this(
 layout: templates.Layout,
 formHelper: FormWithCSRF,
-govukButton: GovukButton,
-linkComponent: LinkComponent
+govukButton: GovukButton
 )
 
-@(contactDetails: ChallengeContactDetails)(implicit request: Request[_], messages: Messages)
+@(
+propertyDetails: Option[PropertyDetails],
+scenario: Option[String],
+responsibleFromDate: Option[LocalDate],
+contactDetails: Option[ChallengeContactDetails]
+)(implicit request: Request[_], messages: Messages)
 
 @preferredContact = @{
-contactDetails.contactPreferences.map {
-case "email"       => messages("checkYourAnswers.contact.email")
-case "phone"       => messages("checkYourAnswers.contact.phone")
-case "textMessage" => messages("checkYourAnswers.contact.textMessage")
-case value         => value
-}.mkString(", ")
+contactDetails
+.map(_.contactPreferences)
+.getOrElse(Nil)
+.map {
+case "email" =>
+messages("checkYourAnswers.contact.email")
+
+case "phone" =>
+messages("checkYourAnswers.contact.phone")
+
+case "textMessage" =>
+messages("checkYourAnswers.contact.textMessage")
+
+case value =>
+value
+}
+.mkString(", ")
+}
+
+@reviewType = @{
+scenario.map {
+case "lessThanSixMonths" =>
+"Less than six months"
+
+case "moreThanSixMonths" =>
+"More than six months"
+
+case "bandChanged" =>
+"Band changed"
+
+case "propertyOrAreaChanged" =>
+"Property or area changed"
+
+case "other" =>
+"Other"
+
+case value =>
+value
+}.getOrElse("")
+}
+
+@formattedResponsibleFromDate = @{
+responsibleFromDate
+.map(
+_.format(
+DateTimeFormatter.ofPattern("d MMMM yyyy")
+)
+)
+.getOrElse("")
 }
 
 @layout(
@@ -53,27 +102,33 @@ messages("checkYourAnswers.title")
 <dl class="govuk-summary-list govuk-!-margin-bottom-6">
 
  <div class="govuk-summary-list__row">
+
   <dt class="govuk-summary-list__key">
    @messages("checkYourAnswers.address")
   </dt>
 
   <dd class="govuk-summary-list__value">
+   @propertyDetails.map(_.address).getOrElse("")
   </dd>
 
   <dd class="govuk-summary-list__actions">
   </dd>
+
  </div>
 
  <div class="govuk-summary-list__row">
+
   <dt class="govuk-summary-list__key">
    @messages("checkYourAnswers.reviewType")
   </dt>
 
   <dd class="govuk-summary-list__value">
+   @reviewType
   </dd>
 
   <dd class="govuk-summary-list__actions">
   </dd>
+
  </div>
 
 </dl>
@@ -81,6 +136,37 @@ messages("checkYourAnswers.title")
 <h2 class="govuk-heading-l">
  @messages("checkYourAnswers.challengeDetails")
 </h2>
+
+<dl class="govuk-summary-list">
+
+ <div class="govuk-summary-list__row">
+
+  <dt class="govuk-summary-list__key">
+   @messages("checkYourAnswers.responsibleFromDate")
+  </dt>
+
+  <dd class="govuk-summary-list__value">
+   @formattedResponsibleFromDate
+  </dd>
+
+  <dd class="govuk-summary-list__actions">
+
+   <a
+           class="govuk-link"
+
+   >
+    @messages("site.change")
+
+    <span class="govuk-visually-hidden">
+                        @messages("checkYourAnswers.responsibleFromDate")
+                    </span>
+   </a>
+
+  </dd>
+
+ </div>
+
+</dl>
 
 <h2 class="govuk-heading-l">
  @messages("checkYourAnswers.contactDetails")
@@ -95,15 +181,22 @@ messages("checkYourAnswers.title")
   </dt>
 
   <dd class="govuk-summary-list__value">
-   @contactDetails.firstName
+   @contactDetails.map(_.firstName).getOrElse("")
   </dd>
 
   <dd class="govuk-summary-list__actions">
-   @linkComponent(label = messages("site.change"), hrefUrl = challengeRoutes.routes.ContactDetailsController.onPageLoad().url)
-   <span class="govuk-visually-hidden">
-            @messages("checkYourAnswers.firstName")
-          </span>
+
+   <a
+           class="govuk-link"
+
+   >
+    @messages("site.change")
+
+    <span class="govuk-visually-hidden">
+                        @messages("checkYourAnswers.firstName")
+                    </span>
    </a>
+
   </dd>
 
  </div>
@@ -115,15 +208,22 @@ messages("checkYourAnswers.title")
   </dt>
 
   <dd class="govuk-summary-list__value">
-   @contactDetails.lastName
+   @contactDetails.map(_.lastName).getOrElse("")
   </dd>
 
   <dd class="govuk-summary-list__actions">
-   @linkComponent(label = messages("site.change"), hrefUrl = challengeRoutes.routes.ContactDetailsController.onPageLoad().url)
-   <span class="govuk-visually-hidden">
-            @messages("checkYourAnswers.lastName")
-          </span>
+
+   <a
+           class="govuk-link"
+
+   >
+    @messages("site.change")
+
+    <span class="govuk-visually-hidden">
+                        @messages("checkYourAnswers.lastName")
+                    </span>
    </a>
+
   </dd>
 
  </div>
@@ -135,15 +235,22 @@ messages("checkYourAnswers.title")
   </dt>
 
   <dd class="govuk-summary-list__value">
-   @contactDetails.emailAddress
+   @contactDetails.map(_.emailAddress).getOrElse("")
   </dd>
 
   <dd class="govuk-summary-list__actions">
-   @linkComponent(label = messages("site.change"), hrefUrl = challengeRoutes.routes.ContactDetailsController.onPageLoad().url)
-   <span class="govuk-visually-hidden">
-            @messages("checkYourAnswers.emailAddress")
-          </span>
+
+   <a
+           class="govuk-link"
+
+   >
+    @messages("site.change")
+
+    <span class="govuk-visually-hidden">
+                        @messages("checkYourAnswers.emailAddress")
+                    </span>
    </a>
+
   </dd>
 
  </div>
@@ -155,15 +262,22 @@ messages("checkYourAnswers.title")
   </dt>
 
   <dd class="govuk-summary-list__value">
-   @contactDetails.telephoneNumber
+   @contactDetails.map(_.telephoneNumber).getOrElse("")
   </dd>
 
   <dd class="govuk-summary-list__actions">
-   @linkComponent(label = messages("site.change"), hrefUrl = challengeRoutes.routes.ContactDetailsController.onPageLoad().url)
-   <span class="govuk-visually-hidden">
-            @messages("checkYourAnswers.telephoneNumber")
-          </span>
+
+   <a
+           class="govuk-link"
+
+   >
+    @messages("site.change")
+
+    <span class="govuk-visually-hidden">
+                        @messages("checkYourAnswers.telephoneNumber")
+                    </span>
    </a>
+
   </dd>
 
  </div>
@@ -179,11 +293,18 @@ messages("checkYourAnswers.title")
   </dd>
 
   <dd class="govuk-summary-list__actions">
-   @linkComponent(label = messages("site.change"), hrefUrl = challengeRoutes.routes.ContactDetailsController.onPageLoad().url)
-   <span class="govuk-visually-hidden">
-            @messages("checkYourAnswers.preferredContact")
-          </span>
+
+   <a
+           class="govuk-link"
+
+   >
+    @messages("site.change")
+
+    <span class="govuk-visually-hidden">
+                        @messages("checkYourAnswers.preferredContact")
+                    </span>
    </a>
+
   </dd>
 
  </div>
@@ -203,19 +324,29 @@ messages("checkYourAnswers.title")
 </h2>
 
 <p class="govuk-body">
+
  @messages("checkYourAnswers.acting.before")
 
- <a id="authorityToAct" href="" class="govuk-link">
+ <a
+         id="authorityToAct"
+         href=""
+         class="govuk-link"
+ >
   @messages("checkYourAnswers.authorityToAct")
  </a>
 
  @messages("checkYourAnswers.acting.middle")
 
- <a id="letterOfAuthority" href="" class="govuk-link">
- @messages("checkYourAnswers.letterOfAuthority")
+ <a
+         id="letterOfAuthority"
+         href=""
+         class="govuk-link"
+ >
+  @messages("checkYourAnswers.letterOfAuthority")
  </a>
 
  @messages("checkYourAnswers.acting.after")
+
 </p>
 
 <p class="govuk-body">

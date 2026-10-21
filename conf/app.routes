@@ -84,6 +84,10 @@ GET        /search-results                               controllers.SearchResul
 POST       /search-results                               controllers.SearchResultsController.sort()
 GET        /search-results/select/:index/:sortBy         controllers.SearchResultsController.selectProperty(index: Int, sortBy: String)
 GET        /property-details                             controllers.PropertyDetailsController.onPageLoad()
+GET        /search-results/:postcode                     controllers.SearchResultsController.onPageLoad(postcode: String)
+
+GET        /property-details/:reference                  controllers.PropertyDetailsController.onPageLoad(reference: String)
+POST       /property-details/:reference                  controllers.PropertyDetailsController.onSubmit(reference: String)
 
 GET        /self-cert                                    controllers.SelfCertController.onPageLoad(mode: Mode = NormalMode)
 GET        /self-cert                                    controllers.SelfCertController.onPageLoad(mode: Mode = CheckMode)
@@ -99,14 +103,22 @@ POST       /challenge/scenario                           controllers.challenge.S
 GET        /challenge/option1                            controllers.challenge.FormalReviewController.onPageLoad()
 POST       /challenge/option1                            controllers.challenge.FormalReviewController.onContinue()
 
-GET       /challenge/date-payer                          controllers.challenge.ResponsibleFromDateController.onPageLoad()
-POST      /challenge/date-payer                          controllers.challenge.ResponsibleFromDateController.onSubmit()
+GET        /challenge/overview                           controllers.challenge.ChallengeOverviewController.onPageLoad()
 
-GET       /challenge/wrong-details                       controllers.challenge.BandReviewReasonController.onPageLoad()
-POST      /challenge/wrong-details                       controllers.challenge.BandReviewReasonController.onSubmit()
+GET       /challenge/date-payer                          controllers.challenge.ResponsibleFromDateController.onPageLoad(mode: Mode = NormalMode)
+POST      /challenge/date-payer                          controllers.challenge.ResponsibleFromDateController.onSubmit(mode: Mode = NormalMode)
+GET       /challenge/change-date-payer                   controllers.challenge.ResponsibleFromDateController.onPageLoad(mode: Mode = CheckMode)
+POST      /challenge/change-date-payer                   controllers.challenge.ResponsibleFromDateController.onSubmit(mode: Mode = CheckMode)
 
-GET        /challenge/documents-to-upload                controllers.challenge.DocumentsToUploadController.onPageLoad()
-POST       /challenge/documents-to-upload                controllers.challenge.DocumentsToUploadController.onSubmit()
+GET       /challenge/wrong-details                       controllers.challenge.BandReviewReasonController.onPageLoad(mode: Mode = NormalMode)
+POST      /challenge/wrong-details                       controllers.challenge.BandReviewReasonController.onSubmit(mode: Mode = NormalMode)
+GET       /challenge/change-wrong-details                controllers.challenge.BandReviewReasonController.onPageLoad(mode: Mode = CheckMode)
+POST      /challenge/change-wrong-details                controllers.challenge.BandReviewReasonController.onSubmit(mode: Mode = CheckMode)
+
+GET        /challenge/documents-to-upload                controllers.challenge.DocumentsToUploadController.onPageLoad(mode: Mode = NormalMode)
+GET        /challenge/change-documents-to-upload         controllers.challenge.DocumentsToUploadController.onPageLoad(mode: Mode = CheckMode)
+POST       /challenge/documents-to-upload                controllers.challenge.DocumentsToUploadController.onSubmit(mode: Mode = NormalMode)
+POST       /challenge/change-documents-to-upload         controllers.challenge.DocumentsToUploadController.onSubmit(mode: Mode = CheckMode)
 
 GET        /challenge/evidence-upload                    controllers.challenge.EvidenceUploadController.onPageLoad(errorCode: Option[String], evidenceType: Option[String])
 GET        /challenge/uploaded-evidence                  controllers.challenge.UploadedEvidenceController.onPageLoad(uploadId: models.upscan.UploadId)

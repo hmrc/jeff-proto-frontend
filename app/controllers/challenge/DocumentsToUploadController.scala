@@ -18,6 +18,7 @@ package controllers.challenge
 
 import controllers.actions.IdentifierAction
 import forms.mappings.DocumentsToUploadFormProvider
+import models.Mode
 import play.api.i18n.I18nSupport
 import play.api.mvc.Action
 import play.api.mvc.AnyContent
@@ -35,32 +36,32 @@ class DocumentsToUploadController @Inject()(
                                            ) extends FrontendBaseController
   with I18nSupport {
 
-  def onPageLoad(): Action[AnyContent] =
+  def onPageLoad(mode: Mode): Action[AnyContent] =
     identify { implicit request =>
       Ok(
-        view(formProvider())
+        view(formProvider(), mode)
       )
     }
 
-  def onSubmit(): Action[AnyContent] =
+  def onSubmit(mode: Mode): Action[AnyContent] =
     identify { implicit request =>
       formProvider()
         .bindFromRequest()
         .fold(
           formWithErrors =>
             BadRequest(
-              view(formWithErrors)
+              view(formWithErrors, mode)
             ),
           answer =>
             answer match {
               case "yes" =>
                 Redirect(
-                  routes.DocumentsToUploadController.onPageLoad()
+                  routes.EvidenceUploadController.onPageLoad(None, None)
                 )
 
               case "no" =>
                 Redirect(
-                  routes.DocumentsToUploadController.onPageLoad()
+                  routes.DocumentsToUploadController.onPageLoad(mode)
                 )
 
               case _ =>
@@ -69,7 +70,8 @@ class DocumentsToUploadController @Inject()(
                     formProvider().withError(
                       "value",
                       "documentsToUpload.error.required"
-                    )
+                    ),
+                    mode
                   )
                 )
             }

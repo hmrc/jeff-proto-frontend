@@ -40,7 +40,6 @@ extends FrontendController(mcc) with I18nSupport{
 
   def onContinue(): Action[AnyContent] =
     identify { implicit request =>
-      // Replace this with the next page in the formal review journey.
-      Redirect(challengeRoutes.routes.FormalReviewController.onPageLoad())
+      Redirect(challengeRoutes.routes.ChallengeOverviewController.onPageLoad())
     }
 }

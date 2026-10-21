@@ -15,11 +15,11 @@
  *@
 
 @import play.i18n.Lang
-@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcServiceNavigationLanguageSelectHelper
+@import uk.gov.hmrc.hmrcfrontend.views.html.helpers._
 @import models.requests.CcaAuthenticatedRequest
 @import models.requests.AuthenticatedRequestHelper._
 
-@this(hmrcLanguageSelectHelper: HmrcServiceNavigationLanguageSelectHelper)
+@this(hmrcLanguageSelectHelper: HmrcServiceNavigationLanguageSelect)
 
 @(backUri: Option[String], showHomeLink: Boolean = true)(implicit request: RequestHeader, messages: Messages)
 
@@ -97,7 +97,7 @@
             }
         </nav>
 
-        @hmrcLanguageSelectHelper()
+        @hmrcLanguageSelectHelper
 
     </div>
 </div>
