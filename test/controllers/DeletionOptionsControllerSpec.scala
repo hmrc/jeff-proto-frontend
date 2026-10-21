@@ -14,7 +14,8 @@ import play.api.mvc.Call
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import repositories.SessionRepository
-import views.html.DeletionOptionsView
+import views.html.deletion.DeletionOptionsView
+import controllers.deletion.routes as deletionRouts
 
 import scala.concurrent.Future
 
@@ -22,7 +23,7 @@ class DeletionOptionsControllerSpec extends SpecBase with MockitoSugar {
 
   def onwardRoute = Call("GET", "/foo")
 
-  lazy val deletionOptionsRoute = routes.DeletionOptionsController.onPageLoad(NormalMode).url
+  lazy val deletionOptionsRoute = deletionRouts.DeletionOptionsController.onPageLoad(NormalMode).url
 
   val formProvider = new DeletionOptionsFormProvider()
   val form = formProvider()
