@@ -20,12 +20,10 @@ package controllers.challenge
   import controllers.actions.IdentifierAction
   import forms.mappings.ScenarioFormProvider
   import play.api.i18n.I18nSupport
-  import play.api.mvc.{
-    Action,
-    AnyContent,
-    MessagesControllerComponents
-  }
+  import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
   import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
+  import controllers.deletion.routes as deletionRouts
+  import models.NormalMode
   import views.html.challenge.ScenarioView
 
   import javax.inject.Inject
@@ -61,7 +59,7 @@ package controllers.challenge
                 Redirect(routes.ScenarioController.onPageLoad())
 
               case "propertyOrAreaChanged" =>
-                Redirect(routes.ScenarioController.onPageLoad())
+                Redirect(deletionRouts.DeletionOptionsController.onPageLoad(NormalMode))
 
               case "other" =>
                 Redirect(routes.ScenarioController.onPageLoad())

@@ -123,3 +123,7 @@ GET        /challenge/check-your-answers                 controllers.challenge.C
 POST       /challenge/check-your-answers                 controllers.challenge.CheckYourAnswersController.onSubmit()
 GET        /errors/no-liable                             controllers.NoLiableController.onPageLoad()
 GET        /historic-bands-full                          controllers.historicBandsFullController.onPageLoad()
+GET        /deletion/deletion-options                        controllers.deletion.DeletionOptionsController.onPageLoad(mode: Mode = NormalMode)
+POST       /deletion/deletion-options                        controllers.deletion.DeletionOptionsController.onSubmit(mode: Mode = NormalMode)
+GET        /change/deletion/deletion-options                  controllers.deletion.DeletionOptionsController.onPageLoad(mode: Mode = CheckMode)
+POST       /change/deletion/deletion-options                  controllers.deletion.DeletionOptionsController.onSubmit(mode: Mode = CheckMode)
