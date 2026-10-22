@@ -553,3 +553,15 @@ historicBandsFull.contact.telephone.hours=Monday to Friday, 9:00am to 4:30pm (ex
 historicBandsFull.contact.email.heading=Email
 historicBandsFull.print = Print this page
 historicBandsFull.contact.email.heading=Email
+
+challengeOverview.title=Challenge and review process overview
+challengeOverview.heading=Challenge and review process overview
+challengeOverview.status=Status
+challengeOverview.statusMessage=This flow is being explored to validate our design assumptions and requirements.
+challengeOverview.description=An overview of your current progress.
+challengeOverview.challengeDetails=Challenge details
+challengeOverview.evidenceDocuments=Evidence documents
+challengeOverview.contactDetails=Contact details
+challengeOverview.checkAnswers=Check answers and submit
+challengeOverview.incomplete=Incomplete
+challengeOverview.notStarted=Not started

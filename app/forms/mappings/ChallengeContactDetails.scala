@@ -17,12 +17,8 @@
 package forms.mappings
 
 import play.api.data.Form
-import play.api.data.Forms.list
-import play.api.data.Forms.mapping
-import play.api.data.Forms.text
+import play.api.data.Forms.{list, mapping, text}
 import play.api.libs.json.{Json, OFormat}
-
-import javax.inject.Inject
 
 final case class ChallengeContactDetails(
                                           firstName: String,
@@ -34,9 +30,10 @@ final case class ChallengeContactDetails(
 
 object ChallengeContactDetails {
 
-  implicit val format: OFormat[ChallengeContactDetails] = Json.format[ChallengeContactDetails]
+  implicit val format: OFormat[ChallengeContactDetails] =
+    Json.format[ChallengeContactDetails]
 
-  val validContactPreferences =
+  private val validContactPreferences: Set[String] =
     Set(
       "email",
       "phone",
@@ -52,43 +49,43 @@ object ChallengeContactDetails {
         "firstName" -> text
           .verifying(
             "contactDetails.firstName.error.required",
-            value => value.trim.nonEmpty
+            _.trim.nonEmpty
           )
           .verifying(
             "contactDetails.firstName.error.length",
-            value => value.length <= 100
+            _.length <= 100
           ),
 
         "lastName" -> text
           .verifying(
             "contactDetails.lastName.error.required",
-            value => value.trim.nonEmpty
+            _.trim.nonEmpty
           )
           .verifying(
             "contactDetails.lastName.error.length",
-            value => value.length <= 100
+            _.length <= 100
           ),
 
         "emailAddress" -> text
           .verifying(
             "contactDetails.emailAddress.error.required",
-            value => value.trim.nonEmpty
+            _.trim.nonEmpty
           ),
 
         "telephoneNumber" -> text
           .verifying(
             "contactDetails.telephoneNumber.error.length",
-            value => value.length <= 50
+            _.length <= 50
           ),
 
         "contactPreferences" -> list(text)
           .verifying(
             "contactDetails.contactPreferences.error.required",
-            values => values.nonEmpty
+            _.nonEmpty
           )
           .verifying(
             "contactDetails.contactPreferences.error.invalid",
-            values => values.forall(validContactPreferences.contains)
+            _.forall(validContactPreferences.contains)
           )
       )(ChallengeContactDetails.apply)(ChallengeContactDetails.unapply)
     )

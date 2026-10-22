@@ -20,7 +20,6 @@
 @import play.api.i18n.Messages
 @import play.api.mvc.Request
 @import uk.gov.hmrc.govukfrontend.views.html.components._
-@import viewmodels.govuk.all._
 @import views.html.components._
 
 @this(
@@ -31,7 +30,7 @@ govukDateInput: GovukDateInput,
 govukButton: GovukButton
 )
 
-@(form: Form[LocalDate])(implicit request: Request[_], messages: Messages)
+@(form: Form[LocalDate], mode: Mode)(implicit request: Request[_], messages: Messages)
 
 @layout(
 pageTitle = title(
@@ -41,7 +40,7 @@ messages("responsibleFromDate.title")
 ) {
 
 @formHelper(
-action = routes.ResponsibleFromDateController.onSubmit()
+action = routes.ResponsibleFromDateController.onSubmit(mode)
 ) {
 
 @if(form.hasErrors) {
@@ -54,57 +53,56 @@ ErrorSummaryViewModel(form)
  @messages("responsibleFromDate.heading")
 </h1>
 
-<p class="govuk-body govuk-hint">
+<p class="govuk-body">
  @messages("responsibleFromDate.guidance")
 </p>
 
-<p class="govuk-body govuk-hint">
+<p class="govuk-hint">
  @messages("responsibleFromDate.hint")
 </p>
 
 @govukDateInput(
-DateInput(
-id = "value",
-namePrefix = Some("value"),
-fieldset = Some(
-Fieldset(
-legend = Some(
-Legend(
-content = Text(
-messages("responsibleFromDate.dateInputLegend")
-),
-classes = "govuk-visually-hidden"
-)
-)
-)
-),
-items = Seq(
-InputItem(
-name = "day",
-classes = "govuk-input--width-2",
-value = form("value.day").value,
-label = Some("Day")
-),
-InputItem(
-name = "month",
-classes = "govuk-input--width-2",
-value = form("value.month").value,
-label = Some("Month")
-),
-InputItem(
-name = "year",
-classes = "govuk-input--width-4",
-value = form("value.year").value,
-label = Some("Year")
-)
-)
-)
+ DateInput(
+  id = "value",
+  fieldset = Some(
+   Fieldset(
+    legend = Some(
+     Legend(
+      content = Text(
+       messages("responsibleFromDate.dateInputLegend")
+      ),
+     classes = "govuk-visually-hidden"
+     )
+    )
+   )
+  ),
+  items = Seq(
+   InputItem(
+    name = "value.day",
+    classes = "govuk-input--width-2",
+    value = form("value.day").value,
+    label = Some("Day")
+   ),
+   InputItem(
+    name = "value.month",
+    classes = "govuk-input--width-2",
+    value = form("value.month").value,
+    label = Some("Month")
+   ),
+   InputItem(
+    name = "value.year",
+    classes = "govuk-input--width-4",
+    value = form("value.year").value,
+    label = Some("Year")
+   )
+  )
+ )
 )
 
 @govukButton(
-ButtonViewModel(
-content = Text(messages("site.continue"))
-)
+ Button(
+  content = Text(messages("site.continue"))
+ )
 )
 }
 }

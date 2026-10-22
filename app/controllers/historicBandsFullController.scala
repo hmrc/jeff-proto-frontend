@@ -38,6 +38,7 @@ class historicBandsFullController @Inject()(
     implicit request =>
 
       val property = PropertyDetails(
+        reference = "NG9 3NB",
         address = "19, Somerby Court, Bramcote, Nottingham, NG9 3NB",
         band = "D",
         effectiveFrom = "9 October 2008",

@@ -16,14 +16,24 @@
 
 package controllers.challenge
 
-import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
-import forms.mappings.ChallengeContactDetails
-import pages.ChallengeContactDetailsPage
+import controllers.actions.{
+  DataRequiredAction,
+  DataRetrievalAction,
+  IdentifierAction
+}
+import pages.{
+  ChallengeContactDetailsPage,
+  PropertyDetailsPage,
+  ResponsibleFromDatePage,
+  ScenarioPage
+}
+
 import play.api.i18n.I18nSupport
-import play.api.mvc.Action
-import play.api.mvc.AnyContent
-import play.api.mvc.MessagesControllerComponents
-import uk.gov.hmrc.http.NotFoundException
+import play.api.mvc.{
+  Action,
+  AnyContent,
+  MessagesControllerComponents
+}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 import views.html.challenge.CheckYourAnswersView
 
@@ -39,19 +49,32 @@ class CheckYourAnswersController @Inject()(
   with I18nSupport {
 
   def onPageLoad(): Action[AnyContent] =
-    (identify andThen getData andThen requireData) {
-      implicit request =>
-        val contactDetails =
-          request.userAnswers.get(ChallengeContactDetailsPage).getOrElse {
-            throw new NotFoundException(
-              "ChallengeContactDetails not found in ChallengeContactDetailsController.onPageLoad()"
-            )
-          }
-        Ok(view(contactDetails))
+    (identify andThen getData andThen requireData) { implicit request =>
+
+      val propertyDetails =
+        request.userAnswers.get(PropertyDetailsPage)
+
+      val scenario =
+        request.userAnswers.get(ScenarioPage)
+
+      val responsibleFromDate =
+        request.userAnswers.get(ResponsibleFromDatePage)
+
+      val contactDetails =
+        request.userAnswers.get(ChallengeContactDetailsPage)
+
+      Ok(
+        view(
+          propertyDetails = propertyDetails,
+          scenario = scenario,
+          responsibleFromDate = responsibleFromDate,
+          contactDetails = contactDetails
+        )
+      )
     }
 
   def onSubmit(): Action[AnyContent] =
-    identify { implicit request =>
+    (identify andThen getData andThen requireData) { implicit request =>
       Redirect(
         routes.CheckYourAnswersController.onPageLoad()
       )

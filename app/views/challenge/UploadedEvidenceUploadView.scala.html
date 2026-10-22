@@ -21,6 +21,7 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import views.html.components._
 @import views.html.templates._
+@import controllers.challenge as challengeRoutes
 
 
 
@@ -67,7 +68,7 @@ Upload your @messages(s"uploadEvidence.${evidenceType.get}.title")
 @status match {
 case s: UploadStatus.UploadedSuccessfully => {
 <p class="govuk-body">
-    <a href="@controllers.routes.IndexController.onPageLoad()">
+    <a href="@challengeRoutes.routes.ExpectedCouncilTaxBandController.onPageLoad()">
         @saveAndContinueButton(msg = messages("site.continue"), isStartButton = false, disabled = false)
     </a>
 </p>
