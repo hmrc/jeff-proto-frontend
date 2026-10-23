@@ -50,7 +50,7 @@ class UpdateEmailController @Inject()(
   extends FrontendBaseController
     with I18nSupport {
 
-      val email = "test@gmail.com"
+  val email = "test@gmail.com"
 
   private def demoRequest(implicit request: Request[AnyContent]): CcaAuthenticatedRequest[AnyContent] =
     CcaAuthenticatedRequest(
@@ -62,7 +62,7 @@ class UpdateEmailController @Inject()(
         email = email,
         phone = "07123456789",
         isAgent = false,
-        agentCode = None//Some(10001L)
+        agentCode = None //Some(10001L)
       ),
       individualAccount = DetailedIndividualAccount(
         externalId = "ext-123",
@@ -83,13 +83,12 @@ class UpdateEmailController @Inject()(
       sessionId = "demo-session-id"
     )
 
-
   def onPageLoad(): Action[AnyContent] =
     (identify andThen getData andThen requireData) { implicit request =>
       implicit val dr: CcaAuthenticatedRequest[AnyContent] = demoRequest(request)
 
       val preparedForm = request.userAnswers.get(UpdateEmailPage) match {
-        case None => form
+        case None        => form
         case Some(value) => form.fill(value)
       }
 
@@ -101,12 +100,11 @@ class UpdateEmailController @Inject()(
       implicit val dr: CcaAuthenticatedRequest[AnyContent] = demoRequest(request)
 
       form.bindFromRequest().fold(
-        formWithErrors =>
-          Future.successful(BadRequest(view(formWithErrors))),
+        formWithErrors => Future.successful(BadRequest(view(formWithErrors))),
         value =>
           for {
             updatedAnswers <- Future.fromTry(request.userAnswers.set(UpdateEmailPage, value))
-            _ <- sessionRepository.set(updatedAnswers)
+            _              <- sessionRepository.set(updatedAnswers)
             _ <- bridgeIntegrationConnector.registerRatePayer(
               RegisterRatepayerRequest(
                 userType = Some(RatepayerType.Individual),
