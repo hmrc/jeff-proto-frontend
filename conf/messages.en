@@ -575,3 +575,13 @@ deletionOptions.localAreaChanges = There have been changes to the local area tha
 deletionOptions.checkYourAnswersLabel = deletionOptions
 deletionOptions.error.required = Select deletionOptions
 deletionOptions.change.hidden = DeletionOptions
+
+deletionReason.title = deletionReason
+deletionReason.heading = Choose which applies to your property
+deletionReason.derelict = My property is derelict or in a state of disrepair and cannot be lived in
+deletionReason.demolished = My property has been fully demolished
+deletionReason.renovations = My property is having major works or renovations done and cannot be lived in
+deletionReason.partDemolished = Part of the property is demolished
+deletionReason.checkYourAnswersLabel = deletionReason
+deletionReason.error.required = Select deletionReason
+deletionReason.change.hidden = DeletionReason
