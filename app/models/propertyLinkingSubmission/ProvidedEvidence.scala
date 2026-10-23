@@ -22,7 +22,7 @@ import utils.JsonUtils.enumFormat
 object ProvidedEvidence extends Enumeration {
   type ProvidedEvidence = Value
 
-  val RATES_BILL = Value("RATES_BILL")
+  val EXAMPLE = Value("EXAMPLE") // ADD MORE JEFF SPECIFIC TYPES
   val OTHER = Value("OTHER")
   val NO_EVIDENCE = Value("NO_EVIDENCE")
 
