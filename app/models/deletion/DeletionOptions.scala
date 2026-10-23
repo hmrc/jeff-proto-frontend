@@ -30,10 +30,9 @@ object DeletionOptions extends Enumerable.Implicits {
   case object Split extends WithName("split") with DeletionOptions
   case object ChangeOfUse extends WithName("changeOfUse") with DeletionOptions
   case object LocalAreaChanges extends WithName("localAreaChanges") with DeletionOptions
-  case object Another extends WithName("another") with DeletionOptions
 
   val values: Seq[DeletionOptions] = Seq(
-    Demolished, Split, ChangeOfUse, LocalAreaChanges, Another
+    Demolished, Split, ChangeOfUse, LocalAreaChanges
   )
 
   def options(implicit messages: Messages): Seq[RadioItem] = values.zipWithIndex.map {

@@ -559,7 +559,6 @@ deletionOptions.demolished = My property has been demolished, is derelict or is 
 deletionOptions.split = My property has been split into multiple properties or merged into a single larger property
 deletionOptions.changeOfUse = There has been a change of use to my property
 deletionOptions.localAreaChanges = There have been changes to the local area that have affected my property
-deletionOptions.another = Another reason
 deletionOptions.checkYourAnswersLabel = deletionOptions
 deletionOptions.error.required = Select deletionOptions
 deletionOptions.change.hidden = DeletionOptions
