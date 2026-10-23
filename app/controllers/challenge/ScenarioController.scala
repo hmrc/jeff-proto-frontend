@@ -24,6 +24,8 @@ import play.api.mvc._
 import repositories.SessionRepository
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 import views.html.challenge.ScenarioView
+import controllers.deletion.routes as deletionRouts
+import models.NormalMode
 
 import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
@@ -81,7 +83,7 @@ class ScenarioController @Inject()(
                   Redirect(routes.ScenarioController.onPageLoad())
 
                 case "propertyOrAreaChanged" =>
-                  Redirect(routes.ScenarioController.onPageLoad())
+                  Redirect(deletionRouts.DeletionOptionsController.onPageLoad(NormalMode))
 
                 case "other" =>
                   Redirect(routes.ScenarioController.onPageLoad())

@@ -565,3 +565,13 @@ challengeOverview.contactDetails=Contact details
 challengeOverview.checkAnswers=Check answers and submit
 challengeOverview.incomplete=Incomplete
 challengeOverview.notStarted=Not started
+
+deletionOptions.title = deletionOptions
+deletionOptions.heading = What has changed?
+deletionOptions.demolished = My property has been demolished, is derelict or is undergoing significant renovation and repairs and cannot be lived in
+deletionOptions.split = My property has been split into multiple properties or merged into a single larger property
+deletionOptions.changeOfUse = There has been a change of use to my property
+deletionOptions.localAreaChanges = There have been changes to the local area that have affected my property
+deletionOptions.checkYourAnswersLabel = deletionOptions
+deletionOptions.error.required = Select deletionOptions
+deletionOptions.change.hidden = DeletionOptions
