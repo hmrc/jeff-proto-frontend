@@ -17,7 +17,6 @@
 package models.deletion
 
 import models.{Enumerable, WithName}
-import models.deletion.DeletionOptions
 import play.api.i18n.Messages
 import uk.gov.hmrc.govukfrontend.views.Aliases.Text
 import uk.gov.hmrc.govukfrontend.views.viewmodels.radios.RadioItem

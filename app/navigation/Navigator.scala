@@ -22,8 +22,10 @@ import controllers.routes
 import controllers.registration.routes as registrationRoutes
 import controllers.dashboard.routes as dashboardRoutes
 import controllers.challenge.routes as challengeRoutes
+import controllers.deletion.routes as deletionRoutes
 import pages.*
 import models.*
+import models.deletion.DeletionOptions
 
 @Singleton
 class Navigator @Inject()() {
@@ -43,6 +45,7 @@ class Navigator @Inject()() {
     case BandReviewReasonPage => _ => challengeRoutes.DocumentsToUploadController.onPageLoad(NormalMode)
     case SelfCertPage => userAnswers => if(userAnswers.get(SelfCertPage).get.value.matches("NO") ) routes.NoLiableController.onPageLoad() else challengeRoutes.BandReviewController.onPageLoad()
     case ChallengeContactDetailsPage => _ => challengeRoutes.CheckYourAnswersController.onPageLoad()
+    case DeletionOptionsPage => userAnswers => deletionOptionsRoute(userAnswers)
     case _ => _ => routes.IndexController.onPageLoad()
   }
 
@@ -63,4 +66,12 @@ class Navigator @Inject()() {
     case CheckMode =>
       checkRouteMap(page)(userAnswers)
   }
+
+  private def deletionOptionsRoute(userAnswers: UserAnswers): Call =
+    userAnswers.get(DeletionOptionsPage) match {
+      case Some(DeletionOptions.Demolished) =>
+        deletionRoutes.DeletionReasonController.onPageLoad(NormalMode)
+      case _ =>
+        routes.IndexController.onPageLoad()
+    }
 }
