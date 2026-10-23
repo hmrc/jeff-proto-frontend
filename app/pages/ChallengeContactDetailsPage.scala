@@ -16,12 +16,15 @@
 
 package pages
 
-import forms.mappings.{ChallengeContactDetails, ContactDetails}
+import forms.mappings.ChallengeContactDetails
 import play.api.libs.json.JsPath
 
-case object ChallengeContactDetailsPage extends  QuestionPage[ChallengeContactDetails] {
+case object ChallengeContactDetailsPage
+  extends QuestionPage[ChallengeContactDetails] {
 
-  override def path: JsPath = JsPath \ toString
+  override def path: JsPath =
+    JsPath \ "challengeContactDetails"
 
-  override def toString: String = "challengeContactDetails"
+  override def toString: String =
+    "challengeContactDetails"
 }

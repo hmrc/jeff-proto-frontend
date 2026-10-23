@@ -16,15 +16,19 @@
 
 package controllers.challenge
 
-import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
+import controllers.actions.{
+  DataRequiredAction,
+  DataRetrievalAction,
+  IdentifierAction
+}
 import forms.mappings.ChallengeContactDetails
-import models.NormalMode
-import navigation.Navigator
 import pages.ChallengeContactDetailsPage
 import play.api.i18n.I18nSupport
-import play.api.mvc.Action
-import play.api.mvc.AnyContent
-import play.api.mvc.MessagesControllerComponents
+import play.api.mvc.{
+  Action,
+  AnyContent,
+  MessagesControllerComponents
+}
 import repositories.SessionRepository
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 import views.html.challenge.ContactDetailsView
@@ -38,20 +42,21 @@ class ContactDetailsController @Inject()(
                                           getData: DataRetrievalAction,
                                           requireData: DataRequiredAction,
                                           sessionRepository: SessionRepository,
-                                          navigator: Navigator,
                                           view: ContactDetailsView
-                                        ) (implicit ec: ExecutionContext)
+                                        )(implicit ec: ExecutionContext)
   extends FrontendBaseController
-  with I18nSupport {
+    with I18nSupport {
 
   def onPageLoad(): Action[AnyContent] =
     (identify andThen getData andThen requireData) {
       implicit request =>
 
-        val preparedForm = request.userAnswers.get(ChallengeContactDetailsPage) match {
-          case None => ChallengeContactDetails.form()
-          case Some(value) => ChallengeContactDetails.form().fill(value)
-        }
+        val preparedForm =
+          request.userAnswers
+            .get(ChallengeContactDetailsPage)
+            .fold(ChallengeContactDetails.form()) {
+              ChallengeContactDetails.form().fill
+            }
 
         Ok(view(preparedForm))
     }
@@ -60,26 +65,29 @@ class ContactDetailsController @Inject()(
     (identify andThen getData andThen requireData).async {
       implicit request =>
 
-        ChallengeContactDetails.form().bindFromRequest().fold(
-          formWithErrors =>
-            Future.successful(
-              BadRequest(view(formWithErrors))
-            ),
-          contactDetails =>
-            for {
-              updatedAnswers <- Future.fromTry(
-                request.userAnswers.set(ChallengeContactDetailsPage, contactDetails)
-              )
-              _ <- sessionRepository.set(updatedAnswers)
-            } yield {
-              Redirect(
-                navigator.nextPage(
-                  ChallengeContactDetailsPage,
-                  NormalMode,
-                  updatedAnswers
+        ChallengeContactDetails
+          .form()
+          .bindFromRequest()
+          .fold(
+            formWithErrors =>
+              Future.successful(
+                BadRequest(view(formWithErrors))
+              ),
+
+            contactDetails =>
+              for {
+                updatedAnswers <- Future.fromTry(
+                  request.userAnswers.set(
+                    ChallengeContactDetailsPage,
+                    contactDetails
+                  )
                 )
+
+                _ <- sessionRepository.set(updatedAnswers)
+
+              } yield Redirect(
+                routes.CheckYourAnswersController.onPageLoad()
               )
-            }
-        )
+          )
     }
 }

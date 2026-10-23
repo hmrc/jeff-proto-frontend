@@ -16,23 +16,30 @@
 
 package controllers.challenge
 
-import controllers.actions.IdentifierAction
+import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
 import forms.mappings.ExpectedCouncilTaxBandFormProvider
+import models.NormalMode
+import pages.ExpectedCouncilTaxBandPage
 import play.api.i18n.I18nSupport
 import play.api.mvc.Action
 import play.api.mvc.AnyContent
 import play.api.mvc.MessagesControllerComponents
+import repositories.SessionRepository
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 import views.html.challenge.ExpectedCouncilTaxBandView
 
 import javax.inject.Inject
+import scala.concurrent.{ExecutionContext, Future}
 
 class ExpectedCouncilTaxBandController @Inject()(
                                                   val controllerComponents: MessagesControllerComponents,
                                                   identify: IdentifierAction,
+                                                  getData: DataRetrievalAction,
+                                                  requireData: DataRequiredAction,
+                                                  sessionRepository: SessionRepository,
                                                   formProvider: ExpectedCouncilTaxBandFormProvider,
                                                   view: ExpectedCouncilTaxBandView
-                                                ) extends FrontendBaseController
+                                                )(implicit ec: ExecutionContext) extends FrontendBaseController
   with I18nSupport {
 
   def onPageLoad(): Action[AnyContent] =
@@ -43,19 +50,28 @@ class ExpectedCouncilTaxBandController @Inject()(
     }
 
   def onSubmit(): Action[AnyContent] =
-    identify { implicit request =>
+    (identify andThen getData andThen requireData).async { implicit request =>
       formProvider()
         .bindFromRequest()
         .fold(
           formWithErrors =>
-            BadRequest(
+            Future.successful(
+              BadRequest(
               view(formWithErrors)
+              )
             ),
-          selectedBand => {
-            Redirect(
-              routes.ExpectedCouncilTaxBandController.onPageLoad()
+          selectedBand =>
+            for {
+              updatedAnswers <- Future.fromTry(
+                request.userAnswers.set(
+                  ExpectedCouncilTaxBandPage,
+                  selectedBand
+                )
+              )
+              _ <- sessionRepository.set(updatedAnswers)
+            } yield Redirect(
+              routes.ContactDetailsController.onPageLoad()
             )
-          }
         )
     }
 }

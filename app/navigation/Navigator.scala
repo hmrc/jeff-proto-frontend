@@ -39,6 +39,8 @@ class Navigator @Inject()() {
     case CompleteContactDetailsPage => _ => registrationRoutes.CreateConfirmationController.onPageLoad()
     case UpdateTelephoneNumberPage => _ => dashboardRoutes.HomeController.onPageLoad()
     case UpdateEmailPage => _ => dashboardRoutes.HomeController.onPageLoad()
+    case PropertyDetailsPage => _ => routes.SelfCertController.onPageLoad(NormalMode)
+    case BandReviewReasonPage => _ => challengeRoutes.DocumentsToUploadController.onPageLoad(NormalMode)
     case SelfCertPage => userAnswers => if(userAnswers.get(SelfCertPage).get.value.matches("NO") ) routes.NoLiableController.onPageLoad() else challengeRoutes.BandReviewController.onPageLoad()
     case ChallengeContactDetailsPage => _ => challengeRoutes.CheckYourAnswersController.onPageLoad()
     case _ => _ => routes.IndexController.onPageLoad()

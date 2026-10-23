@@ -16,7 +16,7 @@
 
 package controllers.challenge
 
-import controllers.actions.IdentifierAction
+import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
 import forms.mappings.BandReviewReasonFormProvider
 import play.api.i18n.I18nSupport
 import play.api.mvc.Action
@@ -25,38 +25,49 @@ import play.api.mvc.MessagesControllerComponents
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 import views.html.challenge.BandReviewReasonView
 import controllers.challenge as challengeRoutes
+import models.Mode
+import navigation.Navigator
+import pages.{BandReviewReasonPage, DoYouHaveATradingNamePage}
+import repositories.SessionRepository
 
 import javax.inject.Inject
+import scala.concurrent.{ExecutionContext, Future}
 
 class BandReviewReasonController @Inject()(
                                             val controllerComponents: MessagesControllerComponents,
                                             identify: IdentifierAction,
+                                            getData: DataRetrievalAction,
+                                            requireData: DataRequiredAction,
+                                            sessionRepository: SessionRepository,
+                                            navigator: Navigator,
                                             formProvider: BandReviewReasonFormProvider,
                                             view: BandReviewReasonView
-                                          ) extends FrontendBaseController
+                                          )(implicit ec: ExecutionContext) extends FrontendBaseController
   with I18nSupport {
 
-  def onPageLoad(): Action[AnyContent] =
+  def onPageLoad(mode: Mode): Action[AnyContent] =
     identify { implicit request =>
       Ok(
-        view(formProvider())
+        view(formProvider(), mode)
       )
     }
 
-  def onSubmit(): Action[AnyContent] =
-    identify { implicit request =>
+  def onSubmit(mode: Mode): Action[AnyContent] =
+    (identify andThen getData andThen requireData).async { implicit request =>
       formProvider()
         .bindFromRequest()
         .fold(
           formWithErrors =>
-            BadRequest(
-              view(formWithErrors)
+            Future.successful(
+              BadRequest(view(formWithErrors, mode))
             ),
-          reason => {
-            Redirect(
-              routes.BandReviewReasonController.onPageLoad()
-            )
-          }
+          reason => 
+            for {
+              updatedAnswers <- Future.fromTry(
+                request.userAnswers.set(BandReviewReasonPage, reason)
+              )
+              _ <- sessionRepository.set(updatedAnswers)
+            } yield Redirect(navigator.nextPage(BandReviewReasonPage, mode, updatedAnswers))
         )
     }
 }

@@ -16,57 +16,82 @@
 
 package controllers.challenge
 
+import controllers.actions._
+import forms.mappings.ScenarioFormProvider
+import pages.ScenarioPage
+import play.api.i18n.I18nSupport
+import play.api.mvc._
+import repositories.SessionRepository
+import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
+import views.html.challenge.ScenarioView
+import controllers.deletion.routes as deletionRouts
+import models.NormalMode
 
-  import controllers.actions.IdentifierAction
-  import forms.mappings.ScenarioFormProvider
-  import play.api.i18n.I18nSupport
-  import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-  import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
-  import controllers.deletion.routes as deletionRouts
-  import models.NormalMode
-  import views.html.challenge.ScenarioView
+import javax.inject.Inject
+import scala.concurrent.{ExecutionContext, Future}
 
-  import javax.inject.Inject
-
-  class ScenarioController @Inject()(
-                                               val controllerComponents: MessagesControllerComponents,
-                                               identify: IdentifierAction,
-                                               formProvider: ScenarioFormProvider,
-                                               view: ScenarioView
-                                             ) extends FrontendBaseController
+class ScenarioController @Inject()(
+                                    val controllerComponents: MessagesControllerComponents,
+                                    identify: IdentifierAction,
+                                    getData: DataRetrievalAction,
+                                    requireData: DataRequiredAction,
+                                    sessionRepository: SessionRepository,
+                                    formProvider: ScenarioFormProvider,
+                                    view: ScenarioView
+                                  )(implicit ec: ExecutionContext)
+  extends FrontendBaseController
     with I18nSupport {
 
-    def onPageLoad(): Action[AnyContent] =
-      identify { implicit request =>
-        Ok(view(formProvider()))
-      }
+  def onPageLoad(): Action[AnyContent] =
+    (identify andThen getData andThen requireData) { implicit request =>
 
-    def onSubmit(): Action[AnyContent] =
-      identify { implicit request =>
-        formProvider()
-          .bindFromRequest()
-          .fold(
-            formWithErrors =>
-              BadRequest(view(formWithErrors)),
-            {
-              case "lessThanSixMonths" =>
-                Redirect(routes.ScenarioController.onPageLoad())
+      val preparedForm =
+        request.userAnswers
+          .get(ScenarioPage)
+          .fold(formProvider())(formProvider().fill)
 
-              case "moreThanSixMonths" =>
-                Redirect(routes.ScenarioController.onPageLoad())
+      Ok(view(preparedForm))
+    }
 
-              case "bandChanged" =>
-                Redirect(routes.ScenarioController.onPageLoad())
+  def onSubmit(): Action[AnyContent] =
+    (identify andThen getData andThen requireData).async { implicit request =>
 
-              case "propertyOrAreaChanged" =>
-                Redirect(deletionRouts.DeletionOptionsController.onPageLoad(NormalMode))
+      formProvider()
+        .bindFromRequest()
+        .fold(
+          formWithErrors =>
+            Future.successful(
+              BadRequest(view(formWithErrors))
+            ),
+          answer =>
+            for {
+              updatedAnswers <- Future.fromTry(
+                request.userAnswers.set(ScenarioPage, answer)
+              )
 
-              case "other" =>
-                Redirect(routes.ScenarioController.onPageLoad())
+              _ <- sessionRepository.set(updatedAnswers)
 
-              case _ =>
-                Redirect(routes.ScenarioController.onPageLoad())
+            } yield {
+              answer match {
+                case "lessThanSixMonths" =>
+                  Redirect(routes.FormalReviewController.onPageLoad())
+
+                case "moreThanSixMonths" =>
+                  Redirect(routes.ScenarioController.onPageLoad())
+
+                case "bandChanged" =>
+                  Redirect(routes.ScenarioController.onPageLoad())
+
+                case "propertyOrAreaChanged" =>
+                  Redirect(deletionRouts.DeletionOptionsController.onPageLoad(NormalMode))
+
+                case "other" =>
+                  Redirect(routes.ScenarioController.onPageLoad())
+
+                case _ =>
+                  Redirect(routes.ScenarioController.onPageLoad())
+              }
             }
-          )
-      }
-  }
+        )
+    }
+}
