@@ -143,3 +143,4 @@ GET        /deletion/delete/changeRemove                  controllers.deletion.D
 POST       /deletion/delete/changeRemove                  controllers.deletion.DeletionReasonController.onSubmit(mode: Mode = CheckMode)
 
 GET        /deletion/delete/remove/*reason                controllers.deletion.DeletionReviewController.onPageLoad(reason: String)
+POST       /deletion/delete/remove/continue               controllers.deletion.DeletionReviewController.onContinue()

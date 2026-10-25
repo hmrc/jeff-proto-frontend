@@ -21,6 +21,7 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import viewmodels.govuk.all._
 @import views.html.components._
+@import models.NormalMode
 
 
 @this(
@@ -29,7 +30,8 @@
   govukErrorSummary: GovukErrorSummary,
   govukButton: GovukButton,
   govukInsetText: GovukInsetText,
-  govukTable : GovukTable
+  govukTable : GovukTable,
+  linkComponent : LinkComponent
 )
 
 @()(implicit request: Request[_], messages: Messages)
@@ -38,147 +40,76 @@
 
     <h1 class="govuk-heading-xl">@messages("deletionReview.heading")</h1>
     <p class="govuk-body">
-      You have told us that <strong>your property is derelict and cannot be lived in</strong>.
+      @Html(messages("deletionReview.intro.paragraph1"))
     </p>
+
     <p class="govuk-body">
-      This means that you can ask for your property to be removed from the Council Tax list. This is known as a ‘Formal Challenge’ or ‘Making a Proposal’
+      @messages("deletionReview.intro.paragraph2")
     </p>
+
     @govukInsetText(InsetText(
-      content = Text("You can change your selection if this option is not right for you.")
+      content = Text(messages("deletionReview.insetText"))
     ))
+
+  @formHelper(
+    action = routes.DeletionReviewController.onContinue()
+  ) {
     <div class="govuk-button-group">
-
-      @govukButton(Button(
-      content = Text("Continue")
-      ))
-      <a class="govuk-link" href="#">Cancel</a>
-    </div>
-
-    <h2 class="govuk-heading-l">How a formal review works</h2>
-
-    @govukTable(Table(
-      rows = Seq(
-        Seq(
-          TableRow(
-            content = Text("What it is")
-          ),
-          TableRow(
-            content = HtmlContent(
-              "You can ask the Valuation Office to delete your property from the Council Tax list."
-            )
-          )
-        ),
-        Seq(
-          TableRow(
-            content = Text("What it’s for")
-          ),
-          TableRow(
-            content = HtmlContent(
-              "This will delete your property’s Council Tax band, and you will not be required to pay Council Tax to your Local Council."
-            )
-          )
-        ),
-        Seq(
-          TableRow(
-            content = Text("Important")
-          ),
-          TableRow(
-            content = HtmlContent(
-              """In the future, if you make improvements to the property and the property can be lived in, you will need to apply to have the property added to the Council Tax List.
-                |<br><br>
-                |When a property comes back into the Council Tax list, it could come back in at the same, lower or higher band than before. This will depend on the property valuation at that time.""".stripMargin
-            )
-          )
-        ),
-        Seq(
-          TableRow(
-            content = Text("When you can ask for a formal review")
-          ),
-          TableRow(
-            content = HtmlContent(
-              "The request can only be submitted after the derelict property could not be lived in."
-            )
-          )
-        ),
-        Seq(
-          TableRow(
-            content = Text("How long it takes")
-          ),
-          TableRow(
-            content = Text("Up to 16 weeks")
-          )
-        ),
-        Seq(
-          TableRow(
-            content = Text("Evidence required")
-          ),
-          TableRow(
-            content = HtmlContent(
-              """When you make a request for us to delete your property’s Council Tax band, we ask you for evidence.
-                |<br><br>
-                |When you provide evidence, your caseworker can review your request without delays, and it helps us make a decision sooner.
-                |<br><br>
-                |If a caseworker requires additional evidence, they will contact you directly to ask for this. This can slow the review process down.""".stripMargin
-            )
-          )
-        ),
-        Seq(
-          TableRow(
-            content = Text("Examples of evidence")
-          ),
-          TableRow(
-            content = HtmlContent(
-              """You can upload documents or photos that show <strong>your property is having major works or renovations done</strong>.
-                |<br><br>
-                |Evidence can include:
-                |<ul class="govuk-list govuk-list--bullet">
-                |  <li>copy of any structural surveys or reports</li>
-                |  <li>details of any planning applications made or planning permission documents</li>
-                |  <li>photos of all internal rooms in the property</li>
-                |  <li>photos showing the roof and outside of the property from all sides</li>
-                |  <li>A Schedule of Condition document that includes detailed inspection report noting any defects and damage.</li>
-                |</ul>
-                |You will also be given the opportunity to tell us any additional information or details that you think is important.""".stripMargin
-            )
-          )
-        ),
-        Seq(
-          TableRow(
-            content = Text("Photo evidence")
-          ),
-          TableRow(
-            content = HtmlContent(
-              """Photographs should be original digital photos. Do not upload screenshots or photos that have been added to a document or presentation.
-                |<br><br>
-                |You can upload photos in JPG or PNG format. Each file must be smaller than 10MB.""".stripMargin
-            )
-          )
-        ),
-        Seq(
-          TableRow(
-            content = Text("Decision")
-          ),
-          TableRow(
-            content = HtmlContent(
-              """There are 2 possible outcomes:
-                |<ul class="govuk-list govuk-list--bullet">
-                |  <li>your property will be removed from the Council Tax list</li>
-                |  <li>your property will stay on the Council Tax list if we do not receive the evidence we need, or if your request does not meet the criteria</li>
-                |</ul>""".stripMargin
-            )
-          )
-        ),
-        Seq(
-          TableRow(
-            content = Text("After a decision has been made")
-          ),
-          TableRow(
-            content = HtmlContent(
-              "You have 4 months after the date of the decision to appeal to the Valuation Tribunal if you are not satisfied with the outcome."
-            )
-          )
+      @govukButton(
+        ButtonViewModel(
+          content = Text(messages("site.continue"))
         )
+      )
+      @linkComponent(label = messages("site.back"), hrefUrl = routes.DeletionReasonController.onPageLoad(NormalMode).url )
+    </div>
+  }
+  <h2 class="govuk-heading-l">
+    @messages("deletionReview.formalReview.heading")
+  </h2>
+
+  @govukTable(Table(
+    rows = Seq(
+      Seq(
+        TableRow(content = Text(messages("deletionReview.table.whatItIs.label"))),
+        TableRow(content = HtmlContent(messages("deletionReview.table.whatItIs.value")))
       ),
-      firstCellIsHeader = true
-    ))
+      Seq(
+        TableRow(content = Text(messages("deletionReview.table.whatItsFor.label"))),
+        TableRow(content = HtmlContent(messages("deletionReview.table.whatItsFor.value")))
+      ),
+      Seq(
+        TableRow(content = Text(messages("deletionReview.table.important.label"))),
+        TableRow(content = HtmlContent(messages("deletionReview.table.important.value")))
+      ),
+      Seq(
+        TableRow(content = Text(messages("deletionReview.table.whenCanAsk.label"))),
+        TableRow(content = HtmlContent(messages("deletionReview.table.whenCanAsk.value")))
+      ),
+      Seq(
+        TableRow(content = Text(messages("deletionReview.table.howLong.label"))),
+        TableRow(content = Text(messages("deletionReview.table.howLong.value")))
+      ),
+      Seq(
+        TableRow(content = Text(messages("deletionReview.table.evidenceRequired.label"))),
+        TableRow(content = HtmlContent(messages("deletionReview.table.evidenceRequired.value")))
+      ),
+      Seq(
+        TableRow(content = Text(messages("deletionReview.table.examplesOfEvidence.label"))),
+        TableRow(content = HtmlContent(messages("deletionReview.table.examplesOfEvidence.value")))
+      ),
+      Seq(
+        TableRow(content = Text(messages("deletionReview.table.photoEvidence.label"))),
+        TableRow(content = HtmlContent(messages("deletionReview.table.photoEvidence.value")))
+      ),
+      Seq(
+        TableRow(content = Text(messages("deletionReview.table.decision.label"))),
+        TableRow(content = HtmlContent(messages("deletionReview.table.decision.value")))
+      ),
+      Seq(
+        TableRow(content = Text(messages("deletionReview.table.afterDecision.label"))),
+        TableRow(content = HtmlContent(messages("deletionReview.table.afterDecision.value")))
+      )
+    ),
+    firstCellIsHeader = true
+  ))
 }

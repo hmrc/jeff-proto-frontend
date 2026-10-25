@@ -17,6 +17,7 @@
 package controllers.deletion
 
 import controllers.actions.*
+import models.NormalMode
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
@@ -36,5 +37,10 @@ class DeletionReviewController @Inject()(
   def onPageLoad(reason: String): Action[AnyContent] = (identify andThen getData andThen requireData) {
     implicit request =>
       Ok(view())
+  }
+
+  def onContinue(): Action[AnyContent] =
+    identify { implicit request =>
+      Redirect(routes.DeletionReasonController.onPageLoad(NormalMode))
   }
 }
