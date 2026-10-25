@@ -585,3 +585,6 @@ deletionReason.partDemolished = Part of the property is demolished
 deletionReason.checkYourAnswersLabel = deletionReason
 deletionReason.error.required = Select deletionReason
 deletionReason.change.hidden = DeletionReason
+
+deletionReview.title = Asking for a formal review
+deletionReview.heading = Asking for a formal review

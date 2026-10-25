@@ -25,7 +25,7 @@ import controllers.challenge.routes as challengeRoutes
 import controllers.deletion.routes as deletionRoutes
 import pages.*
 import models.*
-import models.deletion.DeletionOptions
+import models.deletion.{DeletionOptions, DeletionReason, DeletionReview}
 
 @Singleton
 class Navigator @Inject()() {
@@ -46,6 +46,7 @@ class Navigator @Inject()() {
     case SelfCertPage => userAnswers => if(userAnswers.get(SelfCertPage).get.value.matches("NO") ) routes.NoLiableController.onPageLoad() else challengeRoutes.BandReviewController.onPageLoad()
     case ChallengeContactDetailsPage => _ => challengeRoutes.CheckYourAnswersController.onPageLoad()
     case DeletionOptionsPage => userAnswers => deletionOptionsRoute(userAnswers)
+    case DeletionReasonPage => userAnswers => deletionReasonRoute(userAnswers)
     case _ => _ => routes.IndexController.onPageLoad()
   }
 
@@ -71,6 +72,14 @@ class Navigator @Inject()() {
     userAnswers.get(DeletionOptionsPage) match {
       case Some(DeletionOptions.Demolished) =>
         deletionRoutes.DeletionReasonController.onPageLoad(NormalMode)
+      case _ =>
+        routes.IndexController.onPageLoad()
+    }
+
+  private def deletionReasonRoute(userAnswers: UserAnswers): Call =
+    userAnswers.get(DeletionReasonPage) match {
+      case Some(DeletionReason.Derelict) =>
+        deletionRoutes.DeletionReviewController.onPageLoad(DeletionReview.Uninhabitable.toString)
       case _ =>
         routes.IndexController.onPageLoad()
     }
