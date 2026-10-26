@@ -17,11 +17,16 @@
 package generators
 
 import models.*
-import models.deletion.{DeletionOptions, DeletionReason}
+import models.deletion.{DeletionOptions, DeletionReason, UninhabitableDetails}
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.{Arbitrary, Gen}
 
 trait ModelGenerators {
+
+  implicit lazy val arbitraryUninhabitableDetails: Arbitrary[UninhabitableDetails] =
+    Arbitrary {
+      Gen.oneOf(UninhabitableDetails.values.toSeq)
+    }
 
   implicit lazy val arbitraryDeletionReason: Arbitrary[DeletionReason] =
     Arbitrary {

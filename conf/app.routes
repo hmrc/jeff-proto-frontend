@@ -144,3 +144,8 @@ POST       /deletion/delete/changeRemove                  controllers.deletion.D
 
 GET        /deletion/delete/remove/*reason                controllers.deletion.DeletionReviewController.onPageLoad(reason: String)
 POST       /deletion/delete/remove/continue               controllers.deletion.DeletionReviewController.onContinue()
+
+GET        /deletion/authenticated/derelict/unhabitable/details                        controllers.deletion.UninhabitableDetailsController.onPageLoad(mode: Mode = NormalMode)
+POST       /deletion/authenticated/derelict/unhabitable/details                        controllers.deletion.UninhabitableDetailsController.onSubmit(mode: Mode = NormalMode)
+GET        /deletion/authenticated/derelict/unhabitable/chnageDetails                  controllers.deletion.UninhabitableDetailsController.onPageLoad(mode: Mode = CheckMode)
+POST       /deletion/authenticated/derelict/unhabitable/changeDetails                  controllers.deletion.UninhabitableDetailsController.onSubmit(mode: Mode = CheckMode)
