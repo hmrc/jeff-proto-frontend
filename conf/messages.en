@@ -625,3 +625,12 @@ deletionReview.table.decision.value=There are 2 possible outcomes:<ul class="gov
 
 deletionReview.table.afterDecision.label=After a decision has been made
 deletionReview.table.afterDecision.value=You have 4 months after the date of the decision to appeal to the Valuation Tribunal if you are not satisfied with the outcome.
+
+uninhabitableDetails.title = Choose which applies to you
+uninhabitableDetails.heading = Select the reason why you think the property is unhabitable
+uninhabitableDetails.fireDamage = Fire damage
+uninhabitableDetails.floodDamage = Flood damage
+uninhabitableDetails.other = Other
+uninhabitableDetails.checkYourAnswersLabel = unhabitableDetails
+uninhabitableDetails.error.required = Select uninhabitable Details
+uninhabitableDetails.change.hidden = UninhabitableDetails

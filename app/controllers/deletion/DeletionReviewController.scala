@@ -41,6 +41,6 @@ class DeletionReviewController @Inject()(
 
   def onContinue(): Action[AnyContent] =
     identify { implicit request =>
-      Redirect(routes.DeletionReasonController.onPageLoad(NormalMode))
+      Redirect(routes.UninhabitableDetailsController.onPageLoad(NormalMode))
   }
 }
