@@ -16,37 +16,32 @@
 
 package controllers.challenge
 
-import controllers.actions.{
-  DataRequiredAction,
-  DataRetrievalAction,
-  IdentifierAction
-}
-import pages.{
-  ChallengeContactDetailsPage,
-  PropertyDetailsPage,
-  ResponsibleFromDatePage,
-  ScenarioPage
-}
-
+import connectors.BridgeIntegrationConnector
+import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
+import models.enquiry.{EnquiryProtoData, MakeAnEnquiryRequest}
+import pages.{ChallengeContactDetailsPage, PropertyDetailsPage, ResponsibleFromDatePage, ScenarioPage}
+import play.api.Logging
 import play.api.i18n.I18nSupport
-import play.api.mvc.{
-  Action,
-  AnyContent,
-  MessagesControllerComponents
-}
+import play.api.mvc.*
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 import views.html.challenge.CheckYourAnswersView
+import controllers.challenge as challengeRoutes
 
-import javax.inject.Inject
+import javax.inject.{Inject, Singleton}
+import scala.concurrent.{ExecutionContext, Future}
 
+@Singleton
 class CheckYourAnswersController @Inject()(
                                             val controllerComponents: MessagesControllerComponents,
                                             identify: IdentifierAction,
                                             getData: DataRetrievalAction,
                                             requireData: DataRequiredAction,
+                                            connector: BridgeIntegrationConnector,
                                             view: CheckYourAnswersView
-                                          ) extends FrontendBaseController
-  with I18nSupport {
+                                          )(implicit ec: ExecutionContext)
+  extends FrontendBaseController
+    with I18nSupport
+    with Logging {
 
   def onPageLoad(): Action[AnyContent] =
     (identify andThen getData andThen requireData) { implicit request =>
@@ -74,9 +69,81 @@ class CheckYourAnswersController @Inject()(
     }
 
   def onSubmit(): Action[AnyContent] =
-    (identify andThen getData andThen requireData) { implicit request =>
-      Redirect(
-        routes.CheckYourAnswersController.onPageLoad()
-      )
+    (identify andThen getData andThen requireData).async { implicit request =>
+
+      val submissionData =
+        for {
+          property <- request.userAnswers.get(PropertyDetailsPage)
+          propertyId <- property.id.flatMap(_.value)
+          scenario <- request.userAnswers.get(ScenarioPage)
+          responsibleFromDate <- request.userAnswers.get(ResponsibleFromDatePage)
+          contactDetails <- request.userAnswers.get(ChallengeContactDetailsPage)
+        } yield (
+          propertyId,
+          property,
+          scenario,
+          responsibleFromDate,
+          contactDetails
+        )
+
+      submissionData match {
+
+        case Some(
+          (
+            propertyId,
+            property,
+            scenario,
+            responsibleFromDate,
+            contactDetails
+          )
+        ) =>
+
+          val makeAnEnquiryRequest =
+            MakeAnEnquiryRequest(
+              propertyID = propertyId,
+              firstName = contactDetails.firstName,
+              lastName = contactDetails.lastName,
+              email = contactDetails.emailAddress,
+              contactNumber = contactDetails.telephoneNumber,
+              files = List(
+                  EnquiryProtoData(
+                    node = "node",
+                    mime_type = "mime_type",
+                    label = "label",
+                    is_pointer = true,
+                    pointer = "pointer",
+                    data = "data"
+                  )
+                )
+            )
+
+          connector.submitEnquiry(makeAnEnquiryRequest).map {
+
+            case true =>
+              Redirect(
+                challengeRoutes.routes.EnquirySubmittedController.onPageLoad()
+              )
+
+            case false =>
+              logger.error(
+                s"Bridge Integration failed to submit enquiry for propertyId: $propertyId"
+              )
+
+              Redirect(
+                controllers.routes.JourneyRecoveryController.onPageLoad()
+              )
+          }
+
+        case None =>
+          logger.error(
+            "Unable to submit enquiry because required answers or the property ID are missing"
+          )
+
+          Future.successful(
+            Redirect(
+              controllers.routes.JourneyRecoveryController.onPageLoad()
+            )
+          )
+      }
     }
 }

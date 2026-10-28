@@ -20,8 +20,8 @@ import config.FrontendAppConfig
 import forms.FindAPropertyBridgeForm
 import models.Registration.frontend.RegisterRatepayerRequest
 import models.dashboard.Persons
+import models.enquiry.MakeAnEnquiryRequest
 import models.properties.{ExploreResult, PostcodeSearchResult}
-
 import play.api.libs.json.{JsError, JsSuccess, JsValue, Json}
 import uk.gov.hmrc.http.HttpReads.Implicits.*
 import uk.gov.hmrc.http.client.HttpClientV2
@@ -74,6 +74,25 @@ class BridgeIntegrationConnector @Inject()(
       .recover {
         case ex: Exception =>
           logger.error(s"Call to bridge-integration register-ratepayer failed: ${ex.getMessage}", ex)
+          false
+      }
+  }
+
+  def submitEnquiry(makeAnEnquiryRequest: MakeAnEnquiryRequest)
+                       (implicit hc: HeaderCarrier): Future[Boolean] = {
+
+    http.post(uri(s"enquiries/24FE5D70-624C-4E86-9EAC-AD28DE7116D9/CVW").toURL)
+      .withBody(Json.toJson(makeAnEnquiryRequest))
+      .execute[HttpResponse]
+      .map { response =>
+        response.status match {
+          case OK => true
+          case _ => false
+        }
+      }
+      .recover {
+        case ex: Exception =>
+          logger.error(s"Call to bridge-integration submit enquiries failed: ${ex.getMessage}", ex)
           false
       }
   }
