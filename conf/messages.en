@@ -634,3 +634,14 @@ uninhabitableDetails.other = Other
 uninhabitableDetails.checkYourAnswersLabel = unhabitableDetails
 uninhabitableDetails.error.required = Select uninhabitable Details
 uninhabitableDetails.change.hidden = UninhabitableDetails
+
+
+enquirySubmitted.heading=Your request has been sent
+enquirySubmitted.confirmation=We have sent you an email to confirm that we have received your request for a review.
+enquirySubmitted.whatHappensNext.heading=What happens next
+enquirySubmitted.whatHappensNext.sent=Your request has been sent to the Valuation Office.
+enquirySubmitted.whatHappensNext.reference=When your request has been registered, you will receive an email with a unique case reference number within X days.
+enquirySubmitted.whatHappensNext.additionalInformation=If we require additional information we will contact you.
+enquirySubmitted.whatHappensNext.decision=We will contact you by [letter/email] within X weeks with a decision about your request.
+enquirySubmitted.feedback.link = What did you think of this service?
+enquirySubmitted.feedback.duration = (takes 30 seconds)
