@@ -191,13 +191,6 @@ class BridgeIntegrationConnector @Inject()(
                implicit hc: HeaderCarrier
              ): Future[Either[ErrorResponse, ExploreResult]] = {
 
-    logger.info(
-      s"Calling bridge-integration explore. " +
-        s"propertyReference=$propertyReference, " +
-        s"listType=$listType, " +
-        s"authorisationPresent=${hc.authorization.isDefined}"
-    )
-    
     val urlEndpoint =
       url"${appConfig.bridgeIntegration}/bridge-integration/explore/$propertyReference/$listType"
 
