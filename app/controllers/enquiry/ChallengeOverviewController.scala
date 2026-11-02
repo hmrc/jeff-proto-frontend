@@ -14,32 +14,25 @@
  * limitations under the License.
  */
 
-package controllers.challenge
+package controllers.enquiry
 
 import controllers.actions.IdentifierAction
-import controllers.challenge as challengeRoutes
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import uk.gov.hmrc.play.bootstrap.frontend.controller.{FrontendBaseController, FrontendController}
-import views.html.challenge.FormalReviewView
-
+import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
+import views.html.challenge.ChallengeOverviewView
 
 import javax.inject.Inject
 
-class FormalReviewController @Inject()(
-                                        identify: IdentifierAction,
-                                        view: FormalReviewView,
-                                        mcc: MessagesControllerComponents
-                                      )
-extends FrontendController(mcc) with I18nSupport{
+class ChallengeOverviewController @Inject()(
+                                             val controllerComponents: MessagesControllerComponents,
+                                             identify: IdentifierAction,
+                                             view: ChallengeOverviewView
+                                           ) extends FrontendBaseController
+  with I18nSupport {
 
   def onPageLoad(): Action[AnyContent] =
     identify { implicit request =>
       Ok(view())
-    }
-
-  def onContinue(): Action[AnyContent] =
-    identify { implicit request =>
-      Redirect(challengeRoutes.routes.ChallengeOverviewController.onPageLoad())
     }
 }

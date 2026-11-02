@@ -91,47 +91,47 @@ GET        /self-cert                                    controllers.SelfCertCon
 POST       /self-cert                                    controllers.SelfCertController.onSubmit(mode: Mode = NormalMode)
 POST       /self-cert                                    controllers.SelfCertController.onSubmit(mode: Mode = CheckMode)
 
-GET        /challenge                                    controllers.challenge.BandReviewController.onPageLoad()
-POST       /challenge                                    controllers.challenge.BandReviewController.onContinue()
+GET        /challenge                                    controllers.enquiry.BandReviewController.onPageLoad()
+POST       /challenge                                    controllers.enquiry.BandReviewController.onContinue()
 
-GET        /challenge/scenario                           controllers.challenge.ScenarioController.onPageLoad()
-POST       /challenge/scenario                           controllers.challenge.ScenarioController.onSubmit()
+GET        /challenge/scenario                           controllers.enquiry.ScenarioController.onPageLoad()
+POST       /challenge/scenario                           controllers.enquiry.ScenarioController.onSubmit()
 
-GET        /challenge/option1                            controllers.challenge.FormalReviewController.onPageLoad()
-POST       /challenge/option1                            controllers.challenge.FormalReviewController.onContinue()
+GET        /challenge/option1                            controllers.enquiry.FormalReviewController.onPageLoad()
+POST       /challenge/option1                            controllers.enquiry.FormalReviewController.onContinue()
 
-GET        /challenge/overview                           controllers.challenge.ChallengeOverviewController.onPageLoad()
+GET        /challenge/overview                           controllers.enquiry.ChallengeOverviewController.onPageLoad()
 
-GET       /challenge/date-payer                          controllers.challenge.ResponsibleFromDateController.onPageLoad(mode: Mode = NormalMode)
-POST      /challenge/date-payer                          controllers.challenge.ResponsibleFromDateController.onSubmit(mode: Mode = NormalMode)
-GET       /challenge/change-date-payer                   controllers.challenge.ResponsibleFromDateController.onPageLoad(mode: Mode = CheckMode)
-POST      /challenge/change-date-payer                   controllers.challenge.ResponsibleFromDateController.onSubmit(mode: Mode = CheckMode)
+GET       /challenge/date-payer                          controllers.enquiry.ResponsibleFromDateController.onPageLoad(mode: Mode = NormalMode)
+POST      /challenge/date-payer                          controllers.enquiry.ResponsibleFromDateController.onSubmit(mode: Mode = NormalMode)
+GET       /challenge/change-date-payer                   controllers.enquiry.ResponsibleFromDateController.onPageLoad(mode: Mode = CheckMode)
+POST      /challenge/change-date-payer                   controllers.enquiry.ResponsibleFromDateController.onSubmit(mode: Mode = CheckMode)
 
-GET       /challenge/wrong-details                       controllers.challenge.BandReviewReasonController.onPageLoad(mode: Mode = NormalMode)
-POST      /challenge/wrong-details                       controllers.challenge.BandReviewReasonController.onSubmit(mode: Mode = NormalMode)
-GET       /challenge/change-wrong-details                controllers.challenge.BandReviewReasonController.onPageLoad(mode: Mode = CheckMode)
-POST      /challenge/change-wrong-details                controllers.challenge.BandReviewReasonController.onSubmit(mode: Mode = CheckMode)
+GET       /challenge/wrong-details                       controllers.enquiry.BandReviewReasonController.onPageLoad(mode: Mode = NormalMode)
+POST      /challenge/wrong-details                       controllers.enquiry.BandReviewReasonController.onSubmit(mode: Mode = NormalMode)
+GET       /challenge/change-wrong-details                controllers.enquiry.BandReviewReasonController.onPageLoad(mode: Mode = CheckMode)
+POST      /challenge/change-wrong-details                controllers.enquiry.BandReviewReasonController.onSubmit(mode: Mode = CheckMode)
 
-GET        /challenge/documents-to-upload                controllers.challenge.DocumentsToUploadController.onPageLoad(mode: Mode = NormalMode)
-GET        /challenge/change-documents-to-upload         controllers.challenge.DocumentsToUploadController.onPageLoad(mode: Mode = CheckMode)
-POST       /challenge/documents-to-upload                controllers.challenge.DocumentsToUploadController.onSubmit(mode: Mode = NormalMode)
-POST       /challenge/change-documents-to-upload         controllers.challenge.DocumentsToUploadController.onSubmit(mode: Mode = CheckMode)
+GET        /challenge/documents-to-upload                controllers.enquiry.DocumentsToUploadController.onPageLoad(mode: Mode = NormalMode)
+GET        /challenge/change-documents-to-upload         controllers.enquiry.DocumentsToUploadController.onPageLoad(mode: Mode = CheckMode)
+POST       /challenge/documents-to-upload                controllers.enquiry.DocumentsToUploadController.onSubmit(mode: Mode = NormalMode)
+POST       /challenge/change-documents-to-upload         controllers.enquiry.DocumentsToUploadController.onSubmit(mode: Mode = CheckMode)
 
-GET        /challenge/evidence-upload                    controllers.challenge.EvidenceUploadController.onPageLoad(errorCode: Option[String], evidenceType: Option[String])
-GET        /challenge/uploaded-evidence                  controllers.challenge.UploadedEvidenceController.onPageLoad(uploadId: models.upscan.UploadId)
-GET        /challenge/remove-uploaded-file               controllers.challenge.RemoveUploadedEvidenceController.onPageLoad
-GET        /challenge/confirm-remove-file                controllers.challenge.RemoveUploadedEvidenceController.remove
+GET        /challenge/evidence-upload                    controllers.enquiry.EvidenceUploadController.onPageLoad(errorCode: Option[String], evidenceType: Option[String])
+GET        /challenge/uploaded-evidence                  controllers.enquiry.UploadedEvidenceController.onPageLoad(uploadId: models.upscan.UploadId)
+GET        /challenge/remove-uploaded-file               controllers.enquiry.RemoveUploadedEvidenceController.onPageLoad
+GET        /challenge/confirm-remove-file                controllers.enquiry.RemoveUploadedEvidenceController.remove
 
-GET        /challenge/which-band                         controllers.challenge.ExpectedCouncilTaxBandController.onPageLoad()
-POST       /challenge/which-band                         controllers.challenge.ExpectedCouncilTaxBandController.onSubmit()
+GET        /challenge/which-band                         controllers.enquiry.ExpectedCouncilTaxBandController.onPageLoad()
+POST       /challenge/which-band                         controllers.enquiry.ExpectedCouncilTaxBandController.onSubmit()
 
-GET        /challenge/contact-details                    controllers.challenge.ContactDetailsController.onPageLoad()
-POST       /challenge/contact-details                    controllers.challenge.ContactDetailsController.onSubmit()
+GET        /challenge/contact-details                    controllers.enquiry.ContactDetailsController.onPageLoad()
+POST       /challenge/contact-details                    controllers.enquiry.ContactDetailsController.onSubmit()
 
-GET        /challenge/check-your-answers                 controllers.challenge.CheckYourAnswersController.onPageLoad()
-POST       /challenge/check-your-answers                 controllers.challenge.CheckYourAnswersController.onSubmit()
+GET        /challenge/check-your-answers                 controllers.enquiry.CheckYourAnswersController.onPageLoad()
+POST       /challenge/check-your-answers                 controllers.enquiry.CheckYourAnswersController.onSubmit()
 
-GET        /challenge/submitted                          controllers.challenge.EnquirySubmittedController.onPageLoad()
+GET        /challenge/submitted                          controllers.enquiry.EnquirySubmittedController.onPageLoad()
 
 
 GET        /errors/no-liable                             controllers.NoLiableController.onPageLoad()

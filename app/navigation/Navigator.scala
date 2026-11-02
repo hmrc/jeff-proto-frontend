@@ -21,7 +21,7 @@ import play.api.mvc.Call
 import controllers.routes
 import controllers.registration.routes as registrationRoutes
 import controllers.dashboard.routes as dashboardRoutes
-import controllers.challenge.routes as challengeRoutes
+import controllers.enquiry.routes as enquiryRoutes
 import controllers.deletion.routes as deletionRoutes
 import pages.*
 import models.*
@@ -42,9 +42,9 @@ class Navigator @Inject()() {
     case UpdateTelephoneNumberPage => _ => dashboardRoutes.HomeController.onPageLoad()
     case UpdateEmailPage => _ => dashboardRoutes.HomeController.onPageLoad()
     case PropertyDetailsPage => _ => routes.SelfCertController.onPageLoad(NormalMode)
-    case BandReviewReasonPage => _ => challengeRoutes.DocumentsToUploadController.onPageLoad(NormalMode)
-    case SelfCertPage => userAnswers => if(userAnswers.get(SelfCertPage).get.value.matches("NO") ) routes.NoLiableController.onPageLoad() else challengeRoutes.BandReviewController.onPageLoad()
-    case ChallengeContactDetailsPage => _ => challengeRoutes.CheckYourAnswersController.onPageLoad()
+    case BandReviewReasonPage => _ => enquiryRoutes.DocumentsToUploadController.onPageLoad(NormalMode)
+    case SelfCertPage => userAnswers => if(userAnswers.get(SelfCertPage).get.value.matches("NO") ) routes.NoLiableController.onPageLoad() else enquiryRoutes.BandReviewController.onPageLoad()
+    case ChallengeContactDetailsPage => _ => enquiryRoutes.CheckYourAnswersController.onPageLoad()
     case DeletionOptionsPage => userAnswers => deletionOptionsRoute(userAnswers)
     case DeletionReasonPage => userAnswers => deletionReasonRoute(userAnswers)
     case _ => _ => routes.IndexController.onPageLoad()

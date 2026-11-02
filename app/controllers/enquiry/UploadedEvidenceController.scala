@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.challenge
+package controllers.enquiry
 
 import play.api.i18n.{I18nSupport, Messages}
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
@@ -28,7 +28,7 @@ import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 import config.FrontendAppConfig
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
 import models.*
-import controllers.challenge as challengeRoutes
+import controllers.enquiry as enquiryRoutes
 import models.JeffSummaryListRow.*
 
 import javax.inject.{Inject, Singleton}
@@ -86,7 +86,7 @@ class UploadedEvidenceController @Inject()(uploadProgressTracker: UploadProgress
           titleMessageKey = evidenceDocument,
           captionKey = None,
           value = Seq(messages("uploadedBusinessRatesBill.uploaded")),
-          changeLink = Some(Link(Call("GET", challengeRoutes.routes.RemoveUploadedEvidenceController.onPageLoad.url), "remove-link", "Remove")),
+          changeLink = Some(Link(Call("GET", routes.RemoveUploadedEvidenceController.onPageLoad.url), "remove-link", "Remove")),
           titleLink = Some(Link(Call("GET", downloadUrl), "file-download-link", "")),
           valueClasses = Some("govuk-tag govuk-tag--green")
         )

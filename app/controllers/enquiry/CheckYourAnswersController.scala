@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.challenge
+package controllers.enquiry
 
 import connectors.BridgeIntegrationConnector
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
@@ -25,7 +25,7 @@ import play.api.i18n.I18nSupport
 import play.api.mvc.*
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 import views.html.challenge.CheckYourAnswersView
-import controllers.challenge as challengeRoutes
+import controllers.enquiry as enquiryRoutes
 
 import javax.inject.{Inject, Singleton}
 import scala.concurrent.{ExecutionContext, Future}
@@ -121,7 +121,7 @@ class CheckYourAnswersController @Inject()(
 
             case true =>
               Redirect(
-                challengeRoutes.routes.EnquirySubmittedController.onPageLoad()
+                routes.EnquirySubmittedController.onPageLoad()
               )
 
             case false =>

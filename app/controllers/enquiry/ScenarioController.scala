@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.challenge
+package controllers.enquiry
 
 import controllers.actions._
 import forms.mappings.ScenarioFormProvider
@@ -74,6 +74,7 @@ class ScenarioController @Inject()(
             } yield {
               answer match {
                 case "lessThanSixMonths" =>
+                  sessionRepository.set()
                   Redirect(routes.FormalReviewController.onPageLoad())
 
                 case "moreThanSixMonths" =>

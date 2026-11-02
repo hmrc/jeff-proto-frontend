@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.challenge
+package controllers.enquiry
 
 import play.api.i18n.{I18nSupport, Messages}
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
@@ -27,7 +27,7 @@ import models.upscan.UploadId
 import models.{JeffSummaryListRow, Link, ProposalUserAnswers}
 import repositories.{FileUploadRepo, ProposalRepo}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
-import controllers.challenge as challengeRoutes
+import controllers.enquiry as enquiryRoutes
 import views.html.challenge.RemoveUploadedEvidenceView
 
 import java.net.{URI, URL}
@@ -67,7 +67,7 @@ class RemoveUploadedEvidenceController @Inject()(removeView: RemoveUploadedEvide
             deletedUpload <- fileUploadRepo.deleteByUploadId(UploadId(propertyLinkingUserAnswers.evidenceDocumentUploadId.getOrElse(throw new NotFoundException("evidenceDocumentUploadId not found in propertyLinking repo"))))
           } yield {
             if (deletedEvidence && deletedUpload) {
-              Redirect(challengeRoutes.routes.EvidenceUploadController.onPageLoad(None, propertyLinkingUserAnswers.uploadEvidence))
+              Redirect(routes.EvidenceUploadController.onPageLoad(None, propertyLinkingUserAnswers.uploadEvidence))
             } else {
               throw new RuntimeException("Failed to delete evidence document in RemoveBusinessRatesBillController.remove()")
             }
