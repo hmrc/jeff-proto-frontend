@@ -19,8 +19,6 @@ package models.Journey1.products
 import play.api.libs.json.{Json, OFormat}
 
 case class Data (
-                  firstName: String,
-                  lastName:String,
                   manifestations: Manifestations
                 )
 
