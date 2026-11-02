@@ -74,7 +74,6 @@ class ScenarioController @Inject()(
             } yield {
               answer match {
                 case "lessThanSixMonths" =>
-                  sessionRepository.set()
                   Redirect(routes.FormalReviewController.onPageLoad())
 
                 case "moreThanSixMonths" =>

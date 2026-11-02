@@ -19,12 +19,12 @@ package models.Journey1.products
 import models.Journey1.{Classification, ForeignId}
 import models.dashboard.CodeMeaning
 import play.api.libs.json.{Json, OFormat}
+import uk.gov.hmrc.auth.core.Relationship
 
 case class ProductContext(
-                            period: Period,
-                            capacity: CodeMeaning,
-                            communications: Communications,
-                            data: Data,
+                           property: Property,
+                           person : Person,
+                           relationship: Relationships,
                           )
 
 object ProductContext {

@@ -20,14 +20,13 @@ import play.api.libs.json.{Json, OFormat}
 import models.Journey1.premises.*
 import models.Journey1.products.ProductContext
 import models.Journey1.proposition.*
-
-//This model covers everything that can be submitted from the enquiries journeys.
+import models.enquiry.*
 
 case class SubmissionRequest(
-                              process: ProcessContext,
+                              files: Seq[EnquiryProtoData],
                               product: ProductContext,
-                              premises: Seq[Premise], //Complete
-                              proposition: Seq[Proposition] //Complete
+                              premises: Seq[Premise],
+                              proposition: Seq[Proposition]
                             )
 
 object SubmissionRequest {

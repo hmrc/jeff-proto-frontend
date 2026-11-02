@@ -19,13 +19,16 @@ package models.Journey1.products
 import play.api.libs.json.{Json, OFormat}
 
 case class Communications(
-                           representativeEmail: String,
-                           customerMobile: String,
-                           CustomerEmail: String,
-                           contactAddress: Option[String], //This will not be optional in release 2
-                           telephone_number: Option[String], //This will not be optional in release 2
-                           contactPreferences: Option[String],//This will not be optional in release 2
-                           postal_address: Option[String],//This will not be optional in release 2
+                           forenames: Option[String],
+                           surname: Option[String],
+                           email: Option[String],
+                           telephone_number: Option[String],
+                           CouncilTaxPayerFirstName: Option[String],
+                           CouncilTaxPayerLastName: Option[String],
+                           CouncilTaxPayerEmail: Option[String],
+                           CouncilTaxPayerNumber: Option[String],
+                           CouncilTaxPayerContactPreference: Option[String],
+                           CouncilTaxPayerContactAddress: Option[String],
                          )
 
 object Communications{
