@@ -14,17 +14,16 @@
  * limitations under the License.
  */
 
-package models.Journey1.products
+package models.enquiry.product.property
 
 import play.api.libs.json.{Json, OFormat}
 
-case class PropertyAddress(
-                            full: String,
-                            firstLine: String,
-                            postcode: String
-                          )
+case class Period(
+                   effective_from_date: String,
+                   effective_to_date: String
+                 )
 
-object PropertyAddress {
-  implicit val format: OFormat[PropertyAddress] =
-    Json.format[PropertyAddress]
+object Period {
+  implicit val format: OFormat[Period] =
+    Json.format[Period]
 }

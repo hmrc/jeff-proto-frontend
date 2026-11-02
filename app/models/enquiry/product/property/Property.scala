@@ -14,19 +14,15 @@
  * limitations under the License.
  */
 
-package models.Journey1.products
+package models.enquiry.product.property
 
-import models.dashboard.CodeMeaning
 import play.api.libs.json.{Json, OFormat}
-  
-case class Relationships (
-                           manifestation: Manifestations,
-                           `type`: CodeMeaning,
-                           `class`: CodeMeaning
-                         )
 
+case class Property(
+                     period: Period,
+                     compilation_date: String
+                   )
 
-object Relationships {
-  implicit val format: OFormat[Relationships] =
-    Json.format[Relationships]
+object Property {
+  implicit val format: OFormat[Property] = Json.format
 }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package models.Journey1.products
+package models.enquiry.product.person
 
 import play.api.libs.json.{Json, OFormat}
 

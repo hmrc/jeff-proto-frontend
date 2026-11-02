@@ -14,22 +14,17 @@
  * limitations under the License.
  */
 
-package models.Journey1
+package models.enquiry
 
+import models.Journey1.*
 import play.api.libs.json.{Json, OFormat}
 
-case class ProcessContext(
-                           id: Long,
-                           idx: String,
-                           name: String,
-                           label: String,
-                           origination: String,
-                           category: Classification,
-                           processType: Classification,
-                           processClass: Classification
-                         )
+case class Proposition(
+                        uniqueStatutoryRef: String,
+                        alterations: Seq[String]
+                      )
 
-object ProcessContext {
-  implicit val format: OFormat[ProcessContext] =
-    Json.format[ProcessContext]
+object Proposition {
+  implicit val format: OFormat[Proposition] =
+    Json.format[Proposition]
 }

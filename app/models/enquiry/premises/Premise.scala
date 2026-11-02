@@ -14,17 +14,18 @@
  * limitations under the License.
  */
 
-package models.Journey1.products
+package models.enquiry.premises
 
-import models.dashboard.CodeMeaning
 import play.api.libs.json.{Json, OFormat}
 
-case class Person (
-                    communications: Communications,
-                    capacity: CodeMeaning
-)
+case class Premise(
+                    unique_statutory_ref: String,
+                    text: String,
+                    statements: List[Statement],
+                    information: List[Information]
+                  )
 
-object Person {
-  implicit val format: OFormat[Person] =
-    Json.format[Person]
+object Premise {
+  implicit val format: OFormat[Premise] =
+    Json.format[Premise]
 }

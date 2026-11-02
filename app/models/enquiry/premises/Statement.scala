@@ -14,18 +14,16 @@
  * limitations under the License.
  */
 
-package models.Journey1.premises
+package models.enquiry.premises
 
 import play.api.libs.json.{Json, OFormat}
 
-case class Premise(
-                    unique_statutory_ref: String,
-                    text: String,
-                    statements: List[Statement],
-                    information: List[Information]
-                  )
+case class Statement(
+                      unique_statutory_ref: String,
+                      text: String
+                    )
 
-object Premise {
-  implicit val format: OFormat[Premise] =
-    Json.format[Premise]
+object Statement {
+  implicit val format: OFormat[Statement] =
+    Json.format[Statement]
 }

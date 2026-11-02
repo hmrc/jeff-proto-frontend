@@ -14,16 +14,24 @@
  * limitations under the License.
  */
 
-package models.Journey1.premises
+package models.enquiry.product
 
+
+import models.enquiry.product.property.*
+import models.Journey1.{Classification, ForeignId}
+import models.dashboard.CodeMeaning
+import models.enquiry.product.person.Person
+import models.enquiry.product.relationship.Relationships
 import play.api.libs.json.{Json, OFormat}
+import uk.gov.hmrc.auth.core.Relationship
 
-case class Statement(
-                      unique_statutory_ref: String,
-                      text: String
-                    )
+case class ProductContext(
+                           property: Property,
+                           person : Person,
+                           relationship: Relationships,
+                          )
 
-object Statement {
-  implicit val format: OFormat[Statement] =
-    Json.format[Statement]
+object ProductContext {
+  implicit val format: OFormat[ProductContext] =
+    Json.format[ProductContext]
 }

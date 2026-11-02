@@ -14,15 +14,16 @@
  * limitations under the License.
  */
 
-package models.Journey1.products
+package models.enquiry.premises
 
 import play.api.libs.json.{Json, OFormat}
 
-case class Data (
-                  manifestations: Manifestations
-                )
+case class Information(
+                        unique_statutory_ref: String,
+                        text: String
+                      )
 
-object Data{
-  implicit val format: OFormat[Data] =
-    Json.format[Data]
+object Information {
+  implicit val format: OFormat[Information] =
+    Json.format[Information]
 }

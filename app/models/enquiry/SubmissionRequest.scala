@@ -14,17 +14,21 @@
  * limitations under the License.
  */
 
-package models.Journey1.proposition
+package models.enquiry
 
-import models.Journey1.*
+import models.enquiry.premises.*
+import models.enquiry.*
+import models.enquiry.product.ProductContext
 import play.api.libs.json.{Json, OFormat}
 
-case class Proposition(
-                        uniqueStatutoryRef: String,
-                        alterations: Seq[String]
-                      )
+case class SubmissionRequest(
+                              files: Seq[EnquiryProtoData],
+                              product: ProductContext,
+                              premises: Seq[Premise],
+                              proposition: Seq[Proposition]
+                            )
 
-object Proposition {
-  implicit val format: OFormat[Proposition] =
-    Json.format[Proposition]
+object SubmissionRequest {
+  implicit val format: OFormat[SubmissionRequest] =
+    Json.format[SubmissionRequest]
 }
