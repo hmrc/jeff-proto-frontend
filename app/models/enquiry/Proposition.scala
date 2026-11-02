@@ -16,7 +16,6 @@
 
 package models.enquiry
 
-import models.Journey1.*
 import play.api.libs.json.{Json, OFormat}
 
 case class Proposition(

@@ -18,7 +18,6 @@ package models.enquiry.product
 
 
 import models.enquiry.product.property.*
-import models.Journey1.{Classification, ForeignId}
 import models.dashboard.CodeMeaning
 import models.enquiry.product.person.Person
 import models.enquiry.product.relationship.Relationships

@@ -16,7 +16,6 @@
 
 package models.enquiry.product.person
 
-import models.Journey1.products.Person
 import models.dashboard.CodeMeaning
 import play.api.libs.json.{Json, OFormat}
 
