@@ -19,9 +19,9 @@ package models.enquiry
 import play.api.libs.json.{Json, OFormat}
 
 case class EnquiryProtoData(node: String,
-                            mime_type: String,
+                            mimeType: String,
                             label: String,
-                            is_pointer: Boolean,
+                            isPointer: Boolean,
                             pointer: String,
                             data: String)
 

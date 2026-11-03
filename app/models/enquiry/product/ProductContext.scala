@@ -14,16 +14,21 @@
  * limitations under the License.
  */
 
-package models.enquiry.product.property
+package models.enquiry.product
 
+
+import models.enquiry.product.property.*
+import models.enquiry.product.person.Person
+import models.enquiry.product.relationship.Relationships
 import play.api.libs.json.{Json, OFormat}
 
-case class Period(
-                   effective_from_date: String,
-                   effective_to_date: String
-                 )
+case class ProductContext(
+                           property: Property,
+                           person : Person,
+                           relationship: Relationships,
+                          )
 
-object Period {
-  implicit val format: OFormat[Period] =
-    Json.format[Period]
+object ProductContext {
+  implicit val format: OFormat[ProductContext] =
+    Json.format[ProductContext]
 }

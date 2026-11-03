@@ -19,7 +19,6 @@ package models.enquiry.product.property
 import play.api.libs.json.{Json, OFormat}
 
 case class Property(
-                     period: Period,
                      compilation_date: String
                    )
 
