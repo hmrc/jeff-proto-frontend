@@ -1,0 +1,170 @@
+@*
+ * Copyright 2026 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import models.propertyLinkingSubmission.CreatePropertyLink
+@import viewmodels.govuk.all._
+@import java.time.LocalDate
+@import java.time.format.DateTimeFormatter
+
+@this(
+    layout: templates.Layout,
+    govukErrorSummary: GovukErrorSummary,
+    govukWarningText: GovukWarningText,
+    govukCheckboxes: GovukCheckboxes,
+    govukButton: GovukButton,
+    govukSummaryList: GovukSummaryList,
+    formHelper: FormWithCSRF
+)
+
+@(form: Form[_], model: CreatePropertyLink, address: String, isAgent: Boolean)(implicit request: Request[_], messages: Messages)
+
+@dateFormatter = @{DateTimeFormatter.ofPattern("d MMMM yyyy") }
+
+@earliestStartDateInPast = @{ LocalDate.now().isAfter(LocalDate.of(2017, 4, 1)) }
+
+@propertyOwnedOccupiedKey = @{
+    messages("declaration.checkAnswers.ownershipHeading.builder",
+        if(isAgent) messages("declaration.checkAnswers.ownershipHeading.agent")
+        else messages("declaration.checkAnswers.ownershipHeading.ip"),
+        model.capacity.toString match {
+            case "OCCUPIER"       => messages("declaration.checkAnswers.ownershipHeading.occupy")
+            case "OWNER"          => messages("declaration.checkAnswers.ownershipHeading.own")
+            case "OWNER_OCCUPIER" => messages("declaration.checkAnswers.ownershipHeading.ownAndOccupy")
+            case _                => messages("declaration.checkAnswers.ownershipHeading.fallback")
+        }
+    )
+}
+
+@lastOccupiedKey = @{
+    messages(s"declaration.checkAnswers.lastOccupiedDate", messages(s"declaration.checkAnswers.${model.capacity}").toLowerCase)
+}
+
+@layout(
+    pageTitle = titleNoForm(messages("declaration.title")),
+    showBackLink = true
+) {
+
+    @if(form.errors.nonEmpty) {
+        @govukErrorSummary(ErrorSummaryViewModel(form))
+    }
+
+    <span id="caption" class="govuk-caption-l">@messages("caption.add.property")</span>
+    <h1 id="page-header" class="govuk-heading-l">@messages("declaration.title")</h1>
+
+    @govukSummaryList(SummaryListViewModel(
+        rows = Seq(
+            Some(SummaryListRowViewModel(
+                key = KeyViewModel(Text(messages("label.address"))),
+                value = ValueViewModel(HtmlContent(address))
+            ).withCssClass("address-row")),
+
+            Some(SummaryListRowViewModel(
+                key = KeyViewModel(Text(messages("declaration.checkAnswers.connectionHeading"))),
+                value = ValueViewModel(Text(messages(s"declaration.checkAnswers.${model.capacity}"))),
+                actions = Seq(
+                    ActionItemViewModel(
+                        content = Text(messages("site.change")),
+                        href = "#"
+                    ).withVisuallyHiddenText(messages("declaration.checkAnswers.connectionHeading"))
+                )
+            )),
+
+            if(earliestStartDateInPast) {
+                Some(SummaryListRowViewModel(
+                    key = KeyViewModel(Text(messages("declaration.checkAnswers.startDateHeading"))),
+                    value = ValueViewModel(Text(
+                        model.startDate.format(dateFormatter)
+                    )),
+                    actions = Seq(
+                        ActionItemViewModel(
+                            content = Text(messages("site.change")),
+                            href = "#"
+                        ).withVisuallyHiddenText(messages("declaration.checkAnswers.startDateHeading"))
+                    )
+                ))
+            } else None,
+
+            if(earliestStartDateInPast) {
+                Some(SummaryListRowViewModel(
+                    key = KeyViewModel(Text(propertyOwnedOccupiedKey)),
+                    value = ValueViewModel(Text(
+                        if (model.endDate.isEmpty) messages("declaration.checkAnswers.propertyOwnership.yes")
+                        else messages("declaration.checkAnswers.propertyOwnership.no")
+                    )),
+                    actions = Seq(
+                        ActionItemViewModel(
+                            content = Text(messages("site.change")),
+                            href = "#"
+                        ).withVisuallyHiddenText(propertyOwnedOccupiedKey)
+                    )
+                ))
+            } else None,
+
+            if(earliestStartDateInPast && model.endDate.isDefined) {
+                Some(SummaryListRowViewModel(
+                    key = KeyViewModel(Text(lastOccupiedKey)),
+                    value = ValueViewModel(Text(model.endDate.fold("")(_.format(dateFormatter)))),
+                    actions = Seq(
+                        ActionItemViewModel(
+                            content = Text(messages("site.change")),
+                            href = "#"
+                        ).withVisuallyHiddenText(lastOccupiedKey)
+                    )
+                ))
+            } else None,
+
+            Some(SummaryListRowViewModel(
+                key = KeyViewModel(Text(messages("declaration.checkAnswers.evidenceType.heading"))),
+                value = ValueViewModel(HtmlContent(
+                    s"${model.uploadedFiles.headOption.fold("")(ev => messages(s"declaration.checkAnswers.${ev.evidenceType}"))}<br>${model.uploadedFiles.headOption.fold("")(_.name)}"
+                )),
+                actions = Seq(
+                    ActionItemViewModel(
+                        content = Text(messages("site.change")),
+                        href = "#"
+                    ).withVisuallyHiddenText(messages("declaration.checkAnswers.evidenceType.heading"))
+                )
+            ))
+        ).flatten
+    ).withAttribute("id" -> "checkYourAnswers"))
+
+    <h2 class="govuk-heading-m">@messages("label.declaration")</h2>
+
+    @govukWarningText(WarningText(
+        iconFallbackText = Some(messages("site.warning")),
+        content = Text(messages("declaration.p.3"))
+    ))
+
+    @formHelper(action = controllers.propertyLinking.routes.DeclarationController.submit) {
+        @govukCheckboxes(
+            Checkboxes(
+                name = "declaration",
+                items = Seq(
+                    CheckboxItem(
+                        content = if (isAgent) Text(messages("declaration.p.agent")) else Text(messages("declaration.p.ip")),
+                        id = Some("declaration"),
+                        value = "true",
+                        checked = form("declaration").value.contains("true")
+                    )
+                ),
+            )
+        )
+
+        @govukButton(
+            ButtonViewModel(Text(messages("declaration.button"))).withAttribute("id" -> "confirmAndSend")
+        )
+    }
+}
