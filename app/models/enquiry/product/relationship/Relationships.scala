@@ -21,8 +21,8 @@ import play.api.libs.json.{Json, OFormat}
   
 case class Relationships (
                            manifestation: Manifestations,
-                           `type`: CodeMeaning,
-                           `class`: CodeMeaning
+                           `type`:        CodeMeaning,
+                           `class`:       CodeMeaning
                          )
 
 

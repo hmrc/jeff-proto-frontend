@@ -20,7 +20,7 @@ import play.api.libs.json.{Json, OFormat}
 
 case class Proposition(
                         unique_statutory_ref: String,
-                        alterations: Seq[String]
+                        alterations:          Seq[String]
                       )
 
 object Proposition {
