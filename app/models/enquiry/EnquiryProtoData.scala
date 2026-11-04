@@ -18,11 +18,10 @@ package models.enquiry
 
 import play.api.libs.json.{Json, OFormat}
 
-case class EnquiryProtoData(
-                             node: Option[String],
-                            mimeType: String,
+case class EnquiryProtoData(node: Option[String],
+                            mime_type: String,
                             label: String,
-                            isPointer: Boolean,
+                            is_pointer: Boolean,
                             pointer: String,
                             data: Option[String]
                            )

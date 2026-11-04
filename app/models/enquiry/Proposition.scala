@@ -19,7 +19,7 @@ package models.enquiry
 import play.api.libs.json.{Json, OFormat}
 
 case class Proposition(
-                        uniqueStatutoryRef: String,
+                        unique_statutory_ref: String,
                         alterations: Seq[String]
                       )
 
