@@ -19,7 +19,7 @@ package models.enquiry.product.property
 import play.api.libs.json.{Json, OFormat}
 
 case class Property(
-                     compilation_date: String
+                     propertyId: String
                    )
 
 object Property {

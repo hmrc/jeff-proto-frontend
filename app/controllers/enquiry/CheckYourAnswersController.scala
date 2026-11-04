@@ -114,10 +114,9 @@ class CheckYourAnswersController @Inject()(
             SubmissionRequest(
               journeyId = "01", //UFS GENERATED
               submissionDate = "", //AS SOON AS SUBMITTED
-              propertyId = "",
               files = List(
                 EnquiryProtoData(
-                  node = "node",
+                  node = Some("node"),
                   mimeType = "mimeType",
                   label = "label",
                   isPointer = true,
@@ -127,9 +126,6 @@ class CheckYourAnswersController @Inject()(
               ),
               product =
                 ProductContext(
-                  property = Property(
-                    compilation_date = ""
-                  ),
                   Person(
                     communications = Communications(
                       forenames = Some("forenames"),

@@ -24,7 +24,6 @@ import play.api.libs.json.{Json, OFormat}
 case class SubmissionRequest(
                               journeyId:      String,
                               submissionDate: String,
-                              propertyId:     String,
                               files:          Seq[EnquiryProtoData],
                               product:        ProductContext,
                               premises:       Seq[Premise],
