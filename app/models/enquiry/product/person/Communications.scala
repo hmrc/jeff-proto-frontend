@@ -27,7 +27,6 @@ case class Communications(
                            CouncilTaxPayerLastName: Option[String],
                            CouncilTaxPayerEmail: Option[String],
                            CouncilTaxPayerNumber: Option[String],
-                           CouncilTaxPayerContactPreference: Option[String],
                            CouncilTaxPayerContactAddress: Option[String],
                          )
 

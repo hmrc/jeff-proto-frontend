@@ -23,7 +23,7 @@ case class EnquiryProtoData(node: String,
                             label: String,
                             isPointer: Boolean,
                             pointer: String,
-                            data: String)
+                            data: Option[String])
 
 object EnquiryProtoData {
   implicit val format: OFormat[EnquiryProtoData] = Json.format[EnquiryProtoData]
