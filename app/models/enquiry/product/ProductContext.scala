@@ -22,8 +22,7 @@ import models.enquiry.product.person.Person
 import models.enquiry.product.relationship.Relationships
 import play.api.libs.json.{Json, OFormat}
 
-case class ProductContext(
-                           property: Property,
+case class ProductContext(XX
                            person : Person,
                            relationship: Relationships,
                           )
