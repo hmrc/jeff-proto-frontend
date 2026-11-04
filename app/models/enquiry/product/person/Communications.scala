@@ -19,14 +19,14 @@ package models.enquiry.product.person
 import play.api.libs.json.{Json, OFormat}
 
 case class Communications(
-                           forenames: Option[String],
-                           surname: Option[String],
-                           email: Option[String],
-                           telephone_number: Option[String],
+                           forenames:                Option[String],
+                           surname:                  Option[String],
+                           email:                    Option[String],
+                           telephone_number:         Option[String],
                            CouncilTaxPayerFirstName: Option[String],
-                           CouncilTaxPayerLastName: Option[String],
-                           CouncilTaxPayerEmail: Option[String],
-                           CouncilTaxPayerNumber: Option[String],
+                           CouncilTaxPayerLastName:  Option[String],
+                           CouncilTaxPayerEmail:     Option[String],
+                           CouncilTaxPayerNumber:    Option[String],
                            CouncilTaxPayerContactAddress: Option[String],
                          )
 
