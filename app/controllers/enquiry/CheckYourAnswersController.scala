@@ -23,7 +23,6 @@ import models.dashboard.CodeMeaning
 import models.enquiry.premises.{Information, Premise, Statement}
 import models.enquiry.product.ProductContext
 import models.enquiry.product.person.{Communications, Person}
-import models.enquiry.product.property.*
 import models.enquiry.product.relationship.{Manifestations, Relationships}
 import models.enquiry.{EnquiryProtoData, Proposition, SubmissionRequest}
 import pages.*
@@ -113,13 +112,13 @@ class CheckYourAnswersController @Inject()(
           val submissionRequest: SubmissionRequest =
             SubmissionRequest(
               journeyId = "01", //UFS GENERATED
-              submissionDate = "", //AS SOON AS SUBMITTED
+              submission_date = "", //AS SOON AS SUBMITTED
               files = List(
                 EnquiryProtoData(
                   node = Some("node"),
-                  mimeType = "mimeType",
+                  mime_type = "mimeType",
                   label = "label",
-                  isPointer = true,
+                  is_pointer = true,
                   pointer = "pointer",
                   data = Some("data")
                 )
@@ -131,20 +130,20 @@ class CheckYourAnswersController @Inject()(
                       forenames = Some("forenames"),
                       surname = Some("surname"),
                       email = Some("email"),
-                      telephoneNumber = Some("telephoneNumber"),
+                      telephone_number = Some("telephoneNumber"),
                       CouncilTaxPayerFirstName = Some("CouncilTaxPayerFirstName"),
                       CouncilTaxPayerLastName = Some("CouncilTaxPayerLastName"),
                       CouncilTaxPayerEmail = Some("CouncilTaxPayerEmail"),
                       CouncilTaxPayerNumber = Some("CouncilTaxPayerNumber"),
                       CouncilTaxPayerContactAddress = Some("CouncilTaxPayerContactAddress"),
                     ),
-                    communicationsMode = Some(""),
+                    communications_mode = Some(""),
                     capacity =  "", //Are you responsible for the Council Tax on this property?
                   ),
                   relationship = Relationships(
                     manifestation = Manifestations(
-                      artifactCode = "artifactCode",
-                      protodataPtr = Some("protodataPtr")
+                      artifact_code = "artifactCode",
+                      protodata_ptr = Some("protodataPtr")
                     ),
                     `type` = CodeMeaning(
                       code = Some(""),
@@ -161,21 +160,21 @@ class CheckYourAnswersController @Inject()(
                   //Reasons for reviewing your Council Tax band
                   //How long have you been responsible for paying Council Tax on the property?
                   //Tell us why you think the Council Tax band is wrong?
-                  uniqueStatutoryRef = scenario match {
+                  unique_statutory_ref = scenario match {
                     case scenario if scenario == "lessThanSixMonths" => "JH1"
                     case scenario => "JH2"
                   },
                   text = scenario,
                   statements = List(
                     Statement(
-                      uniqueStatutoryRef = "S01",
+                      unique_statutory_ref = "S01",
                       text = bandReviewReason
                     )
                   ),
                   information =
                     List(
                       Information(
-                        uniqueStatutoryRef = "",
+                        unique_statutory_ref = "",
                         text = ""
                       )
                     )
@@ -185,11 +184,11 @@ class CheckYourAnswersController @Inject()(
                 //When did you become responsible for paying Council Tax for your home?
                 //What do you think the Council Tax band should be?
                 Proposition(
-                  uniqueStatutoryRef = "PO1",
+                  unique_statutory_ref = "PO1",
                   alterations = List(expectedCouncilTaxBand),
                 ),
                 Proposition(
-                  uniqueStatutoryRef = "PO2",
+                  unique_statutory_ref = "PO2",
                   alterations = List(responsibleFromDate.toString),
                 )
               )
