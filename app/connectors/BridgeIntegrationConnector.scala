@@ -97,6 +97,25 @@ class BridgeIntegrationConnector @Inject()(
       }
   }
 
+  def submitPropertyLink(propertyLinkRequest: models.propertyLinkingSubmission.PropertyLinkRequest)
+                       (implicit hc: HeaderCarrier): Future[Boolean] = {
+    http.post(uri(s"property-links").toURL) // TODO when bridge-integration ready
+      .setHeader("Authorization" -> appConfig.internalAuthToken)
+      .withBody(Json.toJson(propertyLinkRequest))
+      .execute[HttpResponse]
+      .map { response =>
+        response.status match {
+          case OK | CREATED => true
+          case _ => false
+        }
+      }
+      .recover {
+        case ex: Exception =>
+          logger.error(s"Call to bridge-integration submit property-links failed: ${ex.getMessage}", ex)
+          false
+      }
+  }
+
   def exploreRatePayer(credId: String = "123456789567")
                       (implicit hc: HeaderCarrier): Future[Option[Persons]] = {
     val url = uri(s"explore-ratepayer/$credId").toURL

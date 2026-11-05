@@ -153,3 +153,6 @@ GET        /deletion/authenticated/derelict/unhabitable/details                 
 POST       /deletion/authenticated/derelict/unhabitable/details                        controllers.deletion.UninhabitableDetailsController.onSubmit(mode: Mode = NormalMode)
 GET        /deletion/authenticated/derelict/unhabitable/chnageDetails                  controllers.deletion.UninhabitableDetailsController.onPageLoad(mode: Mode = CheckMode)
 POST       /deletion/authenticated/derelict/unhabitable/changeDetails                  controllers.deletion.UninhabitableDetailsController.onSubmit(mode: Mode = CheckMode)
+
+GET        /property-linking/declaration                               controllers.propertyLinking.DeclarationController.show
+POST       /property-linking/declaration                               controllers.propertyLinking.DeclarationController.submit

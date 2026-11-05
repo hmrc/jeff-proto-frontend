@@ -22,7 +22,8 @@ import utils.JsonUtils.enumFormat
 object EvidenceType extends Enumeration {
   type EvidenceType = Value
 
-  val EXAMPLE: EvidenceType.Value = Value("EXAMPLE") // ADD MORE JEFF SPECIFIC TYPES
+  val EXAMPLE = Value("EXAMPLE") // ADD MORE JEFF SPECIFIC TYPES
+  val OTHER: EvidenceType.Value = Value("OTHER")
 
   implicit val format: Format[EvidenceType] = enumFormat(EvidenceType)
 }
