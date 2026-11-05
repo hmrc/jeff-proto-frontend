@@ -14,7 +14,7 @@
  * limitations under the License.
  *@
 
-@import controllers.challenge as challengeRoutes
+@import controllers.enquiry as enquiryRoutes
 
 @this(
 layout: templates.Layout
@@ -61,7 +61,7 @@ pageTitle = titleNoForm(messages("challengeOverview.title"))
   <dt class="govuk-summary-list__key">
    <a
            class="govuk-link"
-           href= @challengeRoutes.routes.ResponsibleFromDateController.onPageLoad(NormalMode).url
+           href= @enquiryRoutes.routes.ResponsibleFromDateController.onPageLoad(NormalMode).url
    >
     @messages("challengeOverview.challengeDetails")
    </a>

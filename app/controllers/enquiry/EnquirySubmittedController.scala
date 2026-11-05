@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.challenge
+package controllers.enquiry
 
 /*
  * Copyright 2026 HM Revenue & Customs

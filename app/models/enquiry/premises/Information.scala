@@ -14,19 +14,16 @@
  * limitations under the License.
  */
 
-package models.enquiry
+package models.enquiry.premises
 
-import play.api.libs.json.{Format, Json}
+import play.api.libs.json.{Json, OFormat}
 
+case class Information(
+                        unique_statutory_ref: String,
+                        text: String
+                      )
 
-case class MakeAnEnquiryRequest(
-                                propertyID: String,
-                                firstName: String,
-                                lastName: String,
-                                email: String,
-                                contactNumber: String,
-                                files: Seq[EnquiryProtoData])
-
-object MakeAnEnquiryRequest {
-  implicit val format:Format[MakeAnEnquiryRequest] = Json.format[MakeAnEnquiryRequest]
+object Information {
+  implicit val format: OFormat[Information] =
+    Json.format[Information]
 }

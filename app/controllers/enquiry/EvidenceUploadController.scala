@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package controllers.challenge
+package controllers.enquiry
 
 import config.FrontendAppConfig
 import connectors.UpscanConnector
 import controllers.actions.IdentifierAction
-import controllers.challenge as challengeRoutes
+import controllers.enquiry as enquiryRoutes
 import models.UploadForm
 import models.upscan.{Reference, UploadId}
 import play.api.i18n.{I18nSupport, Messages}
@@ -51,7 +51,7 @@ class EvidenceUploadController @Inject()(evidenceUploadView: EvidenceUploadView,
     (authenticate).async { implicit request =>
       val errorToDisplay: Option[String] = renderError(errorCode)
       val uploadId = UploadId.generate()
-      val successRedirectUrl = s"${appConfig.uploadRedirectTargetBase}${challengeRoutes.routes.UploadedEvidenceController.onPageLoad(uploadId).url}"
+      val successRedirectUrl = s"${appConfig.uploadRedirectTargetBase}${routes.UploadedEvidenceController.onPageLoad(uploadId).url}"
       val evidenceParameter = evidenceType.map(evidenceValue => s"?evidenceType=$evidenceValue").getOrElse("")
       val errorRedirectUrl = s"${appConfig.jeffFrontendUrl}/upload-business-rates-bill$evidenceParameter"
 

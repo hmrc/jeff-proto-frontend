@@ -14,14 +14,14 @@
  * limitations under the License.
  *@
 
-@import controllers.challenge.routes
+@import controllers.enquiry.routes
 @import play.api.data.Form
 @import play.api.i18n.Messages
 @import play.api.mvc.Request
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import viewmodels.govuk.all._
 @import views.html.components._
-@import controllers.challenge as challengeRoutes
+@import controllers.enquiry as enquiryRoutes
 
 @this(
 layout: templates.Layout,
@@ -42,7 +42,7 @@ messages("expectedCouncilTaxBand.title")
 ) {
 
  @formHelper(
- action = challengeRoutes.routes.ExpectedCouncilTaxBandController.onSubmit()
+ action = enquiryRoutes.routes.ExpectedCouncilTaxBandController.onSubmit()
  ) {
 
  @if(form.hasErrors) {

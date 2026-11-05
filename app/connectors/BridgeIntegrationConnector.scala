@@ -20,7 +20,7 @@ import config.FrontendAppConfig
 import forms.FindAPropertyBridgeForm
 import models.Registration.frontend.RegisterRatepayerRequest
 import models.dashboard.Persons
-import models.enquiry.MakeAnEnquiryRequest
+import models.enquiry.{MakeAnEnquiryRequest, SubmissionRequest}
 import models.properties.{ExploreResult, PostcodeSearchResult}
 import play.api.libs.json.{JsError, JsSuccess, JsValue, Json}
 import uk.gov.hmrc.http.HttpReads.Implicits.*
@@ -78,11 +78,11 @@ class BridgeIntegrationConnector @Inject()(
       }
   }
 
-  def submitEnquiry(makeAnEnquiryRequest: MakeAnEnquiryRequest)
+  def submitEnquiry(submissionRequest: SubmissionRequest)
                        (implicit hc: HeaderCarrier): Future[Boolean] = {
 
     http.post(uri(s"enquiries/24FE5D70-624C-4E86-9EAC-AD28DE7116D9/CVW").toURL)
-      .withBody(Json.toJson(makeAnEnquiryRequest))
+      .withBody(Json.toJson(submissionRequest))
       .execute[HttpResponse]
       .map { response =>
         response.status match {

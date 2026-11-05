@@ -14,7 +14,7 @@
  * limitations under the License.
  *@
 
-@import controllers.challenge as challengeRoutes
+@import controllers.enquiry as enquiryRoutes
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import views.html.components._
 
@@ -123,7 +123,7 @@ pageTitle = titleNoForm(messages("bandReview.title"))
 </p>
 
 @formHelper(
- action = challengeRoutes.routes.BandReviewController.onContinue()
+ action = enquiryRoutes.routes.BandReviewController.onContinue()
 ) {
  @govukButton(
   ButtonViewModel(
