@@ -127,17 +127,17 @@ class CheckYourAnswersController @Inject()(
                 ProductContext(
                   Person(
                     communications = Communications(
-                      forenames = Some("forenames"),
-                      surname = Some("surname"),
-                      email = Some("email"),
-                      telephone_number = Some("telephoneNumber"),
+                      forenames = Some(contactDetails.firstName),
+                      surname = Some(contactDetails.lastName),
+                      email = Some(contactDetails.emailAddress),
+                      telephone_number = Some(contactDetails.telephoneNumber),
                       CouncilTaxPayerFirstName = Some("CouncilTaxPayerFirstName"),
                       CouncilTaxPayerLastName = Some("CouncilTaxPayerLastName"),
                       CouncilTaxPayerEmail = Some("CouncilTaxPayerEmail"),
                       CouncilTaxPayerNumber = Some("CouncilTaxPayerNumber"),
+                      CouncilTaxPayerContactPreference = Some(contactDetails.contactPreferences.toString()),
                       CouncilTaxPayerContactAddress = Some("CouncilTaxPayerContactAddress"),
                     ),
-                    communications_mode = Some(""),
                     capacity =  CodeMeaning( 
                       code = Some(""),
                       meaning = Some("")
