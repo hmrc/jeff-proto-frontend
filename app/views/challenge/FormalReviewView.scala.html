@@ -14,7 +14,7 @@
  * limitations under the License.
  *@
 
-@import controllers.challenge as challengeRoutes
+@import controllers.enquiry as enquiryRoutes
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import views.html.components._
 
@@ -51,7 +51,7 @@ pageTitle = titleNoForm(messages("formalReview.title"))
 
 <div class="govuk-button-group">
  @formHelper(
- action = challengeRoutes.routes.FormalReviewController.onContinue()
+ action = enquiryRoutes.routes.FormalReviewController.onContinue()
  ) {
  @govukButton(
  ButtonViewModel(

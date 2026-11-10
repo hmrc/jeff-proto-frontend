@@ -20,7 +20,7 @@
 @import uk.gov.hmrc.hmrcfrontend.views.viewmodels.hmrcstandardpage._
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import views.html.components._
-@import controllers.challenge as challengeRoutes
+@import controllers.enquiry as enquiryRoutes
 
 @this(layout: templates.Layout,
       formHelper: FormWithCSRF,
@@ -35,7 +35,7 @@
 @layout(
     pageTitle    = heading
 ) {
-@formHelper(action = challengeRoutes.routes.RemoveUploadedEvidenceController.remove, Symbol("autoComplete") -> "off") {
+@formHelper(action = enquiryRoutes.routes.RemoveUploadedEvidenceController.remove, Symbol("autoComplete") -> "off") {
         <h1 class="govuk-heading-l">@heading</h1>
 
         <p class="govuk-body">
@@ -46,7 +46,7 @@
 
         <div class="govuk-button-group">
             @saveAndContinueButton(msg = messages("removeBusinessRatesBill.continue"), isStartButton = false, disabled = false)
-            @linkComponent(label = messages("removeBusinessRatesBill.cancel"), hrefUrl = challengeRoutes.routes.UploadedEvidenceController.onPageLoad(uploadId).url)
+            @linkComponent(label = messages("removeBusinessRatesBill.cancel"), hrefUrl = enquiryRoutes.routes.UploadedEvidenceController.onPageLoad(uploadId).url)
         </div>
     }
 }

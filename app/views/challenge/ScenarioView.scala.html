@@ -18,7 +18,7 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import viewmodels.govuk.all._
 @import views.html.components._
-@import controllers.challenge as challengeRoutes
+@import controllers.enquiry as enquiryRoutes
 
 @this(
 layout: templates.Layout,
@@ -38,7 +38,7 @@ messages("scenario.title")
 ) {
 
 @formHelper(
-action = challengeRoutes.routes.ScenarioController.onSubmit()
+action = enquiryRoutes.routes.ScenarioController.onSubmit()
 ) {
 
 @if(form.hasErrors) {

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package controllers.challenge
+package controllers.enquiry
 
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
 import forms.mappings.BandReviewReasonFormProvider
@@ -24,7 +24,7 @@ import play.api.mvc.AnyContent
 import play.api.mvc.MessagesControllerComponents
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 import views.html.challenge.BandReviewReasonView
-import controllers.challenge as challengeRoutes
+import controllers.enquiry as enquiryRoutes
 import models.Mode
 import navigation.Navigator
 import pages.{BandReviewReasonPage, DoYouHaveATradingNamePage}
