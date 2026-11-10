@@ -20,7 +20,7 @@ import config.FrontendAppConfig
 import forms.FindAPropertyBridgeForm
 import models.Registration.frontend.RegisterRatepayerRequest
 import models.dashboard.Persons
-import models.enquiry.{MakeAnEnquiryRequest, SubmissionRequest}
+import models.enquiry.SubmissionRequest
 import models.properties.{ExploreResult, PostcodeSearchResult}
 import play.api.libs.json.{JsError, JsSuccess, JsValue, Json}
 import uk.gov.hmrc.http.HttpReads.Implicits.*

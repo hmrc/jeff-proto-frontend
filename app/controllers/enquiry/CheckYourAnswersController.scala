@@ -111,7 +111,7 @@ class CheckYourAnswersController @Inject()(
 
           val submissionRequest: SubmissionRequest =
             SubmissionRequest(
-              journeyId = "01", //UFS GENERATED
+              submissionId = "01", //UFS GENERATED
               submission_date = "", //AS SOON AS SUBMITTED
               files = List(
                 EnquiryProtoData(
@@ -138,7 +138,10 @@ class CheckYourAnswersController @Inject()(
                       CouncilTaxPayerContactAddress = Some("CouncilTaxPayerContactAddress"),
                     ),
                     communications_mode = Some(""),
-                    capacity =  "", //Are you responsible for the Council Tax on this property?
+                    capacity =  CodeMeaning( 
+                      code = Some(""),
+                      meaning = Some("")
+                    )//Are you responsible for the Council Tax on this property?
                   ),
                   relationship = Relationships(
                     manifestation = Manifestations(
