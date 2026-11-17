@@ -19,7 +19,7 @@ package models.enquiry.premises
 import play.api.libs.json.{Json, OFormat}
 
 case class Premise(
-                    unique_statutory_ref: String,
+                    uniqueStatutoryRef: String,
                     text: String,
                     statements: List[Statement],
                     information: List[Information]

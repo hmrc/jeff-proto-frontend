@@ -18,7 +18,7 @@ package controllers.enquiry
 
 import connectors.BridgeIntegrationConnector
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
-import models.enquiry.{EnquiryProtoData, MakeAnEnquiryRequest}
+import models.enquiry.{EnquiryProtoData, MakeAnEnquiryRequest, Proposition, SubmissionRequest}
 import pages.{ChallengeContactDetailsPage, PropertyDetailsPage, ResponsibleFromDatePage, ScenarioPage}
 import play.api.Logging
 import play.api.i18n.I18nSupport
@@ -26,6 +26,12 @@ import play.api.mvc.*
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 import views.html.challenge.CheckYourAnswersView
 import controllers.enquiry as enquiryRoutes
+import models.dashboard.CodeMeaning
+import models.enquiry.premises.{Information, Premise, Statement}
+import models.enquiry.product.ProductContext
+import models.enquiry.product.person.{Communications, Person}
+import models.enquiry.product.property.*
+import models.enquiry.product.relationship.{Manifestations, Relationships}
 
 import javax.inject.{Inject, Singleton}
 import scala.concurrent.{ExecutionContext, Future}
@@ -98,6 +104,85 @@ class CheckYourAnswersController @Inject()(
           )
         ) =>
 
+          val submissionRequest = 
+            SubmissionRequest(
+              journeyId = "",
+              submissionDate = "",
+              files = List(
+                EnquiryProtoData(
+                  node = "node",
+                  mimeType = "mimeType",
+                  label = "label",
+                  isPointer = true,
+                  pointer = "pointer",
+                  data = "data"
+                )
+              ),
+              product = 
+                ProductContext(
+                  property = Property(
+                    compilation_date = ""
+                  ),
+                  Person(
+                    communications = Communications(
+                      forenames = Some("forenames"),
+                      surname = Some("surname"),
+                      email = Some("email"),
+                      telephoneNumber = Some("telephoneNumber"),
+                      CouncilTaxPayerFirstName = Some("CouncilTaxPayerFirstName"),
+                      CouncilTaxPayerLastName = Some("CouncilTaxPayerLastName"),
+                      CouncilTaxPayerEmail = Some("CouncilTaxPayerEmail"),
+                      CouncilTaxPayerNumber = Some("CouncilTaxPayerNumber"),
+                      CouncilTaxPayerContactPreference = Some("CouncilTaxPayerContactPreference"),
+                      CouncilTaxPayerContactAddress = Some("CouncilTaxPayerContactAddress"),
+                    ),
+                    capacity = CodeMeaning(
+                      code = Some(""),
+                      meaning =  Some("")
+                    ),
+                  ),
+                  relationship = Relationships(
+                    manifestation = Manifestations(
+                      artifactCode = "artifactCode",
+                      protodataPtr = Some("protodataPtr")
+                    ),
+                    `type` =  CodeMeaning(
+                      code = Some(""),
+                      meaning =  Some("")
+                    ),
+                    `class` = CodeMeaning(
+                      code = Some(""),
+                      meaning =  Some("")
+                    )
+                  )
+                ),
+              premises = Seq(
+                Premise(
+                uniqueStatutoryRef =  "",
+                text = "",
+                statements = List(
+                  Statement(
+                    uniqueStatutoryRef = "",
+                  text = ""
+                  )
+                ),
+                information = 
+                  List(
+                    Information(
+                      uniqueStatutoryRef = "",
+                      text = ""
+                    )
+                  )
+                )
+              ),
+              proposition = List(
+                Proposition(
+                  uniqueStatutoryRef = "",
+                  alterations = List(""),
+                )
+              )
+            )
+
           val makeAnEnquiryRequest =
             MakeAnEnquiryRequest(
               propertyID = propertyId,
@@ -108,9 +193,9 @@ class CheckYourAnswersController @Inject()(
               files = List(
                   EnquiryProtoData(
                     node = "node",
-                    mime_type = "mime_type",
+                    mimeType = "mime_type",
                     label = "label",
-                    is_pointer = true,
+                    isPointer = true,
                     pointer = "pointer",
                     data = "data"
                   )

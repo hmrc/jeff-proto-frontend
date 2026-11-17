@@ -19,8 +19,8 @@ package models.enquiry.product.relationship
 import play.api.libs.json.{Json, OFormat}
 
 case class Manifestations (
-                            artifact_code: String,
-                            protodata_ptr: Option[String]
+                            artifactCode: String,
+                            protodataPtr: Option[String]
 )
 
 object Manifestations{

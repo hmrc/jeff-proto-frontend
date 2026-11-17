@@ -22,7 +22,7 @@ case class Communications(
                            forenames: Option[String],
                            surname: Option[String],
                            email: Option[String],
-                           telephone_number: Option[String],
+                           telephoneNumber: Option[String],
                            CouncilTaxPayerFirstName: Option[String],
                            CouncilTaxPayerLastName: Option[String],
                            CouncilTaxPayerEmail: Option[String],
