@@ -81,7 +81,7 @@ class BridgeIntegrationConnector @Inject()(
   def submitEnquiry(submissionRequest: SubmissionRequest)
                        (implicit hc: HeaderCarrier): Future[Boolean] = {
 
-    http.post(uri(s"enquiries/24FE5D70-624C-4E86-9EAC-AD28DE7116D9/CVW").toURL)
+    http.post(uri(s"enquiries/08767223-B323-41BF-B602-58CDE343FFBE/CVW").toURL)
       .withBody(Json.toJson(submissionRequest))
       .execute[HttpResponse]
       .map { response =>

@@ -22,12 +22,12 @@ import models.enquiry.product.ProductContext
 import play.api.libs.json.{Json, OFormat}
 
 case class SubmissionRequest(
-                              submissionId:    String,
-                              submission_date: String,
-                              files:           Seq[EnquiryProtoData],
-                              product:         ProductContext,
-                              premises:        Seq[Premise],
-                              proposition:     Seq[Proposition]
+                              submissionId      : Option[String],
+                              submission_date   : Option[String],
+                              files             : Option[Seq[EnquiryProtoData]] = None,
+                              product           : Option[ProductContext],
+                              premises          : Option[Seq[Premise]],
+                              proposition       : Option[Seq[Proposition]]
                             )
 
 object SubmissionRequest {

@@ -37,6 +37,11 @@ govukButton: GovukButton
 @lastNameField = @{form("lastName")}
 @emailAddressField = @{form("emailAddress")}
 @telephoneNumberField = @{form("telephoneNumber")}
+@addressLine1Field = @{form("addressLine1")}
+@addressLine2Field = @{form("addressLine2")}
+@townOrCityField = @{form("townOrCity")}
+@countyField = @{form("county")}
+@postcodeField = @{form("postcode")}
 @contactPreferencesField = @{form("contactPreferences")}
 
 @selectedPreferences = @{
@@ -58,6 +63,28 @@ if (field.hasErrors) {
 "govuk-input govuk-input--error govuk-!-width-two-thirds"
 } else {
 "govuk-input govuk-!-width-two-thirds"
+}
+}
+
+@postcodeInputClass(field: Field) = @{
+if (field.hasErrors) {
+"govuk-input govuk-input--error govuk-input--width-10"
+} else {
+"govuk-input govuk-input--width-10"
+}
+}
+
+@fieldError(field: Field) = {
+@if(field.hasErrors) {
+<p
+        id="@field.name-error"
+        class="govuk-error-message"
+>
+            <span class="govuk-visually-hidden">
+                @messages("error.prefix")
+            </span>
+ @messages(field.errors.head.message)
+</p>
 }
 }
 
@@ -86,26 +113,16 @@ ErrorSummaryViewModel(form)
  @messages("contactDetails.guidance")
 </p>
 
-<div class="@formGroupClass(firstNameField)">
+<h2 class="govuk-heading-m">
+ @messages("contactDetails.yourDetails")
+</h2>
 
- <label
-         class="govuk-label"
-         for="firstName"
- >
+<div class="@formGroupClass(firstNameField)">
+ <label class="govuk-label" for="firstName">
   @messages("contactDetails.firstName")
  </label>
 
- @if(firstNameField.hasErrors) {
- <p
-         id="firstName-error"
-         class="govuk-error-message"
- >
-          <span class="govuk-visually-hidden">
-            @messages("error.prefix")
-          </span>
-  @messages(firstNameField.errors.head.message)
- </p>
- }
+ @fieldError(firstNameField)
 
  <input
          class="@inputClass(firstNameField)"
@@ -115,29 +132,14 @@ ErrorSummaryViewModel(form)
          value="@firstNameField.value.getOrElse("")"
  autocomplete="given-name"
  >
-
 </div>
 
 <div class="@formGroupClass(lastNameField)">
-
- <label
-         class="govuk-label"
-         for="lastName"
- >
+ <label class="govuk-label" for="lastName">
   @messages("contactDetails.lastName")
  </label>
 
- @if(lastNameField.hasErrors) {
- <p
-         id="lastName-error"
-         class="govuk-error-message"
- >
-          <span class="govuk-visually-hidden">
-            @messages("error.prefix")
-          </span>
-  @messages(lastNameField.errors.head.message)
- </p>
- }
+ @fieldError(lastNameField)
 
  <input
          class="@inputClass(lastNameField)"
@@ -147,29 +149,14 @@ ErrorSummaryViewModel(form)
          value="@lastNameField.value.getOrElse("")"
  autocomplete="family-name"
  >
-
 </div>
 
 <div class="@formGroupClass(emailAddressField)">
-
- <label
-         class="govuk-label"
-         for="emailAddress"
- >
+ <label class="govuk-label" for="emailAddress">
   @messages("contactDetails.emailAddress")
  </label>
 
- @if(emailAddressField.hasErrors) {
- <p
-         id="emailAddress-error"
-         class="govuk-error-message"
- >
-          <span class="govuk-visually-hidden">
-            @messages("error.prefix")
-          </span>
-  @messages(emailAddressField.errors.head.message)
- </p>
- }
+ @fieldError(emailAddressField)
 
  <input
          class="@inputClass(emailAddressField)"
@@ -180,36 +167,14 @@ ErrorSummaryViewModel(form)
  autocomplete="email"
  spellcheck="false"
  >
-
 </div>
 
 <div class="@formGroupClass(telephoneNumberField)">
-
- <label
-         class="govuk-label"
-         for="telephoneNumber"
- >
+ <label class="govuk-label" for="telephoneNumber">
   @messages("contactDetails.telephoneNumber")
  </label>
 
- <div
-         id="telephoneNumber-hint"
-         class="govuk-hint"
- >
-  @messages("contactDetails.telephoneNumber.hint")
- </div>
-
- @if(telephoneNumberField.hasErrors) {
- <p
-         id="telephoneNumber-error"
-         class="govuk-error-message"
- >
-          <span class="govuk-visually-hidden">
-            @messages("error.prefix")
-          </span>
-  @messages(telephoneNumberField.errors.head.message)
- </p>
- }
+ @fieldError(telephoneNumberField)
 
  <input
          class="@inputClass(telephoneNumberField)"
@@ -218,16 +183,102 @@ ErrorSummaryViewModel(form)
          type="tel"
          value="@telephoneNumberField.value.getOrElse("")"
  autocomplete="tel"
- aria-describedby="telephoneNumber-hint"
  >
+</div>
 
+<h2 class="govuk-heading-m">
+ @messages("contactDetails.correspondenceAddress")
+</h2>
+
+<div class="@formGroupClass(addressLine1Field)">
+ <label class="govuk-label" for="addressLine1">
+  @messages("contactDetails.addressLine1")
+ </label>
+
+ @fieldError(addressLine1Field)
+
+ <input
+         class="@inputClass(addressLine1Field)"
+         id="addressLine1"
+         name="addressLine1"
+         type="text"
+         value="@addressLine1Field.value.getOrElse("")"
+ autocomplete="address-line1"
+ >
+</div>
+
+<div class="@formGroupClass(addressLine2Field)">
+ <label class="govuk-label" for="addressLine2">
+  @messages("contactDetails.addressLine2")
+ </label>
+
+ @fieldError(addressLine2Field)
+
+ <input
+         class="@inputClass(addressLine2Field)"
+         id="addressLine2"
+         name="addressLine2"
+         type="text"
+         value="@addressLine2Field.value.getOrElse("")"
+ autocomplete="address-line2"
+ >
+</div>
+
+<div class="@formGroupClass(townOrCityField)">
+ <label class="govuk-label" for="townOrCity">
+  @messages("contactDetails.townOrCity")
+ </label>
+
+ @fieldError(townOrCityField)
+
+ <input
+         class="@inputClass(townOrCityField)"
+         id="townOrCity"
+         name="townOrCity"
+         type="text"
+         value="@townOrCityField.value.getOrElse("")"
+ autocomplete="address-level2"
+ >
+</div>
+
+<div class="@formGroupClass(countyField)">
+ <label class="govuk-label" for="county">
+  @messages("contactDetails.county")
+ </label>
+
+ @fieldError(countyField)
+
+ <input
+         class="@inputClass(countyField)"
+         id="county"
+         name="county"
+         type="text"
+         value="@countyField.value.getOrElse("")"
+ >
+</div>
+
+<div class="@formGroupClass(postcodeField)">
+ <label class="govuk-label" for="postcode">
+  @messages("contactDetails.postcode")
+ </label>
+
+ @fieldError(postcodeField)
+
+ <input
+         class="@postcodeInputClass(postcodeField)"
+         id="postcode"
+         name="postcode"
+         type="text"
+         value="@postcodeField.value.getOrElse("")"
+ autocomplete="postal-code"
+ >
 </div>
 
 <div class="@formGroupClass(contactPreferencesField)">
 
  <fieldset class="govuk-fieldset">
 
-  <legend class="govuk-fieldset__legend">
+  <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
    @messages("contactDetails.contactPreferences")
   </legend>
 
@@ -238,17 +289,7 @@ ErrorSummaryViewModel(form)
    @messages("contactDetails.contactPreferences.hint")
   </div>
 
-  @if(contactPreferencesField.hasErrors) {
-  <p
-          id="contactPreferences-error"
-          class="govuk-error-message"
-  >
-            <span class="govuk-visually-hidden">
-              @messages("error.prefix")
-            </span>
-   @messages(contactPreferencesField.errors.head.message)
-  </p>
-  }
+  @fieldError(contactPreferencesField)
 
   <div
           class="govuk-checkboxes"
@@ -303,20 +344,20 @@ ErrorSummaryViewModel(form)
 
     <input
             class="govuk-checkboxes__input"
-            id="contactPreferences-text-message"
+            id="contactPreferences-post"
             name="contactPreferences[]"
             type="checkbox"
-            value="textMessage"
-            @if(selectedPreferences.contains("textMessage")) {
+            value="post"
+            @if(selectedPreferences.contains("post")) {
     checked
     }
     >
 
     <label
             class="govuk-label govuk-checkboxes__label"
-            for="contactPreferences-text-message"
+            for="contactPreferences-post"
     >
-     @messages("contactDetails.contactPreferences.textMessage")
+     @messages("contactDetails.contactPreferences.post")
     </label>
 
    </div>

@@ -32,47 +32,92 @@ govukButton: GovukButton
 
 @(
 propertyDetails: Option[Property],
-scenario: Option[String],
+reviewReason: Option[String],
+responsiblePeriod: Option[String],
+noticeAlteration: Option[String],
 responsibleFromDate: Option[LocalDate],
+bandReviewReason: Option[String],
+expectedCouncilTaxBand: Option[String],
 contactDetails: Option[ChallengeContactDetails]
 )(implicit request: Request[_], messages: Messages)
 
-@preferredContact = @{
-contactDetails
-.map(_.contactPreferences)
-.getOrElse(Nil)
-.map {
-case "email" =>
-messages("checkYourAnswers.contact.email")
+@formattedReviewReason = @{
+reviewReason.map {
+case "bandIsWrong" =>
+messages(
+"checkYourAnswers.reviewReason.bandIsWrong"
+)
 
-case "phone" =>
-messages("checkYourAnswers.contact.phone")
-
-case "textMessage" =>
-messages("checkYourAnswers.contact.textMessage")
+case "changesHaveAffectedProperty" =>
+messages(
+"checkYourAnswers.reviewReason.changesAffected"
+)
 
 case value =>
 value
-}
-.mkString(", ")
+}.getOrElse("")
 }
 
-@reviewType = @{
-scenario.map {
+@formattedResponsiblePeriod = @{
+responsiblePeriod.map {
 case "lessThanSixMonths" =>
-"Less than six months"
+messages(
+"checkYourAnswers.responsiblePeriod.lessThanSixMonths"
+)
 
 case "moreThanSixMonths" =>
-"More than six months"
+messages(
+"checkYourAnswers.responsiblePeriod.moreThanSixMonths"
+)
 
-case "bandChanged" =>
-"Band changed"
+case value =>
+value
+}.getOrElse("")
+}
 
-case "propertyOrAreaChanged" =>
-"Property or area changed"
+@propertyAddress = @{
+propertyDetails
+.flatMap(_.address)
+.flatMap { address =>
+address
+.productIterator
+.collectFirst {
+case Some(value: String)
+if value.trim.nonEmpty =>
+value
+}
+}
+.getOrElse("")
+.split("\\r?\\n")
+.map(_.trim)
+.filter(_.nonEmpty)
+.toSeq
+}
 
-case "other" =>
-"Other"
+@correspondenceAddress = @{
+contactDetails
+.map { details =>
+Seq(
+Some(details.addressLine1),
+details.addressLine2,
+Some(details.townOrCity),
+details.county,
+Some(details.postcode)
+)
+.flatten
+.map(_.trim)
+.filter(_.nonEmpty)
+}
+.getOrElse(Seq.empty)
+}
+
+@formattedNoticeAlteration = @{
+noticeAlteration.map {
+case "yes" =>
+messages("site.yes")
+
+case "no" =>
+messages("site.no")
 
 case value =>
 value
@@ -83,10 +128,78 @@ value
 responsibleFromDate
 .map(
 _.format(
-DateTimeFormatter.ofPattern("d MMMM yyyy")
+DateTimeFormatter.ofPattern(
+"d MMMM yyyy"
+)
 )
 )
 .getOrElse("")
+}
+
+@preferredContact = @{
+contactDetails
+.map(_.contactPreferences)
+.getOrElse(Nil)
+.map {
+case "email" =>
+messages(
+"checkYourAnswers.contact.email"
+)
+
+case "phone" =>
+messages(
+"checkYourAnswers.contact.phone"
+)
+
+case "post" =>
+messages(
+"checkYourAnswers.contact.post"
+)
+
+case value =>
+value
+}
+.mkString(", ")
+}
+
+@changeLink(
+href: String,
+hiddenText: String
+) = {
+<a
+        class="govuk-link"
+        href="@href"
+>
+ @messages("site.change")
+
+ <span class="govuk-visually-hidden">
+            @hiddenText
+        </span>
+</a>
+}
+
+@summaryRow(
+label: String,
+value: String,
+changeHref: Option[String] = None
+) = {
+<div class="govuk-summary-list__row">
+
+ <dt class="govuk-summary-list__key">
+  @label
+ </dt>
+
+ <dd class="govuk-summary-list__value">
+  @value
+ </dd>
+
+ <dd class="govuk-summary-list__actions">
+  @changeHref.map { href =>
+  @changeLink(href, label)
+  }
+ </dd>
+
+</div>
 }
 
 @layout(
@@ -99,7 +212,11 @@ messages("checkYourAnswers.title")
  @messages("checkYourAnswers.heading")
 </h1>
 
-<dl class="govuk-summary-list govuk-!-margin-bottom-6">
+<h2 class="govuk-heading-l">
+ @messages("checkYourAnswers.propertyDetails")
+</h2>
+
+<dl class="govuk-summary-list">
 
  <div class="govuk-summary-list__row">
 
@@ -108,22 +225,9 @@ messages("checkYourAnswers.title")
   </dt>
 
   <dd class="govuk-summary-list__value">
-   @propertyDetails.map(_.address).getOrElse("")
-  </dd>
-
-  <dd class="govuk-summary-list__actions">
-  </dd>
-
- </div>
-
- <div class="govuk-summary-list__row">
-
-  <dt class="govuk-summary-list__key">
-   @messages("checkYourAnswers.reviewType")
-  </dt>
-
-  <dd class="govuk-summary-list__value">
-   @reviewType
+   @for(line <- propertyAddress) {
+   <div>@line</div>
+   }
   </dd>
 
   <dd class="govuk-summary-list__actions">
@@ -133,8 +237,156 @@ messages("checkYourAnswers.title")
 
 </dl>
 
+<dl class="govuk-summary-list">
+
+ @summaryRow(
+ messages(
+ "checkYourAnswers.reviewReason"
+ ),
+ formattedReviewReason,
+ Some(
+ routes
+ .ScenarioReviewOptionsController
+ .onPageLoad()
+ .url
+ )
+ )
+
+ @summaryRow(
+ messages(
+ "checkYourAnswers.responsiblePeriod"
+ ),
+ formattedResponsiblePeriod,
+ Some(
+ routes
+ .ScenarioResponsibleController
+ .onPageLoad()
+ .url
+ )
+ )
+
+ @if(noticeAlteration.isDefined) {
+ @summaryRow(
+ messages(
+ "checkYourAnswers.noticeAlteration"
+ ),
+ formattedNoticeAlteration,
+ Some(
+ routes
+ .NoticeAlterationController
+ .onPageLoad()
+ .url
+ )
+ )
+ }
+
+</dl>
+
 <h2 class="govuk-heading-l">
- @messages("checkYourAnswers.challengeDetails")
+ @messages(
+ "checkYourAnswers.challengeDetails"
+ )
+</h2>
+
+<dl class="govuk-summary-list">
+
+ @summaryRow(
+ messages(
+ "checkYourAnswers.responsibleFromDate"
+ ),
+ formattedResponsibleFromDate
+ )
+
+ @summaryRow(
+ messages(
+ "checkYourAnswers.bandReviewReason"
+ ),
+ bandReviewReason.getOrElse("")
+ )
+
+ @summaryRow(
+ messages(
+ "checkYourAnswers.expectedCouncilTaxBand"
+ ),
+ expectedCouncilTaxBand.getOrElse("")
+ )
+
+</dl>
+
+<h2 class="govuk-heading-l">
+ @messages(
+ "checkYourAnswers.contactDetails"
+ )
+</h2>
+
+<dl class="govuk-summary-list">
+
+ @summaryRow(
+ messages(
+ "checkYourAnswers.firstName"
+ ),
+ contactDetails
+ .map(_.firstName)
+ .getOrElse(""),
+ Some(
+ routes
+ .ContactDetailsController
+ .onPageLoad()
+ .url
+ )
+ )
+
+ @summaryRow(
+ messages(
+ "checkYourAnswers.lastName"
+ ),
+ contactDetails
+ .map(_.lastName)
+ .getOrElse(""),
+ Some(
+ routes
+ .ContactDetailsController
+ .onPageLoad()
+ .url
+ )
+ )
+
+ @summaryRow(
+ messages(
+ "checkYourAnswers.emailAddress"
+ ),
+ contactDetails
+ .map(_.emailAddress)
+ .getOrElse(""),
+ Some(
+ routes
+ .ContactDetailsController
+ .onPageLoad()
+ .url
+ )
+ )
+
+ @summaryRow(
+ messages(
+ "checkYourAnswers.telephoneNumber"
+ ),
+ contactDetails
+ .map(_.telephoneNumber)
+ .getOrElse(""),
+ Some(
+ routes
+ .ContactDetailsController
+ .onPageLoad()
+ .url
+ )
+ )
+
+</dl>
+
+<h2 class="govuk-heading-l">
+ @messages(
+ "checkYourAnswers.correspondenceAddress"
+ )
 </h2>
 
 <dl class="govuk-summary-list">
@@ -142,25 +394,28 @@ messages("checkYourAnswers.title")
  <div class="govuk-summary-list__row">
 
   <dt class="govuk-summary-list__key">
-   @messages("checkYourAnswers.responsibleFromDate")
+   @messages(
+   "checkYourAnswers.address"
+   )
   </dt>
 
   <dd class="govuk-summary-list__value">
-   @formattedResponsibleFromDate
+   @for(line <- correspondenceAddress) {
+   <div>@line</div>
+   }
   </dd>
 
   <dd class="govuk-summary-list__actions">
 
-   <a
-           class="govuk-link"
-
-   >
-    @messages("site.change")
-
-    <span class="govuk-visually-hidden">
-                        @messages("checkYourAnswers.responsibleFromDate")
-                    </span>
-   </a>
+   @changeLink(
+   routes
+   .ContactDetailsController
+   .onPageLoad()
+   .url,
+   messages(
+   "checkYourAnswers.correspondenceAddress"
+   )
+   )
 
   </dd>
 
@@ -169,200 +424,66 @@ messages("checkYourAnswers.title")
 </dl>
 
 <h2 class="govuk-heading-l">
- @messages("checkYourAnswers.contactDetails")
+ @messages(
+ "checkYourAnswers.preferredContactMethods"
+ )
 </h2>
 
 <dl class="govuk-summary-list">
 
- <div class="govuk-summary-list__row">
-
-  <dt class="govuk-summary-list__key">
-   @messages("checkYourAnswers.firstName")
-  </dt>
-
-  <dd class="govuk-summary-list__value">
-   @contactDetails.map(_.firstName).getOrElse("")
-  </dd>
-
-  <dd class="govuk-summary-list__actions">
-
-   <a
-           class="govuk-link"
-
-   >
-    @messages("site.change")
-
-    <span class="govuk-visually-hidden">
-                        @messages("checkYourAnswers.firstName")
-                    </span>
-   </a>
-
-  </dd>
-
- </div>
-
- <div class="govuk-summary-list__row">
-
-  <dt class="govuk-summary-list__key">
-   @messages("checkYourAnswers.lastName")
-  </dt>
-
-  <dd class="govuk-summary-list__value">
-   @contactDetails.map(_.lastName).getOrElse("")
-  </dd>
-
-  <dd class="govuk-summary-list__actions">
-
-   <a
-           class="govuk-link"
-
-   >
-    @messages("site.change")
-
-    <span class="govuk-visually-hidden">
-                        @messages("checkYourAnswers.lastName")
-                    </span>
-   </a>
-
-  </dd>
-
- </div>
-
- <div class="govuk-summary-list__row">
-
-  <dt class="govuk-summary-list__key">
-   @messages("checkYourAnswers.emailAddress")
-  </dt>
-
-  <dd class="govuk-summary-list__value">
-   @contactDetails.map(_.emailAddress).getOrElse("")
-  </dd>
-
-  <dd class="govuk-summary-list__actions">
-
-   <a
-           class="govuk-link"
-
-   >
-    @messages("site.change")
-
-    <span class="govuk-visually-hidden">
-                        @messages("checkYourAnswers.emailAddress")
-                    </span>
-   </a>
-
-  </dd>
-
- </div>
-
- <div class="govuk-summary-list__row">
-
-  <dt class="govuk-summary-list__key">
-   @messages("checkYourAnswers.telephoneNumber")
-  </dt>
-
-  <dd class="govuk-summary-list__value">
-   @contactDetails.map(_.telephoneNumber).getOrElse("")
-  </dd>
-
-  <dd class="govuk-summary-list__actions">
-
-   <a
-           class="govuk-link"
-
-   >
-    @messages("site.change")
-
-    <span class="govuk-visually-hidden">
-                        @messages("checkYourAnswers.telephoneNumber")
-                    </span>
-   </a>
-
-  </dd>
-
- </div>
-
- <div class="govuk-summary-list__row">
-
-  <dt class="govuk-summary-list__key">
-   @messages("checkYourAnswers.preferredContact")
-  </dt>
-
-  <dd class="govuk-summary-list__value">
-   @preferredContact
-  </dd>
-
-  <dd class="govuk-summary-list__actions">
-
-   <a
-           class="govuk-link"
-
-   >
-    @messages("site.change")
-
-    <span class="govuk-visually-hidden">
-                        @messages("checkYourAnswers.preferredContact")
-                    </span>
-   </a>
-
-  </dd>
-
- </div>
+ @summaryRow(
+ messages(
+ "checkYourAnswers.preferredContact"
+ ),
+ preferredContact,
+ Some(
+ routes
+ .ContactDetailsController
+ .onPageLoad()
+ .url
+ )
+ )
 
 </dl>
 
 <h2 class="govuk-heading-l govuk-!-margin-top-7">
- @messages("checkYourAnswers.send.heading")
+ @messages(
+ "checkYourAnswers.send.heading"
+ )
 </h2>
 
 <p class="govuk-body">
- @messages("checkYourAnswers.send.guidance")
-</p>
-
-<h2 class="govuk-heading-l">
- @messages("checkYourAnswers.acting.heading")
-</h2>
-
-<p class="govuk-body">
-
- @messages("checkYourAnswers.acting.before")
-
- <a
-         id="authorityToAct"
-         href=""
-         class="govuk-link"
- >
-  @messages("checkYourAnswers.authorityToAct")
- </a>
-
- @messages("checkYourAnswers.acting.middle")
-
- <a
-         id="letterOfAuthority"
-         href=""
-         class="govuk-link"
- >
-  @messages("checkYourAnswers.letterOfAuthority")
- </a>
-
- @messages("checkYourAnswers.acting.after")
-
+ @messages(
+ "checkYourAnswers.send.guidance"
+ )
 </p>
 
 <p class="govuk-body">
- <a class="govuk-link" href="">
-  @messages("checkYourAnswers.print")
+
+ <a
+         class="govuk-link"
+         href="#"
+         onclick="window.print(); return false;"
+ >
+  @messages(
+  "checkYourAnswers.print"
+  )
  </a>
+
 </p>
 
 @formHelper(
-action = routes.CheckYourAnswersController.onSubmit()
+action =
+routes.CheckYourAnswersController
+.onSubmit()
 ) {
 
 @govukButton(
 ButtonViewModel(
 content = Text(
-messages("checkYourAnswers.confirmAndSend")
+messages(
+"checkYourAnswers.confirmAndSend"
+)
 )
 )
 )

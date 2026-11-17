@@ -17,7 +17,7 @@
 package forms.mappings
 
 import play.api.data.Form
-import play.api.data.Forms.{list, mapping, text}
+import play.api.data.Forms.{list, mapping, optional, text}
 import play.api.libs.json.{Json, OFormat}
 
 final case class ChallengeContactDetails(
@@ -25,6 +25,11 @@ final case class ChallengeContactDetails(
                                           lastName: String,
                                           emailAddress: String,
                                           telephoneNumber: String,
+                                          addressLine1: String,
+                                          addressLine2: Option[String],
+                                          townOrCity: String,
+                                          county: Option[String],
+                                          postcode: String,
                                           contactPreferences: List[String]
                                         )
 
@@ -37,12 +42,9 @@ object ChallengeContactDetails {
     Set(
       "email",
       "phone",
-      "textMessage"
+      "post"
     )
 
-
-  def unapply(contactDetailsFormProvider: ChallengeContactDetails): Some[(String, String, String, String, List[String])] = Some(contactDetailsFormProvider.firstName, contactDetailsFormProvider.lastName, contactDetailsFormProvider.telephoneNumber, contactDetailsFormProvider.emailAddress, contactDetailsFormProvider.contactPreferences) 
-  
   def form(): Form[ChallengeContactDetails] =
     Form(
       mapping(
@@ -78,6 +80,50 @@ object ChallengeContactDetails {
             _.length <= 50
           ),
 
+        "addressLine1" -> text
+          .verifying(
+            "contactDetails.addressLine1.error.required",
+            _.trim.nonEmpty
+          )
+          .verifying(
+            "contactDetails.addressLine1.error.length",
+            _.length <= 100
+          ),
+
+        "addressLine2" -> optional(
+          text.verifying(
+            "contactDetails.addressLine2.error.length",
+            _.length <= 100
+          )
+        ),
+
+        "townOrCity" -> text
+          .verifying(
+            "contactDetails.townOrCity.error.required",
+            _.trim.nonEmpty
+          )
+          .verifying(
+            "contactDetails.townOrCity.error.length",
+            _.length <= 100
+          ),
+
+        "county" -> optional(
+          text.verifying(
+            "contactDetails.county.error.length",
+            _.length <= 100
+          )
+        ),
+
+        "postcode" -> text
+          .verifying(
+            "contactDetails.postcode.error.required",
+            _.trim.nonEmpty
+          )
+          .verifying(
+            "contactDetails.postcode.error.length",
+            _.length <= 10
+          ),
+
         "contactPreferences" -> list(text)
           .verifying(
             "contactDetails.contactPreferences.error.required",
@@ -87,6 +133,47 @@ object ChallengeContactDetails {
             "contactDetails.contactPreferences.error.invalid",
             _.forall(validContactPreferences.contains)
           )
-      )(ChallengeContactDetails.apply)(ChallengeContactDetails.unapply)
+      )(
+        (
+          firstName,
+          lastName,
+          emailAddress,
+          telephoneNumber,
+          addressLine1,
+          addressLine2,
+          townOrCity,
+          county,
+          postcode,
+          contactPreferences
+        ) =>
+          ChallengeContactDetails(
+            firstName = firstName,
+            lastName = lastName,
+            emailAddress = emailAddress,
+            telephoneNumber = telephoneNumber,
+            addressLine1 = addressLine1,
+            addressLine2 = addressLine2,
+            townOrCity = townOrCity,
+            county = county,
+            postcode = postcode,
+            contactPreferences = contactPreferences
+          )
+      )(
+        contactDetails =>
+          Some(
+            (
+              contactDetails.firstName,
+              contactDetails.lastName,
+              contactDetails.emailAddress,
+              contactDetails.telephoneNumber,
+              contactDetails.addressLine1,
+              contactDetails.addressLine2,
+              contactDetails.townOrCity,
+              contactDetails.county,
+              contactDetails.postcode,
+              contactDetails.contactPreferences
+            )
+          )
+      )
     )
 }
