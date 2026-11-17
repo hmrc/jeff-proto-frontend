@@ -18,19 +18,14 @@ package controllers.enquiry
 
 import connectors.BridgeIntegrationConnector
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, IdentifierAction}
-import controllers.enquiry as enquiryRoutes
-import models.dashboard.CodeMeaning
-import models.enquiry.premises.{Information, Premise, Statement}
-import models.enquiry.product.ProductContext
-import models.enquiry.product.person.{Communications, Person}
-import models.enquiry.product.relationship.{Manifestations, Relationships}
-import models.enquiry.{EnquiryProtoData, Proposition, SubmissionRequest}
-import pages.*
+import models.enquiry.{EnquiryProtoData, MakeAnEnquiryRequest}
+import pages.{ChallengeContactDetailsPage, PropertyDetailsPage, ResponsibleFromDatePage, ScenarioPage}
 import play.api.Logging
 import play.api.i18n.I18nSupport
 import play.api.mvc.*
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 import views.html.challenge.CheckYourAnswersView
+import controllers.enquiry as enquiryRoutes
 
 import javax.inject.{Inject, Singleton}
 import scala.concurrent.{ExecutionContext, Future}
@@ -78,21 +73,17 @@ class CheckYourAnswersController @Inject()(
 
       val submissionData =
         for {
-          property <-               request.userAnswers.get(PropertyDetailsPage)
-          propertyId <-             property.id.flatMap(_.value)
-          scenario <-               request.userAnswers.get(ScenarioPage)
-          responsibleFromDate <-    request.userAnswers.get(ResponsibleFromDatePage)
-          contactDetails <-         request.userAnswers.get(ChallengeContactDetailsPage)
-          bandReviewReason <-       request.userAnswers.get(BandReviewReasonPage)
-          expectedCouncilTaxBand <- request.userAnswers.get(ExpectedCouncilTaxBandPage)
+          property <- request.userAnswers.get(PropertyDetailsPage)
+          propertyId <- property.id.flatMap(_.value)
+          scenario <- request.userAnswers.get(ScenarioPage)
+          responsibleFromDate <- request.userAnswers.get(ResponsibleFromDatePage)
+          contactDetails <- request.userAnswers.get(ChallengeContactDetailsPage)
         } yield (
           propertyId,
           property,
           scenario,
           responsibleFromDate,
-          contactDetails,
-          bandReviewReason,
-          expectedCouncilTaxBand
+          contactDetails
         )
 
       submissionData match {
@@ -103,101 +94,30 @@ class CheckYourAnswersController @Inject()(
             property,
             scenario,
             responsibleFromDate,
-            contactDetails,
-            bandReviewReason,
-            expectedCouncilTaxBand
+            contactDetails
           )
         ) =>
 
-          val submissionRequest: SubmissionRequest =
-            SubmissionRequest(
-              submissionId = "01", //UFS GENERATED
-              submission_date = "", //AS SOON AS SUBMITTED
+          val makeAnEnquiryRequest =
+            MakeAnEnquiryRequest(
+              propertyID = propertyId,
+              firstName = contactDetails.firstName,
+              lastName = contactDetails.lastName,
+              email = contactDetails.emailAddress,
+              contactNumber = contactDetails.telephoneNumber,
               files = List(
-                EnquiryProtoData(
-                  node = Some("node"),
-                  mime_type = "mimeType",
-                  label = "label",
-                  is_pointer = true,
-                  pointer = "pointer",
-                  data = Some("data")
-                )
-              ),
-              product =
-                ProductContext(
-                  Person(
-                    communications = Communications(
-                      forenames = Some(contactDetails.firstName),
-                      surname = Some(contactDetails.lastName),
-                      email = Some(contactDetails.emailAddress),
-                      telephone_number = Some(contactDetails.telephoneNumber),
-                      CouncilTaxPayerFirstName = Some("CouncilTaxPayerFirstName"),
-                      CouncilTaxPayerLastName = Some("CouncilTaxPayerLastName"),
-                      CouncilTaxPayerEmail = Some("CouncilTaxPayerEmail"),
-                      CouncilTaxPayerNumber = Some("CouncilTaxPayerNumber"),
-                      CouncilTaxPayerContactPreference = Some(contactDetails.contactPreferences.toString()),
-                      CouncilTaxPayerContactAddress = Some("CouncilTaxPayerContactAddress"),
-                    ),
-                    capacity =  CodeMeaning( 
-                      code = Some(""),
-                      meaning = Some("")
-                    )//Are you responsible for the Council Tax on this property?
-                  ),
-                  relationship = Relationships(
-                    manifestation = Manifestations(
-                      artifact_code = "artifactCode",
-                      protodata_ptr = Some("protodataPtr")
-                    ),
-                    `type` = CodeMeaning(
-                      code = Some(""),
-                      meaning = Some("")
-                    ),
-                    `class` = CodeMeaning(
-                      code = Some(""),
-                      meaning = Some("")
-                    )
+                  EnquiryProtoData(
+                    node = "node",
+                    mime_type = "mime_type",
+                    label = "label",
+                    is_pointer = true,
+                    pointer = "pointer",
+                    data = "data"
                   )
-                ),
-              premises = Seq(
-                Premise(
-                  //Reasons for reviewing your Council Tax band
-                  //How long have you been responsible for paying Council Tax on the property?
-                  //Tell us why you think the Council Tax band is wrong?
-                  unique_statutory_ref = scenario match {
-                    case scenario if scenario == "lessThanSixMonths" => "JH1"
-                    case scenario => "JH2"
-                  },
-                  text = scenario,
-                  statements = List(
-                    Statement(
-                      unique_statutory_ref = "S01",
-                      text = bandReviewReason
-                    )
-                  ),
-                  information =
-                    List(
-                      Information(
-                        unique_statutory_ref = "",
-                        text = ""
-                      )
-                    )
                 )
-              ),
-              proposition = List(
-                //When did you become responsible for paying Council Tax for your home?
-                //What do you think the Council Tax band should be?
-                Proposition(
-                  unique_statutory_ref = "PO1",
-                  alterations = List(expectedCouncilTaxBand),
-                ),
-                Proposition(
-                  unique_statutory_ref = "PO2",
-                  alterations = List(responsibleFromDate.toString),
-                )
-              )
             )
 
-          connector.submitEnquiry(submissionRequest).map {
+          connector.submitEnquiry(makeAnEnquiryRequest).map {
 
             case true =>
               Redirect(
