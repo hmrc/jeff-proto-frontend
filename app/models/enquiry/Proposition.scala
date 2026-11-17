@@ -16,11 +16,12 @@
 
 package models.enquiry
 
+import models.Journey1.*
 import play.api.libs.json.{Json, OFormat}
 
 case class Proposition(
-                        unique_statutory_ref: String,
-                        alterations:          Seq[String]
+                        uniqueStatutoryRef: String,
+                        alterations: Seq[String]
                       )
 
 object Proposition {
