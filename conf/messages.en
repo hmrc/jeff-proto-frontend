@@ -100,18 +100,53 @@ checkAnswers.address = Contact address
 checkAnswers.tradingName = Trading name
 checkAnswers.secondNumber = Secondary contact number
 
-completeContactDetails.heading = Complete your contact details
-completeContactDetails.contactDetailsUse = We use your contact details to send you correspondence related to the service and your account.
-completeContactDetails.postcode = Postcode
-completeContactDetails.address = Address
-completeContactDetails.findAddress = Find address
-completeContactDetails.enterAddressManually = Enter address manually
-completeContactDetails.emailAddress = Email address
-completeContactDetails.confirmEmail = Confirm email address
-completeContactDetails.telephoneNumber =  Telephone number
-completeContactDetails.mobileNumber =  Mobile number
-completeContactDetails.tradingName =  Trading name (Optional)
-completeContactDetails.optional =  Optional
+completecontactDetails.title=What are your contact details?
+        contactDetails.heading=What are your contact details?
+        contactDetails.guidance=We will only use these details to contact you about your review.
+
+        contactDetails.yourDetails=Your details
+
+        contactDetails.firstName=First name
+        contactDetails.lastName=Last name
+        contactDetails.emailAddress=Email address
+        contactDetails.telephoneNumber=Telephone number
+
+        contactDetails.correspondenceAddress=Correspondence address
+        contactDetails.addressLine1=Address line 1
+        contactDetails.addressLine2=Address line 2 (optional)
+        contactDetails.townOrCity=Town or city
+        contactDetails.county=County (optional)
+        contactDetails.postcode=Postcode
+
+        contactDetails.contactPreferences=How would you like us to contact you?
+        contactDetails.contactPreferences.hint=Select all that apply
+        contactDetails.contactPreferences.email=Email
+        contactDetails.contactPreferences.phone=Phone
+        contactDetails.contactPreferences.post=Post
+
+        contactDetails.firstName.error.required=Enter your first name
+        contactDetails.firstName.error.length=First name must be 100 characters or fewer
+
+        contactDetails.lastName.error.required=Enter your last name
+        contactDetails.lastName.error.length=Last name must be 100 characters or fewer
+
+        contactDetails.emailAddress.error.required=Enter your email address
+        contactDetails.telephoneNumber.error.length=Telephone number must be 50 characters or fewer
+
+        contactDetails.addressLine1.error.required=Enter the first line of your correspondence address
+        contactDetails.addressLine1.error.length=Address line 1 must be 100 characters or fewer
+        contactDetails.addressLine2.error.length=Address line 2 must be 100 characters or fewer
+
+        contactDetails.townOrCity.error.required=Enter your town or city
+        contactDetails.townOrCity.error.length=Town or city must be 100 characters or fewer
+
+        contactDetails.county.error.length=County must be 100 characters or fewer
+
+        contactDetails.postcode.error.required=Enter your postcode
+        contactDetails.postcode.error.length=Postcode must be 10 characters or fewer
+
+        contactDetails.contactPreferences.error.required=Select how you would like us to contact you
+        contactDetails.contactPreferences.error.invalid=Select a valid contact method
 
 CreateConfirmation.heading = Registration successful
 CreateConfirmation.IdNumber = Your VOA personal ID number
@@ -489,30 +524,54 @@ contactDetails.telephoneNumber.error.length = Your telephone number must be 50 c
 contactDetails.contactPreferences.error.required = Select how you would like to be contacted
 contactDetails.contactPreferences.error.invalid = Select a valid contact method
 
-checkYourAnswers.title = Check your answers
-checkYourAnswers.heading = Check your answers
-checkYourAnswers.address = Address
-checkYourAnswers.reviewType = Review type
-checkYourAnswers.challengeDetails = Challenge details
-checkYourAnswers.contactDetails = Contact details
-checkYourAnswers.firstName = First name
-checkYourAnswers.lastName = Last name
-checkYourAnswers.emailAddress = Email address
-checkYourAnswers.telephoneNumber = Telephone number
-checkYourAnswers.preferredContact = Preferred contact
-checkYourAnswers.contact.email = Email
-checkYourAnswers.contact.phone = Phone
-checkYourAnswers.contact.textMessage = Text message
-checkYourAnswers.send.heading = Send your request for a review
-checkYourAnswers.send.guidance = By sending your request for a review you confirm that, to the best of your knowledge, these details are correct.
-checkYourAnswers.acting.heading = Acting for someone who is responsible
-checkYourAnswers.acting.before = You must send the VO an
-checkYourAnswers.authorityToAct = Authority to Act
-checkYourAnswers.acting.middle = form or a
-checkYourAnswers.letterOfAuthority = Letter of Authority
-checkYourAnswers.acting.after = within 28 days before we will review your request.
-checkYourAnswers.print = Print this page
-checkYourAnswers.confirmAndSend = Confirm and send
+checkYourAnswers.title=Check your answers
+checkYourAnswers.heading=Check your answers
+
+checkYourAnswers.propertyDetails=Property details
+checkYourAnswers.address=Address
+
+checkYourAnswers.reviewDetails=Review details
+checkYourAnswers.reviewReason=Why do you want to review your Council Tax band?
+checkYourAnswers.responsiblePeriod=How long have you been responsible for paying Council Tax on the property?
+checkYourAnswers.noticeAlteration=Have you received a Notice of Alteration within the last six months?
+
+checkYourAnswers.reviewReason.bandIsWrong=I think my band is wrong
+checkYourAnswers.reviewReason.changesAffected=Changes have affected my property
+
+checkYourAnswers.responsiblePeriod.lessThanSixMonths=Less than 6 months
+checkYourAnswers.responsiblePeriod.moreThanSixMonths=More than 6 months
+
+checkYourAnswers.challengeDetails=Challenge details
+checkYourAnswers.responsibleFromDate=When did you become responsible for paying Council Tax for your home?
+checkYourAnswers.bandReviewReason=Tell us why you think the Council Tax band is wrong
+checkYourAnswers.expectedCouncilTaxBand=What do you think the Council Tax band should be?
+
+checkYourAnswers.contactDetails=Contact details
+checkYourAnswers.firstName=First name
+checkYourAnswers.lastName=Last name
+checkYourAnswers.emailAddress=Email address
+checkYourAnswers.telephoneNumber=Telephone number
+
+checkYourAnswers.correspondenceAddress=Correspondence address
+checkYourAnswers.addressLine1=Address line 1
+checkYourAnswers.addressLine2=Address line 2
+checkYourAnswers.townOrCity=Town or city
+checkYourAnswers.county=County
+checkYourAnswers.postcode=Postcode
+
+checkYourAnswers.preferredContactMethods=Preferred contact methods
+checkYourAnswers.preferredContact=Preferred contact
+checkYourAnswers.contact.email=Email
+checkYourAnswers.contact.phone=Phone
+checkYourAnswers.contact.post=Post
+
+checkYourAnswers.send.heading=Send your request for a review
+checkYourAnswers.send.guidance=By sending your request for a review you confirm that, to the best of your knowledge, these details are correct.
+checkYourAnswers.print=Print this page
+checkYourAnswers.confirmAndSend=Confirm and send
+
+site.yes=Yes
+site.no=No
 
 noLiable.title = noLiable
 noLiable.heading = You do not have permission to view more details
@@ -645,6 +704,75 @@ enquirySubmitted.whatHappensNext.additionalInformation=If we require additional 
 enquirySubmitted.whatHappensNext.decision=We will contact you by [letter/email] within X weeks with a decision about your request.
 enquirySubmitted.feedback.link = What did you think of this service?
 enquirySubmitted.feedback.duration = (takes 30 seconds)
+
+scenarioReviewOptions.title=Reasons for reviewing your Council Tax band
+scenarioReviewOptions.heading=Reasons for reviewing your Council Tax band
+scenarioReviewOptions.bandWrong.heading=If you think your band is wrong
+scenarioReviewOptions.bandWrong.paragraph=If you think your Council Tax band is too high, or you disagree with recent band or effective date change we will review it. You can also ask for a review following a tribunal or court decision about a similar property.
+scenarioReviewOptions.changes.heading=If changes have affected your property
+scenarioReviewOptions.changes.paragraph=We can review your band if the property has undergone, or is undergoing certain changes including, but not limited to:
+scenarioReviewOptions.changes.bullet1=partial or complete demolition
+scenarioReviewOptions.changes.bullet2=major building work that means it cannot be lived in
+scenarioReviewOptions.changes.bullet3=how the building is used
+scenarioReviewOptions.changes.localArea=We can also review your band if changes to your local area may have affected your property.
+scenarioReviewOptions.question=Why do you want to review your Council Tax band?
+scenarioReviewOptions.bandWrong=I think my band is wrong
+scenarioReviewOptions.changesAffected=Changes have affected my property
+scenarioReviewOptions.error.required=Select why you want to review your Council Tax band
+
+scenarioResponsible.title=How long have you been responsible for paying Council Tax on the property?
+scenarioResponsible.heading=How long have you been responsible for paying Council Tax on the property?
+scenarioResponsible.lessThanSixMonths=Less than 6 months
+scenarioResponsible.moreThanSixMonths=More than 6 months
+scenarioResponsible.error.required=Select how long you have been responsible for paying Council Tax on the property
+
+noticeAlteration.title=Have you received a Notice of Alteration within the last six months?
+noticeAlteration.heading=Have you received a Notice of Alteration within the last six months?
+noticeAlteration.hint=A Notice of Alteration is a letter sent by the Valuation Office (VO) if any change to the valuation list has been made.
+noticeAlteration.yes=Yes
+noticeAlteration.no=No
+noticeAlteration.error.required=Select yes if you have received a Notice of Alteration within the last six months
+
+informalReview.title=Asking for an informal review
+informalReview.heading=Asking for an informal review
+
+informalReview.responsible.before=You have told us that you've been responsible for paying Council Tax on your home for
+informalReview.responsible.emphasis=more than 6 months
+
+informalReview.explanation=This means that you can ask for an informal review of your Council Tax band. This is also known as a ‘Informal Challenge’ or ‘Band Review’.
+
+informalReview.changeSelection=You can change your selection if this option is not right for you.
+
+informalReview.howItWorks.heading=How an informal review works
+
+informalReview.whatItIs.heading=What it is
+informalReview.whatItIs=You can ask the Valuation Office (VO) to review the Council Tax band your home is in.
+
+informalReview.whatFor.heading=What it's for
+informalReview.whatFor=You can ask for an informal review if you think that your home is in the wrong Council Tax band.
+
+informalReview.when.heading=When you can ask for an informal review
+informalReview.when=You can ask for a band review at any time.
+
+informalReview.howLong.heading=How long it takes
+informalReview.howLong=Up to 48 weeks
+
+informalReview.evidence.heading=Evidence required
+informalReview.evidence=The VO will only review the band if you provide supporting evidence.
+
+informalReview.examples.heading=Examples of evidence
+informalReview.examples.one=addresses of up to 5 similar homes in a lower band than yours. The homes should be the same as your home in terms of type, size, age and style.
+informalReview.examples.two=the homes can be either in the same street or estate, or in the same village or area.
+informalReview.examples.three=the price that your home or similar homes sold for between 1 April 2001 and 31 March 2005
+
+informalReview.decision.heading=Decision
+informalReview.decision.intro=There are 3 possible decisions that can be made:
+informalReview.decision.same=your home stays in the same band
+informalReview.decision.lower=your home is moved into a lower band
+informalReview.decision.higher=your home is moved into a higher band
+
+informalReview.afterDecision.heading=After a decision has been made
+informalReview.afterDecision=The decision is final, and you cannot ask for another review.
 
 # Declaration messages
 declaration.title=Check your answers

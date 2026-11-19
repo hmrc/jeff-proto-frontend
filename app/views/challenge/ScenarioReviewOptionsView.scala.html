@@ -1,0 +1,147 @@
+@*
+ * Copyright 2026 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import controllers.enquiry.routes
+@import forms.mappings.ScenarioReviewOptions
+@import play.api.data.Form
+@import play.api.i18n.Messages
+@import play.api.mvc.Request
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+@import viewmodels.govuk.all._
+@import views.html.components._
+
+@this(
+layout: templates.Layout,
+formHelper: FormWithCSRF,
+govukErrorSummary: GovukErrorSummary,
+govukRadios: GovukRadios,
+govukButton: GovukButton
+)
+
+@(form: Form[String])(implicit request: Request[_], messages: Messages)
+
+@layout(
+pageTitle = title(
+form,
+messages("scenarioReviewOptions.title")
+)
+) {
+
+@formHelper(
+action = routes.ScenarioReviewOptionsController.onSubmit()
+) {
+
+@if(form.hasErrors) {
+@govukErrorSummary(
+ErrorSummaryViewModel(form)
+)
+}
+
+<h1 class="govuk-heading-xl">
+ @messages("scenarioReviewOptions.heading")
+</h1>
+
+<h2 class="govuk-heading-m">
+ @messages("scenarioReviewOptions.bandWrong.heading")
+</h2>
+
+<p class="govuk-body">
+ @messages("scenarioReviewOptions.bandWrong.paragraph")
+</p>
+
+<h2 class="govuk-heading-m">
+ @messages("scenarioReviewOptions.changes.heading")
+</h2>
+
+<p class="govuk-body">
+ @messages("scenarioReviewOptions.changes.paragraph")
+</p>
+
+<ul class="govuk-list govuk-list--bullet">
+ <li>
+  @messages("scenarioReviewOptions.changes.bullet1")
+ </li>
+ <li>
+  @messages("scenarioReviewOptions.changes.bullet2")
+ </li>
+ <li>
+  @messages("scenarioReviewOptions.changes.bullet3")
+ </li>
+</ul>
+
+<p class="govuk-body">
+ @messages("scenarioReviewOptions.changes.localArea")
+</p>
+
+@govukRadios(
+Radios(
+fieldset = Some(
+Fieldset(
+legend = Some(
+Legend(
+content = Text(
+messages("scenarioReviewOptions.question")
+),
+classes = "govuk-fieldset__legend--m"
+)
+)
+)
+),
+name = "value",
+items = Seq(
+RadioItem(
+content = Text(
+messages("scenarioReviewOptions.bandWrong")
+),
+value = Some(
+ScenarioReviewOptions.BandIsWrong
+),
+checked =
+form("value").value.contains(
+ScenarioReviewOptions.BandIsWrong
+)
+),
+RadioItem(
+content = Text(
+messages("scenarioReviewOptions.changesAffected")
+),
+value = Some(
+ScenarioReviewOptions.ChangesHaveAffectedProperty
+),
+checked =
+form("value").value.contains(
+ScenarioReviewOptions.ChangesHaveAffectedProperty
+)
+)
+),
+errorMessage =
+form("value").error.map { error =>
+ErrorMessage(
+content = Text(messages(error.message))
+)
+}
+)
+)
+
+@govukButton(
+ButtonViewModel(
+content = Text(
+messages("site.continue")
+)
+)
+)
+}
+}

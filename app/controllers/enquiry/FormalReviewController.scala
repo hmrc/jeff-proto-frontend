@@ -18,11 +18,11 @@ package controllers.enquiry
 
 import controllers.actions.IdentifierAction
 import controllers.enquiry as enquiryRoutes
+import models.NormalMode
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.{FrontendBaseController, FrontendController}
 import views.html.challenge.FormalReviewView
-
 
 import javax.inject.Inject
 
@@ -40,6 +40,6 @@ extends FrontendController(mcc) with I18nSupport{
 
   def onContinue(): Action[AnyContent] =
     identify { implicit request =>
-      Redirect(routes.ChallengeOverviewController.onPageLoad())
+      Redirect(routes.ResponsibleFromDateController.onPageLoad(NormalMode))
     }
 }

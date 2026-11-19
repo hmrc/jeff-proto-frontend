@@ -94,6 +94,17 @@ POST       /self-cert                                    controllers.SelfCertCon
 GET        /challenge                                    controllers.enquiry.BandReviewController.onPageLoad()
 POST       /challenge                                    controllers.enquiry.BandReviewController.onContinue()
 
+GET        /challenge/scenario-review-options            controllers.enquiry.ScenarioReviewOptionsController.onPageLoad()
+POST       /challenge/scenario-review-options            controllers.enquiry.ScenarioReviewOptionsController.onSubmit()
+
+GET        /challenge/scenario-responsible               controllers.enquiry.ScenarioResponsibleController.onPageLoad()
+POST       /challenge/scenario-responsible               controllers.enquiry.ScenarioResponsibleController.onSubmit()
+
+GET        /challenge/notice-alteration                  controllers.enquiry.NoticeAlterationController.onPageLoad()
+POST       /challenge/notice-alteration                  controllers.enquiry.NoticeAlterationController.onSubmit()
+
+GET        /challenge/option2                            controllers.enquiry.InformalReviewController.onPageLoad()
+
 GET        /challenge/scenario                           controllers.enquiry.ScenarioController.onPageLoad()
 POST       /challenge/scenario                           controllers.enquiry.ScenarioController.onSubmit()
 
